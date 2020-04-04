@@ -1,0 +1,17 @@
+const users = require("./users");
+const restaurants = require("./restaurants");
+const reviews = require("./reviews");
+const comments = require("./comments");
+
+const constructorMethod = app => {
+  app.use("/users", users);
+  app.use("/restaurants", restaurants);
+  app.use("/reviews", reviews);
+  app.use("/comments", comments);
+
+  app.use("*", (req, res) => {
+    res.sendStatus(404);
+  });
+};
+
+module.exports = constructorMethod;
