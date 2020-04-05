@@ -5,10 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "seed": "node ./tasks/seed.js",
+    "start": "node app.js"
   },
-  "author": "restaurant group",
+  "author": "Group 7: Anshul Kapoor - 10456388 | Anna Brown - 10422836 | Kamil Zambrowski - 10428741 | Michael Lyons - 10425199",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
