@@ -26,6 +26,8 @@ module.exports = {
             reviewIds: [],
             commentIds: []
         }
+        const userExists = await userCollection.findOne({ email: email});
+        if (userExists) throw "Email already in use";
         const insertInfo = await userCollection.insertOne(newUser);
         if (insertInfo.insertedCount === 0) throw "could not add user";
         return await this.getUser(insertInfo.insertedId);
