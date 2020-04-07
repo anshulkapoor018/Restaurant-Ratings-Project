@@ -1,6 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const reviews = mongoCollections.reviews;
 const restaurants = mongoCollections.restaurants;
+const commentFunctions = require("./comments")
 const uuid = require('uuid/v4');
 
 module.exports = {
@@ -44,13 +45,42 @@ module.exports = {
         const reviewCollection = await reviews();
         const review = await reviewCollection.findOne({ _id: id});
         if (!review) throw "review with that id does not exist";
-        return review;
+        //Expand the comments to show all data
+        if (review.comments.length === 0) {
+            return review;
+        }
+        var expandedComments = [];
+        for (i=0; i<review.comments.length; i++) {
+            let curComment = commentFunctions.getComment(review.comments[i]);
+            var tempObject = {
+                _id: review.comments[i],
+                userId: curComment.userId,
+                reviewId: curComment.reviewId,
+                commentText: curComment.commentText
+            }
+            expandedComments.push(tempObject);
+        }
+        const expandedReview = {
+            _id: id,
+            resaurantId: review.restaurantId,
+            userId: review.userId,
+            reviewText: review.reviewText,
+            rating: review.rating,
+            comments: expandedComments
+        }
+
+        return expandedReview;
     },
 
     async getAllreviews() {
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({}).toArray();
         if (reviewList.length === 0) throw "no reviews in the collection";
-        return reviewList;
+        var expandedReviews = [];
+        for (i=0; i<reviewList.length; i++) {
+            let curReview = await this.getReview(reviewList[i]._id);
+            expandedReviews.push(curReview);
+        }
+        return expandedReviews;
     }
 }
