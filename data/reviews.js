@@ -82,5 +82,19 @@ module.exports = {
             expandedReviews.push(curReview);
         }
         return expandedReviews;
+    },
+
+    async updateReview(id, updatedReview) {
+        const reviewCollection = await reviews();
+        const updatedReviewData = {};
+        if (updatedReview.reviewText) {
+            updatedReviewData.reviewText = updatedReview.reviewText;
+        }
+
+        if (updatedReview.rating) {
+            updatedReviewData.rating = updatedReview.rating;
+        }
+        await reviewCollection.updateOne({_id: id}, {$set: updatedReviwData});
+        return await this.getReview(id);
     }
 }
