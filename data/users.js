@@ -1,5 +1,7 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
+const reviews = mongoCollections.reviews;
+const comments = mongoCollections.comments;
 const uuid = require('uuid/v4');
 
 module.exports = {
@@ -47,4 +49,5 @@ module.exports = {
         if (userList.length === 0) throw "no users in the collection";
         return userList;
     }
+    
 }

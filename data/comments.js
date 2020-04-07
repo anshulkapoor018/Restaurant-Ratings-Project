@@ -51,5 +51,23 @@ module.exports = {
         const commentList = await commentCollection.find({}).toArray();
         if (commentList.length === 0) throw "no Comments in the collection";
         return commentList;
+    },
+
+    async removeComment(id) {
+        if (!id) throw "id must be given";
+        const commentCollection = await comments();
+        let comment = await this.getComment(id);
+        const deleteInfo = await commentCollection.removeOne({ _id: id});
+        if (deleteInfo.deletedCount === 0) {
+            throw "could not delete comment with id of ${id}";
+        }
+        //remove the comment from the user and the review
+        const userCollection = await users();
+        const reviewCollection = await reviews();
+        const updateInfoUser = await userCollection.updateOne({_id: comment.userId}, {$pull: {commentIds: id}});
+        if (!updateInfoUser.matchedCount && !updateInfoUser.modifiedCount) throw "could not remove commentId from the user";
+        const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
+        if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
+        return true;
     }
 }
