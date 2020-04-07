@@ -39,6 +39,14 @@ module.exports = {
             {$addToSet: {reviews: newId}}
         );
         if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add review ID to restaurant";
+        //Add the review id to the user
+        const userCollection = await users();
+        const updateInfo2 = await userCollection.updateOne(
+            {_id: userId},
+            {$addToSet: {reviewIds: newId}}
+        );
+        if (!updateInfo2.matchedCount && !updateInfo2.modifiedCount) throw "Could not add review ID to user";
+
         return await this.getReview(insertInfo.insertedId);
     },
 
