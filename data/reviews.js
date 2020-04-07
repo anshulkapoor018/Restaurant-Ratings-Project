@@ -1,6 +1,8 @@
 const mongoCollections = require("../config/mongoCollections");
 const reviews = mongoCollections.reviews;
 const restaurants = mongoCollections.restaurants;
+const users = mongoCollections.users;
+const comments = mongoCollections.comments;
 const commentFunctions = require("./comments")
 const uuid = require('uuid/v4');
 
@@ -96,5 +98,28 @@ module.exports = {
         }
         await reviewCollection.updateOne({_id: id}, {$set: updatedReviwData});
         return await this.getReview(id);
+    },
+
+    async removeReview(id) {
+        if (!id) throw "id must be given";
+        const reviewCollection = await reviews();
+        let review = await this.getReview(id);
+        const deleteInfo = await reviewCollection.removeOne({ _id: id});
+        if (deleteInfo.deletedCount === 0) {
+            throw "could not delete comment with id of ${id}";
+        }
+        //remove the review from the user, the restaurant, and delete all comments associated with the review
+        const userCollection = await users();
+        const updateInfoUser = await userCollection.updateOne({_id: review.userId}, {$pull: {reviewIds: id}});
+        if (!updateInfoUser.matchedCount && !updateInfoUser.modifiedCount) throw "could not remove reviewID from the user";
+
+        const restaurantCollection = await restaurants();
+        const updateInfoRestaurant = await restaurantCollection.updateOne({_id: restaurantId}, {$pull: {reviews: id}});
+        if (!updateInfoRestaurant.matchedCount && !updateInfoRestaurant.modifiedCount) throw "could not remove reviewID from the restaurant";
+
+        for (i=0; i<review.comments.length; i++) {
+            await commentFunctions.removeComment(review.comments[i].commentId);
+        }
+        return true;
     }
 }
