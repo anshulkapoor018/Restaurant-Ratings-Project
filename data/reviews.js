@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const reviews = mongoCollections.reviews;
+const restaurants = mongoCollections.restaurants;
 const uuid = require('uuid/v4');
 
 module.exports = {
@@ -27,6 +28,14 @@ module.exports = {
         if (alreadyReviewed) throw "This user already reviewed this restaurant";
         const insertInfo = await reviewCollection.insertOne(newReview);
         if (insertInfo.insertedCount === 0) throw "could not add review";
+        //Add the review id to the restaurant
+        const newId = insertInfo.instertedId;
+        const restaurantCollection = await restaurants();
+        const updateInfo = await restaurantCollection.updateOne(
+            {_id: restaurantId},
+            {$addToSet: {reviews: newId}}
+        );
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add review ID to restaurant";
         return await this.getReview(insertInfo.insertedId);
     },
 
