@@ -17,6 +17,14 @@ module.exports = {
             rating: rating,
             comments: []
         }
+        const alreadyReviewed = await reviewCollection.findOne({ 
+            $and: [{
+                restaurantId: restaurantId
+            }, {
+                userId: userId
+            }]
+        });
+        if (alreadyReviewed) throw "This user already reviewed this restaurant";
         const insertInfo = await reviewCollection.insertOne(newReview);
         if (insertInfo.insertedCount === 0) throw "could not add review";
         return await this.getReview(insertInfo.insertedId);
