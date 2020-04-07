@@ -1,5 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
+const reviews = mongoCollections.reviews;
 const uuid = require('uuid/v4');
 
 module.exports = {
@@ -17,6 +18,16 @@ module.exports = {
         }
         const insertInfo = await commentCollection.insertOne(newComment);
         if (insertInfo.insertedCount === 0) throw "could not add Comment";
+
+        //Add comment ID to the review
+        const newId = insertInfo.instertedId;
+        const reviewCollection = await reviews();
+        const updateInfo = await reviewCollection.updateOne(
+            {_id: reviewId},
+            {$addToSet: {comments: newId}}
+        );
+        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add comment ID to review";
+
         return await this.getComment(insertInfo.insertedId);
     },
 
