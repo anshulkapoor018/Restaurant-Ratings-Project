@@ -8,6 +8,10 @@ const constructorMethod = app => {
   app.use("/restaurants", restaurants);
   app.use("/reviews", reviews);
   app.use("/comments", comments);
+  
+  app.get("/", (req, res) => {
+    res.render("layouts/index");
+  });
 
   app.use('*', (req, res) => {
     res.status(404).json({ error: 'Not found' });  
