@@ -10,7 +10,7 @@ const constructorMethod = app => {
   app.use("/comments", comments);
   
   app.get("/", (req, res) => {
-    res.render("layouts/index");
+    res.status(200).render("index");
   });
 
   app.use('*', (req, res) => {

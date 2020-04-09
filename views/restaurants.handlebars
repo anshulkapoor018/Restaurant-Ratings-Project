@@ -1,0 +1,12 @@
+<header>
+    <h2>Restaurants</h2>
+</header>
+<main>
+    {{#each restaurants}}
+    <h3>{{this.name}}</h3>
+    <p>{{this.category}}</p>
+    <p>{{this.address}}</p>
+    <p>{{this.city}}, {{this.state}} {{this.zip}}</p>
+    <br/>
+    {{/each}}
+</main>

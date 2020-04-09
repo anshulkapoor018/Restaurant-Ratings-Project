@@ -82,7 +82,7 @@ module.exports = {
         return expandedReview;
     },
 
-    async getAllreviews() {
+    async getAllReviews() {
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({}).toArray();
         if (reviewList.length === 0) throw "no reviews in the collection";

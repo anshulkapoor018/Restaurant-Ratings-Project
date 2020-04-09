@@ -7,7 +7,7 @@ const configRoutes = require('./routes');
 app.use(cors());
 app.use(express.json());
 
-app.engine('handlebars', exphbs({ defaultLayout: 'index'}));
+app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
 configRoutes(app);
