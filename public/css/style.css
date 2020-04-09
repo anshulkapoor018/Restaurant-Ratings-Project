@@ -3,7 +3,11 @@ nav{
     color:white;
     padding: 5px;
     margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold; 
 }
+    
 body{
     background-color: indianred;
     margin-left: 10%;
@@ -13,6 +17,7 @@ body{
 main{
     background-color: ghostwhite;
     margin-top: 0;
+    padding-bottom: 10px;
 }
 
 header{
@@ -34,6 +39,7 @@ p{
 
 a{
     color: yellow;
+    text-decoration: none;
 }
 
 a:visited{
