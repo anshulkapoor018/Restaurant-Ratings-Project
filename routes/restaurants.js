@@ -8,7 +8,7 @@ const restaurants = data.restaurants;
 router.get("/:id", async (req, res) => {
     try {
       const restaurant = await restaurants.getRestaurant(req.params.id);
-      res.status(200).render("restaurant", { name: restaurant.name, category: restaurant.category, address: restaurant.address, city: restaurant.city, state: restaurant.state, zip: restaurant.zip });
+      res.status(200).render(restaurant);
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }

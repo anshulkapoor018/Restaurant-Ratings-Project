@@ -2,7 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
 const reviews = mongoCollections.reviews;
 const users = mongoCollections.users;
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     // I think it makes sense to also add the review id that the comment is being written on
@@ -12,7 +12,6 @@ module.exports = {
         if (!commentText || (typeof commentText != "string")) throw "must give comment text as a string";
         const commentCollection = await comments();
         let newComment = {
-            _id: uuid(),
             userId: userId,
             reviewId: reviewId,
             commentText: commentText

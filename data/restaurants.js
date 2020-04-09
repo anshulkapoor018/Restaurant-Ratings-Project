@@ -1,6 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const restaurants = mongoCollections.restaurants;
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     async addRestaurant(name, website, category, address, city, state, zip, longitude, latitude, hashedPassword) {
@@ -16,7 +16,6 @@ module.exports = {
         if (!hashedPassword || (typeof hashedPassword != "string")) throw "must give hashed password as a string";
         const restaurantCollection = await restaurants();
         let newRestaurant = {
-            _id: uuid(),
             name: name,
             website: website,
             category: category,

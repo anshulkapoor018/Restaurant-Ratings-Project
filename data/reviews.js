@@ -4,7 +4,7 @@ const restaurants = mongoCollections.restaurants;
 const users = mongoCollections.users;
 const comments = mongoCollections.comments;
 const commentFunctions = require("./comments")
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     async addReview(restaurantId, userId, reviewText, rating) {
@@ -14,7 +14,6 @@ module.exports = {
         if (!rating || (typeof rating != "number") || (rating < 1) || (rating > 5)) throw "rating must be given as a number from 1 to 5";
         const reviewCollection = await reviews();
         let newReview = {
-            _id: uuid(),
             resaurantId: restaurantId,
             userId: userId,
             reviewText: reviewText,
