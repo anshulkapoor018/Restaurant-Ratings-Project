@@ -97,12 +97,16 @@ module.exports = {
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({}).toArray();
         if (reviewList.length === 0) throw "no reviews in the collection";
-        var expandedReviews = [];
-        for (i=0; i<reviewList.length; i++) {
-            let curReview = await this.getReview(reviewList[i]._id);
-            expandedReviews.push(curReview);
-        }
-        return expandedReviews;
+        return reviewList;
+        // const reviewCollection = await reviews();
+        // const reviewList = await reviewCollection.find({}).toArray();
+        // if (reviewList.length === 0) throw "no reviews in the collection";
+        // var expandedReviews = [];
+        // for (i=0; i<reviewList.length; i++) {
+        //     let curReview = await this.getReview(reviewList[i]._id);
+        //     expandedReviews.push(curReview);
+        // }
+        // return expandedReviews;
     },
 
     async updateReview(id, updatedReview) {
