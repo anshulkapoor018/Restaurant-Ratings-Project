@@ -29,30 +29,42 @@ module.exports = {
         });
         if (alreadyReviewed) throw "This user already reviewed this restaurant";
         const insertInfo = await reviewCollection.insertOne(newReview);
-        if (insertInfo.insertedCount === 0) throw "could not add review";
-        //Add the review id to the restaurant
-        const newId = insertInfo.instertedId;
-        const restaurantCollection = await restaurants();
-        const updateInfo = await restaurantCollection.updateOne(
-            {_id: restaurantId},
-            {$addToSet: {reviews: newId}}
-        );
-        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add review ID to restaurant";
-        //Add the review id to the user
-        const userCollection = await users();
-        const updateInfo2 = await userCollection.updateOne(
-            {_id: userId},
-            {$addToSet: {reviewIds: newId}}
-        );
-        if (!updateInfo2.matchedCount && !updateInfo2.modifiedCount) throw "Could not add review ID to user";
+        // if (insertInfo.insertedCount === 0) throw "could not add review";
+        
+        const resCollection = await restaurants();
+        const usersCollection = await users();
+        const { ObjectId } = require('mongodb');
+        const objIdForRes = ObjectId.createFromHexString(restaurantId);
+        const objIdForUser = ObjectId.createFromHexString(userId);
 
-        return await this.getReview(insertInfo.insertedId);
+        // const insertInfo = await albumCollection.insertOne(newAlbum);
+        
+        if (insertInfo.insertedCount === 0) {
+            throw 'Could not add new Review';
+        } else {
+            //Add the review id to the restaurant
+            const updatedInfo = await resCollection.updateOne({ _id: objIdForRes }, { $push: { reviews: String(newReview._id) } });
+            if (updatedInfo.modifiedCount === 0) {
+                throw 'Could not update Restaurant Collection with Review Data!';
+            }
+            //Add the review id to the user
+            const updatedInfo2 = await usersCollection.updateOne({ _id: objIdForUser }, { $push: { reviewIds: String(newReview._id) } });
+            if (updatedInfo2.modifiedCount === 0) {
+                throw 'Could not update Users Collection with Review Data!';
+            }
+        }
+        const newId = insertInfo.insertedId;
+        const newIDString = String(newId);
+        const review = await this.getReview(newIDString);
+        return review;
     },
 
     async getReview(id) {
         if (!id) throw "id must be given";
         const reviewCollection = await reviews();
-        const review = await reviewCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const review = await reviewCollection.findOne({ _id: objId});
         if (!review) throw "review with that id does not exist";
         //Expand the comments to show all data
         if (review.comments.length === 0) {

@@ -19,7 +19,7 @@ const main = async () => {
     const R7 = await restaurants.addRestaurant("La Isla", "laislarestaurant.com", "Cuban", "104 Washington St", "Hoboken", "NJ", "07310", 40.7228179, 74.1316417, "123456789");
     const R8 = await restaurants.addRestaurant("Ali baba Restaurant", "hobokenalibaba.com", "Middle Eastern", "912 Washington St Ste 1", "Hoboken", "NJ", "07310", 40.7477496, -74.0302254, "123456789");
     const R9 = await restaurants.addRestaurant("South Street Fish & Ramen Co.", "southstreet.co", "Japanese", "219 Washington St", "Hoboken", "NJ", "07310", 40.7393196, -74.032313, "123456789");
-    const R10 = await restaurants.addRestaurant("GreekTown", " greektown-hoboken.com", "Greak", "86 Garden St", "Hoboken", "NJ", "07310", 40.7369868, -74.3132926, "123456789");
+    const R10 = await restaurants.addRestaurant("GreekTown", "greektown-hoboken.com", "Greak", "86 Garden St", "Hoboken", "NJ", "07310", 40.7369868, -74.3132926, "123456789");
 
 
     //Seed Sample Users
@@ -34,6 +34,17 @@ const main = async () => {
     const U9 = await users.addUser("Miles", "Rosenberg", "Miles@gmail.com", "", "Hoboken", "NJ", "28", "123456789");
     const U10 = await users.addUser("Joe", "Smith", "Joe@gmail.com", "", "Hoboken", "NJ", "26", "123456789");
 
+    //Seed Sample Reviews
+    const reviewForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food!", 4);
+    const reviewForR2 = await reviews.addReview(String(R2._id), String(U2._id), "Amazing Food!", 2);
+    const reviewForR3 = await reviews.addReview(String(R3._id), String(U3._id), "Amazing Food!", 3);
+    const reviewForR4 = await reviews.addReview(String(R4._id), String(U4._id), "Amazing Food!", 1);
+    const reviewForR5 = await reviews.addReview(String(R5._id), String(U5._id), "Amazing Food!", 4);
+    const reviewForR6 = await reviews.addReview(String(R6._id), String(U6._id), "Amazing Food!", 5);
+    const reviewForR7 = await reviews.addReview(String(R7._id), String(U7._id), "Amazing Food!", 5);
+    const reviewForR8 = await reviews.addReview(String(R8._id), String(U8._id), "Amazing Food!", 5);
+    const reviewForR9 = await reviews.addReview(String(R9._id), String(U9._id), "Amazing Food!", 4);
+    const reviewForR10 = await reviews.addReview(String(R10._id), String(U10._id), "Amazing Food!", 3);
 
     console.log('Done seeding database for Restaurant Collection!');
 	await db.serverConfig.close();

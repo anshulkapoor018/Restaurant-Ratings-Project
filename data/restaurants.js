@@ -31,12 +31,15 @@ module.exports = {
         }
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
         if (insertInfo.insertedCount === 0) throw "could not add restaurant";
-        return await this.getRestaurant(insertInfo.insertedId);
+        const newId = insertInfo.insertedId;
+        const newIDString = String(newId);
+        const restaurant = await this.getRestaurant(newIDString);
+        return restaurant;
     },
 
     async getRestaurant(id) {
         if (!id) throw "id must be given";
-        console.log(id)
+        // console.log(id)
         const restaurantCollection = await restaurants();
         const { ObjectId } = require('mongodb');
         const objId = ObjectId.createFromHexString(id);
