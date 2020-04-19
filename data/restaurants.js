@@ -36,8 +36,11 @@ module.exports = {
 
     async getRestaurant(id) {
         if (!id) throw "id must be given";
+        console.log(id)
         const restaurantCollection = await restaurants();
-        const restaurant = await restaurantCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const restaurant = await restaurantCollection.findOne({ _id: objId});
         if (!restaurant) throw "restaurant with that id does not exist";
         return restaurant;
     },
