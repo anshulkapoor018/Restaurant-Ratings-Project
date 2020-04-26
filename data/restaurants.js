@@ -39,7 +39,6 @@ module.exports = {
 
     async getRestaurant(id) {
         if (!id) throw "id must be given";
-        // console.log(id)
         const restaurantCollection = await restaurants();
         const { ObjectId } = require('mongodb');
         const objId = ObjectId.createFromHexString(id);

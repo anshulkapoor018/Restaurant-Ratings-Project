@@ -46,6 +46,17 @@ const main = async () => {
     const reviewForR9 = await reviews.addReview(String(R9._id), String(U9._id), "Amazing Food!", 4);
     const reviewForR10 = await reviews.addReview(String(R10._id), String(U10._id), "Amazing Food!", 3);
 
+    //Seed Sample Reviews
+    const commentForReviewForR1 = await comments.addComment(String(U1._id), String(reviewForR1._id), "Amazing Food!");
+    const commentForReviewForR2 = await comments.addComment(String(U2._id), String(reviewForR2._id), "Amazing Food!");
+    const commentForReviewForR3 = await comments.addComment(String(U3._id), String(reviewForR3._id), "Amazing Food!");
+    const commentForReviewForR4 = await comments.addComment(String(U4._id), String(reviewForR4._id), "Amazing Food!");
+    const commentForReviewForR5 = await comments.addComment(String(U5._id), String(reviewForR5._id), "Amazing Food!");
+    const commentForReviewForR6 = await comments.addComment(String(U6._id), String(reviewForR6._id), "Amazing Food!");
+    const commentForReviewForR7 = await comments.addComment(String(U7._id), String(reviewForR7._id), "Amazing Food!");
+    const commentForReviewForR8 = await comments.addComment(String(U8._id), String(reviewForR8._id), "Amazing Food!");
+    const commentForReviewForR9 = await comments.addComment(String(U9._id), String(reviewForR9._id), "Amazing Food!");
+    const commentForReviewForR10 = await comments.addComment(String(U10._id), String(reviewForR10._id), "Amazing Food!");
     console.log('Done seeding database for Restaurant Collection!');
 	await db.serverConfig.close();
 };
