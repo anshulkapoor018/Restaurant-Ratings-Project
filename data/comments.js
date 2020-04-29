@@ -78,5 +78,14 @@ module.exports = {
         const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
         if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
         return true;
+    },
+
+    async updateComment(id, commentText) {
+        if (!id) throw "id is missing";
+        if (!commentText) throw "text is missing";
+        const commentCollection = await comments();
+        const updateCommentInfo = await commentCollection.updateOne({ _id: id }, { $set: updatedAlbumData });
+        if (updateCommentInfo.modifiedCount === 0) throw "Could not update comment";
+        return await this.getComment(id);
     }
 }
