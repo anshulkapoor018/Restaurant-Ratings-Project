@@ -6,7 +6,7 @@ const users = data.users;
 router.get("/:id", async (req, res) => {
     try {
       const user = await users.getUser(req.params.id);
-      res.status(200).json(user);
+      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, email: user.email, city: user.city, state: user.state, age: user.age })
     } catch (e) {
       res.status(404).json({ message: "User not found!" });
     }
