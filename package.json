@@ -11,9 +11,11 @@
   "author": "Group 7: Anshul Kapoor - 10456388 | Anna Brown - 10422836 | Kamil Zambrowski - 10428741 | Michael Lyons - 10425199",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.3",
+    "express-session": "^1.17.1",
     "mongodb": "^3.5.5",
     "uuid": "^7.0.2"
   }
