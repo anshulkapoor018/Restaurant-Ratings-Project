@@ -35,12 +35,6 @@ module.exports = {
     },
 
     async getUser(id) {
-        // if (!id) throw "id must be given";
-        // const userCollection = await users();
-        // const user = await userCollection.findOne({ _id: id});
-        // if (!user) throw "user with that id does not exist";
-        // return user;
-
         if (!id) throw "id must be given";
         const userCollection = await users();
         const { ObjectId } = require('mongodb');
