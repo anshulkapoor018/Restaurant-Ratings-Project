@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
@@ -36,6 +38,7 @@ module.exports = {
 
     async getUser(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const userCollection = await users();
         const user = await userCollection.findOne({ _id: id});
         if (!user) throw "user with that id does not exist";

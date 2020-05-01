@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
 const reviews = mongoCollections.reviews;
@@ -47,10 +49,9 @@ module.exports = {
 
     async getComment(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
-        const { ObjectId } = require('mongodb');
-        const objId = ObjectId.createFromHexString(id);
-        const comment = await commentCollection.findOne({ _id: objId});
+        const comment = await commentCollection.findOne({ _id: id});
         if (!comment) throw "Comment with that id does not exist";
         return comment;
     },

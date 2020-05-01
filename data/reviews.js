@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const reviews = mongoCollections.reviews;
 const restaurants = mongoCollections.restaurants;
@@ -61,12 +63,12 @@ module.exports = {
 
     async getReview(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const reviewCollection = await reviews();
-        const { ObjectId } = require('mongodb');
-        const objId = ObjectId.createFromHexString(id);
-        const review = await reviewCollection.findOne({ _id: objId});
+        const review = await reviewCollection.findOne({ _id: id});
         if (!review) throw "review with that id does not exist";
-        //Expand the comments to show all data
+        // Was returning null fields so I disabled for the time being, this is handled in the route logic instead
+        /*Expand the comments to show all data
         if (review.comments.length === 0) {
             return review;
         }
@@ -88,9 +90,9 @@ module.exports = {
             reviewText: review.reviewText,
             rating: review.rating,
             comments: expandedComments
-        }
+        }*/
 
-        return expandedReview;
+        return review;
     },
 
     async getAllReviews() {

@@ -7,8 +7,7 @@ const comments = data.comments;
 router.get("/:id", async (req, res) => {
     try {
       const comment = await comments.getComment(req.params.id);
-      res.status(200).json(comment)
-      // res.status(200).render("restaurant", { restaurant: restaurant })
+      res.status(200).render("comment", {commentText: comment.commentText})
     } catch (e) {
       res.status(404).json({ message: "Comment not found!" });
     }

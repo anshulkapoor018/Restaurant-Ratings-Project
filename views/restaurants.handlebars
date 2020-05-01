@@ -1,7 +1,7 @@
 <main>
     <h2>Restaurants</h2>
     {{#each restaurants}}
-    <h3>{{this.name}}</h3>
+    <h3><a href="/restaurants/{{this._id}}">{{this.name}}</a></h3>
     <p>{{this.category}}</p>
     <p>{{this.address}}</p>
     <p>{{this.city}}, {{this.state}} {{this.zip}}</p>

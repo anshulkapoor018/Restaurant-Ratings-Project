@@ -3,6 +3,14 @@ const router = express.Router();
 const data = require('../data/');
 const users = data.users;
 
+router.get("/login", (req, res) => {
+  res.status(200).render("login");
+});
+
+router.get("/profile", (req, res) => {
+  res.status(404).json({ message: "Sessions are not yet implemented."});
+})
+
 router.get("/:id", async (req, res) => {
     try {
       const user = await users.getUser(req.params.id);
@@ -21,5 +29,10 @@ router.get("/", async (req, res) => {
       res.status(404).send();
     }
 });
+
+router.post("/login", (req, res) => {
+  // TODO
+  res.status(404).send();
+})
 
 module.exports = router;

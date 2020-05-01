@@ -3,8 +3,13 @@
         <title>Restaurant Rating System</title>
     </head>
     <body>
-
+        <nav>
+            <a href="/">Home</a>
+            <a href="/restaurants">Restaurants</a>
+            <a href="/users/profile" id="profile" style="display:none;">Profile</a> <!-- Should be hidden in CSS by default -->
+            <a href="/users/login" id="auth">Login</a>
+        </nav>
         {{{ body }}}
-
     </body>
+    <script src="/public/javascript/session.js"></script>
 </html>

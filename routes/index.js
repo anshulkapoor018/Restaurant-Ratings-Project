@@ -1,13 +1,13 @@
-const users = require("./users");
+const comments = require("./comments");
 const restaurants = require("./restaurants");
 const reviews = require("./reviews");
-const comments = require("./comments");
+const users = require("./users");
 
 const constructorMethod = app => {
-  app.use("/users", users);
+  app.use("/comments", comments);
   app.use("/restaurants", restaurants);
   app.use("/reviews", reviews);
-  app.use("/comments", comments);
+  app.use("/users", users);
   
   app.get("/", (req, res) => {
     res.status(200).render("index");
