@@ -35,7 +35,6 @@ module.exports = {
         
         const resCollection = await restaurants();
         const usersCollection = await users();
-        const { ObjectId } = require('mongodb');
         const objIdForRes = ObjectId.createFromHexString(restaurantId);
         const objIdForUser = ObjectId.createFromHexString(userId);
 
@@ -67,31 +66,6 @@ module.exports = {
         const reviewCollection = await reviews();
         const review = await reviewCollection.findOne({ _id: id});
         if (!review) throw "review with that id does not exist";
-        // Was returning null fields so I disabled for the time being, this is handled in the route logic instead
-        /*Expand the comments to show all data
-        if (review.comments.length === 0) {
-            return review;
-        }
-        var expandedComments = [];
-        for (i=0; i<review.comments.length; i++) {
-            let curComment = commentFunctions.getComment(review.comments[i]);
-            var tempObject = {
-                _id: review.comments[i],
-                userId: curComment.userId,
-                reviewId: curComment.reviewId,
-                commentText: curComment.commentText
-            }
-            expandedComments.push(tempObject);
-        }
-        const expandedReview = {
-            _id: id,
-            resaurantId: review.restaurantId,
-            userId: review.userId,
-            reviewText: review.reviewText,
-            rating: review.rating,
-            comments: expandedComments
-        }*/
-
         return review;
     },
 
@@ -100,18 +74,10 @@ module.exports = {
         const reviewList = await reviewCollection.find({}).toArray();
         if (reviewList.length === 0) throw "no reviews in the collection";
         return reviewList;
-        // const reviewCollection = await reviews();
-        // const reviewList = await reviewCollection.find({}).toArray();
-        // if (reviewList.length === 0) throw "no reviews in the collection";
-        // var expandedReviews = [];
-        // for (i=0; i<reviewList.length; i++) {
-        //     let curReview = await this.getReview(reviewList[i]._id);
-        //     expandedReviews.push(curReview);
-        // }
-        // return expandedReviews;
     },
 
     async updateReview(id, updatedReview) {
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const reviewCollection = await reviews();
         const updatedReviewData = {};
         if (updatedReview.reviewText) {
@@ -127,6 +93,7 @@ module.exports = {
 
     async removeReview(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const reviewCollection = await reviews();
         let review = await this.getReview(id);
         const deleteInfo = await reviewCollection.removeOne({ _id: id});

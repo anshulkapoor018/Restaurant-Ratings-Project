@@ -22,7 +22,6 @@ module.exports = {
         
         const revCollection = await reviews();
         const usersCollection = await users();
-        const { ObjectId } = require('mongodb');
         const objIdForRev = ObjectId.createFromHexString(reviewId);
         const objIdForUser = ObjectId.createFromHexString(userId);
         
@@ -65,6 +64,7 @@ module.exports = {
 
     async removeComment(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
         let comment = await this.getComment(id);
         const deleteInfo = await commentCollection.removeOne({ _id: id});
@@ -84,6 +84,7 @@ module.exports = {
     async updateComment(id, commentText) {
         if (!id) throw "id is missing";
         if (!commentText) throw "text is missing";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
         const updateCommentInfo = await commentCollection.updateOne({ _id: id }, { $set: updatedAlbumData });
         if (updateCommentInfo.modifiedCount === 0) throw "Could not update comment";
