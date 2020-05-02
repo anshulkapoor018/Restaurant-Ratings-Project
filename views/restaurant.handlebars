@@ -5,16 +5,17 @@
     <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
     <div id="gmap" style="height:400px; width:400px;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
 </main>
-<aside>
-    <h3>Reviews</h3>
-    {{#each reviews}}
+<h3>Reviews</h3>
+{{#each reviews}}
+<div>
     <p>Rating: {{this.rating}}/5</p>
     <p>{{this.reviewText}}</p>
-    <h4>Comments</h4>
-        {{#each this.commentList}}
-        <p>{{this.commentText}}</p>
-        {{/each}}
-    {{/each}}
-</aside>
-<!-- All reviews for a given ID need to retrieved in the route logic and passed here to be used in a for each loop -->
+    <div>
+        <h4>Comments</h4>
+            {{#each this.commentList}}
+            <p>{{this.commentText}}</p>
+            {{/each}}
+    </div>
+</div>
+{{/each}}
 <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
