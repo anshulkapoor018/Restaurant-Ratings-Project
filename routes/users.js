@@ -7,24 +7,11 @@ router.get("/login", (req, res) => {
   res.status(200).render("login");
 });
 
-router.get("/profile", (req, res) => {
-  res.status(404).json({ message: "Sessions are not yet implemented."});
-})
-
-router.get("/:id", async (req, res) => {
-    try {
-      const user = await users.getUser(req.params.id);
-      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture});
-    } catch (e) {
-      res.status(404).json({ message: "User not found!" });
-    }
-});
-
 router.get("/myprofile", (req, res) => {
   if (!req.session.user) {
-      return res.redirect("/login");
+      return res.redirect("/users/login");
   } else {
-      return res.render('myprofile', { 
+      return res.status(307).render('myprofile', { 
         firstName: req.session.firstName,
         lastName: req.session.lastName,
         profilePicture: req.session.profilePicture,
@@ -36,7 +23,26 @@ router.get("/myprofile", (req, res) => {
   }
 });
 
-router.patch("/myprofile", (req, res) => {
+router.get("/:id", async (req, res) => {
+    try {
+      const user = await users.getUser(req.params.id);
+      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture});
+    } catch (e) {
+      res.status(404).json({ message: "User not found!" });
+    }
+});
+  
+router.get("/", async (req, res) => {
+    try {
+      const userList = await users.getAllUsers();
+      res.status(200).json(userList);
+    } catch (e) {
+      // Something went wrong with the server!
+      res.status(404).send();
+    }
+});
+
+router.patch("/myprofile", async (req, res) => {
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
@@ -69,16 +75,6 @@ router.patch("/myprofile", (req, res) => {
       res.status(404).json({ message: "Could not update user!" });
     }
   });
-  
-router.get("/", async (req, res) => {
-    try {
-      const userList = await users.getAllUsers();
-      res.status(200).json(userList);
-    } catch (e) {
-      // Something went wrong with the server!
-      res.status(404).send();
-    }
-});
 
 router.post("/login", (req, res) => {
   // TODO
