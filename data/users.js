@@ -40,7 +40,9 @@ module.exports = {
         if (!id) throw "id must be given";
         if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const userCollection = await users();
-        const user = await userCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const user = await userCollection.findOne({ _id: objId});
         if (!user) throw "user with that id does not exist";
         return user;
     },
