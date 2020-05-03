@@ -2,21 +2,20 @@ const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
 const comments = mongoCollections.comments;
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     async addUser(firstName, lastName, email, profilePicture, city, state, age, hashedPassword) {
         if (!firstName || (typeof firstName != "string")) throw "must give first name as a string";
         if (!lastName || (typeof lastName != "string")) throw "must give last name as a string";
         if (!email || (typeof email != "string")) throw "must give email as a string";
-        if (!profilePicture || (typeof profilePicture != "string")) throw "must give profilePicture as a string";
+        // if (!profilePicture || (typeof profilePicture != "string")) throw "must give profilePicture as a string";
         if (!city || (typeof city != "string")) throw "must give city as a string";
         if (!state || (typeof state != "string")) throw "must give state as a string";
         if (!age || (typeof age != "string")) throw "must give age as a string";
         if (!hashedPassword || (typeof hashedPassword != "string")) throw "must give hashed password as a string";
         const userCollection = await users();
         let newUser = {
-            _id: uuid(),
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -49,5 +48,4 @@ module.exports = {
         if (userList.length === 0) throw "no users in the collection";
         return userList;
     }
-    
 }

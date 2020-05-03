@@ -2,7 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
 const reviews = mongoCollections.reviews;
 const users = mongoCollections.users;
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     // I think it makes sense to also add the review id that the comment is being written on
@@ -12,36 +12,45 @@ module.exports = {
         if (!commentText || (typeof commentText != "string")) throw "must give comment text as a string";
         const commentCollection = await comments();
         let newComment = {
-            _id: uuid(),
             userId: userId,
             reviewId: reviewId,
             commentText: commentText
         }
         const insertInfo = await commentCollection.insertOne(newComment);
-        if (insertInfo.insertedCount === 0) throw "could not add Comment";
+        
+        const revCollection = await reviews();
+        const usersCollection = await users();
+        const { ObjectId } = require('mongodb');
+        const objIdForRev = ObjectId.createFromHexString(reviewId);
+        const objIdForUser = ObjectId.createFromHexString(userId);
+        
+        if (insertInfo.insertedCount === 0) {
+            throw 'Could not add new Review';
+        } else {
+            //Add the comment id to the review
+            const updatedInfo = await revCollection.updateOne({ _id: objIdForRev }, { $push: { comments: String(newComment._id) } });
+            if (updatedInfo.modifiedCount === 0) {
+                throw 'Could not update Review Collection with Review Data!';
+            }
+            //Add the comment id to the user
+            const updatedInfo2 = await usersCollection.updateOne({ _id: objIdForUser }, { $push: { commentIds: String(newComment._id) } });
+            if (updatedInfo2.modifiedCount === 0) {
+                throw 'Could not update Users Collection with Review Data!';
+            }
+        }
 
-        //Add comment ID to the review and user
-        const newId = insertInfo.instertedId;
-        const reviewCollection = await reviews();
-        const userCollection = await users();
-        const updateInfo = await reviewCollection.updateOne(
-            {_id: reviewId},
-            {$addToSet: {comments: newId}}
-        );
-        const updateInfo2 = await userCollection.updateOne(
-            {_id: userId},
-            {$addToSet: {commentIds: newId}}
-        )
-        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add comment ID to review";
-        if (!updateInfo2.matchedCount && !updateInfo2.modifiedCount) throw "Could not add comment ID to user";
-
-        return await this.getComment(insertInfo.insertedId);
+        const newId = insertInfo.insertedId;
+        const newIDString = String(newId);
+        const recentComment = await this.getComment(newIDString);
+        return recentComment;
     },
 
     async getComment(id) {
         if (!id) throw "id must be given";
         const commentCollection = await comments();
-        const comment = await commentCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const comment = await commentCollection.findOne({ _id: objId});
         if (!comment) throw "Comment with that id does not exist";
         return comment;
     },

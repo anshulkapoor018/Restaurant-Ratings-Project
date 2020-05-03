@@ -1,6 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const restaurants = mongoCollections.restaurants;
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     async addRestaurant(name, website, category, address, city, state, zip, longitude, latitude, hashedPassword) {
@@ -16,7 +16,6 @@ module.exports = {
         if (!hashedPassword || (typeof hashedPassword != "string")) throw "must give hashed password as a string";
         const restaurantCollection = await restaurants();
         let newRestaurant = {
-            _id: uuid(),
             name: name,
             website: website,
             category: category,
@@ -32,13 +31,18 @@ module.exports = {
         }
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
         if (insertInfo.insertedCount === 0) throw "could not add restaurant";
-        return await this.getRestaurant(insertInfo.insertedId);
+        const newId = insertInfo.insertedId;
+        const newIDString = String(newId);
+        const restaurant = await this.getRestaurant(newIDString);
+        return restaurant;
     },
 
     async getRestaurant(id) {
         if (!id) throw "id must be given";
         const restaurantCollection = await restaurants();
-        const restaurant = await restaurantCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const restaurant = await restaurantCollection.findOne({ _id: objId});
         if (!restaurant) throw "restaurant with that id does not exist";
         return restaurant;
     },

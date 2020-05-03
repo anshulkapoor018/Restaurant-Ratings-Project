@@ -4,7 +4,7 @@ const restaurants = mongoCollections.restaurants;
 const users = mongoCollections.users;
 const comments = mongoCollections.comments;
 const commentFunctions = require("./comments")
-const uuid = require('uuid/v4');
+// const uuid = require('uuid/v4');
 
 module.exports = {
     async addReview(restaurantId, userId, reviewText, rating) {
@@ -14,7 +14,6 @@ module.exports = {
         if (!rating || (typeof rating != "number") || (rating < 1) || (rating > 5)) throw "rating must be given as a number from 1 to 5";
         const reviewCollection = await reviews();
         let newReview = {
-            _id: uuid(),
             resaurantId: restaurantId,
             userId: userId,
             reviewText: reviewText,
@@ -30,30 +29,42 @@ module.exports = {
         });
         if (alreadyReviewed) throw "This user already reviewed this restaurant";
         const insertInfo = await reviewCollection.insertOne(newReview);
-        if (insertInfo.insertedCount === 0) throw "could not add review";
-        //Add the review id to the restaurant
-        const newId = insertInfo.instertedId;
-        const restaurantCollection = await restaurants();
-        const updateInfo = await restaurantCollection.updateOne(
-            {_id: restaurantId},
-            {$addToSet: {reviews: newId}}
-        );
-        if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw "Could not add review ID to restaurant";
-        //Add the review id to the user
-        const userCollection = await users();
-        const updateInfo2 = await userCollection.updateOne(
-            {_id: userId},
-            {$addToSet: {reviewIds: newId}}
-        );
-        if (!updateInfo2.matchedCount && !updateInfo2.modifiedCount) throw "Could not add review ID to user";
+        // if (insertInfo.insertedCount === 0) throw "could not add review";
+        
+        const resCollection = await restaurants();
+        const usersCollection = await users();
+        const { ObjectId } = require('mongodb');
+        const objIdForRes = ObjectId.createFromHexString(restaurantId);
+        const objIdForUser = ObjectId.createFromHexString(userId);
 
-        return await this.getReview(insertInfo.insertedId);
+        // const insertInfo = await albumCollection.insertOne(newAlbum);
+        
+        if (insertInfo.insertedCount === 0) {
+            throw 'Could not add new Review';
+        } else {
+            //Add the review id to the restaurant
+            const updatedInfo = await resCollection.updateOne({ _id: objIdForRes }, { $push: { reviews: String(newReview._id) } });
+            if (updatedInfo.modifiedCount === 0) {
+                throw 'Could not update Restaurant Collection with Review Data!';
+            }
+            //Add the review id to the user
+            const updatedInfo2 = await usersCollection.updateOne({ _id: objIdForUser }, { $push: { reviewIds: String(newReview._id) } });
+            if (updatedInfo2.modifiedCount === 0) {
+                throw 'Could not update Users Collection with Review Data!';
+            }
+        }
+        const newId = insertInfo.insertedId;
+        const newIDString = String(newId);
+        const review = await this.getReview(newIDString);
+        return review;
     },
 
     async getReview(id) {
         if (!id) throw "id must be given";
         const reviewCollection = await reviews();
-        const review = await reviewCollection.findOne({ _id: id});
+        const { ObjectId } = require('mongodb');
+        const objId = ObjectId.createFromHexString(id);
+        const review = await reviewCollection.findOne({ _id: objId});
         if (!review) throw "review with that id does not exist";
         //Expand the comments to show all data
         if (review.comments.length === 0) {
@@ -86,12 +97,16 @@ module.exports = {
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({}).toArray();
         if (reviewList.length === 0) throw "no reviews in the collection";
-        var expandedReviews = [];
-        for (i=0; i<reviewList.length; i++) {
-            let curReview = await this.getReview(reviewList[i]._id);
-            expandedReviews.push(curReview);
-        }
-        return expandedReviews;
+        return reviewList;
+        // const reviewCollection = await reviews();
+        // const reviewList = await reviewCollection.find({}).toArray();
+        // if (reviewList.length === 0) throw "no reviews in the collection";
+        // var expandedReviews = [];
+        // for (i=0; i<reviewList.length; i++) {
+        //     let curReview = await this.getReview(reviewList[i]._id);
+        //     expandedReviews.push(curReview);
+        // }
+        // return expandedReviews;
     },
 
     async updateReview(id, updatedReview) {

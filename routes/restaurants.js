@@ -8,13 +8,14 @@ const restaurants = data.restaurants;
 router.get("/:id", async (req, res) => {
     try {
       const restaurant = await restaurants.getRestaurant(req.params.id);
-      res.status(200).render("restaurant", { name: restaurant.name, category: restaurant.category, address: restaurant.address, city: restaurant.city, state: restaurant.state, zip: restaurant.zip });
+      res.status(200).json(restaurant)
+      // res.status(200).render("restaurant", { restaurant: restaurant })
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }
-  });
+});
   
-  router.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
       const restaurantList = await restaurants.getAllRestaurants();
       res.status(200).render("restaurants", { restaurants: restaurantList });
@@ -22,6 +23,6 @@ router.get("/:id", async (req, res) => {
       // Something went wrong with the server!
       res.status(404).send();
     }
-  });
+});
 
 module.exports = router;
