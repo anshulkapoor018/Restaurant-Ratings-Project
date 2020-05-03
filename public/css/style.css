@@ -1,52 +1,117 @@
 nav{
-    background-color: brown;
-    color:white;
-    padding: 5px;
-    margin-bottom: 0;
-    text-transform: uppercase;
-    font-size: 1.2em;
-    font-weight: bold; 
+    background-color: #E4572E;
+    padding: 10px;
+    list-style-type: none;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
-    
+nav li {
+    display: inline;
+    padding: 3px;
+    margin: 3px;
+}
+
+.private{
+    display: none;
+}
+
+nav a {
+    color:#fafafa;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: bold; 
+    padding: 8px;
+}
+
+nav a:hover{
+    color: #001514;
+}
+
 body{
-    background-color: indianred;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0;
+    padding-top: 15px;
+    background-color: #001514;
 }
 
 main{
-    background-color: ghostwhite;
-    margin-top: 0;
+    align-items: center;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-bottom: 10px;
+    background-color: #fafafa;
 }
 
-header{
-    background-color: lightgray;
+.category{
+    color:#E4572E;
+}
+
+.reviews{
+    text-align: left;
+}
+.reviews h3{
+    text-align: left;
+}
+.reviews p {
+    text-align: left;
+}
+.comments{
+    padding-left: 25px;
+}
+
+.login{
+    text-align: center;
+    color:#001514;
+}
+
+.btn{
+    color: #E4572E;
+    background-color: #fafafa;
+    border: 2px solid #E4572E;
+    padding: 8px;
+}
+.btn:hover {
+    color: #fafafa;
+    background-color: #E4572E;
+}
+
+h1{
+    text-align: center;
+    color: #8FC93A;
+    font-size: xx-large;
+}
+
+h2{
+    text-align: center;
+    color: #8FC93A;
+    font-size: x-large;
 }
 
 h3{
-    color: darkblue;
+    color: #8FC93A;
     text-align: center;
-    font-size: 1.7em;
     font-weight: bold;
+    font-size: x-large;
+}
+
+h4{
+    color: #8FC93A;
+    font-size: large;
 }
 
 p{
-    font-size: 1.3em;
     text-align: center;
-    color: black;
+    color: #001514;
+    font-size: large;
 }
 
 a{
-    color: yellow;
+    color: #1E96FC;
     text-decoration: none;
 }
 
-a:visited{
-    color: yellow;
-}
-
 a:hover{
-    color: black;
-    background-color:azure;
+    color: #E4572E;
 }

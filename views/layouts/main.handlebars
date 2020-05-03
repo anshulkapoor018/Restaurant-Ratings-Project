@@ -2,13 +2,14 @@
 <html>
     <head>
         <title>Restaurant Rating System</title>
+        <link rel="stylesheet" type="text/css" href="../../public/css/style.css">
     </head>
     <body>
         <nav>
-            <a href="/">Home</a>
-            <a href="/restaurants">Restaurants</a>
-            <a href="/users/profile" id="profile" style="display:none;">Profile</a> <!-- Should be hidden in CSS by default -->
-            <a href="/users/login" id="auth">Login</a>
+            <li><a href="/">Home</a></li>
+            <li><a href="/restaurants">Restaurants</a></li>
+            <li class="private"><a href="/users/profile" id="profile">Profile</a></li>
+            <li><a href="/users/login" id="auth">Login</a></li>
         </nav>
         {{{ body }}}
     </body>

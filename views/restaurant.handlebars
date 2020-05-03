@@ -1,16 +1,17 @@
 <main>
     <h3>{{restaurant.name}}</h3>
-    <p>{{restaurant.category}}</p>
+    <p class = "category">{{restaurant.category}}</p>
     <p>{{restaurant.address}}</p>
     <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
-    <div id="gmap" style="height:400px; width:400px;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
-</main>
-<h3>Reviews</h3>
-{{#each reviews}}
-<div>
+    <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
+
+<div class = "reviews">
+    <h3>Reviews</h3>
+    {{#each reviews}}
+
     <p>Rating: {{this.rating}}/5</p>
     <p>{{this.reviewText}}</p>
-    <div>
+    <div class = "comments">
         <h4>Comments</h4>
             {{#each this.commentList}}
             <p>{{this.commentText}}</p>
@@ -19,3 +20,4 @@
 </div>
 {{/each}}
 <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
+</main>
