@@ -7,7 +7,7 @@ const reviews = data.reviews;
 router.get("/:id", async (req, res) => {
     try {
       const review = await reviews.getReview(req.params.id);
-      res.status(200).json(review);
+      res.status(200).render("review", { review: review });
     } catch (e) {
       res.status(404).json({ message: "review not found!" });
     }

@@ -1,0 +1,35 @@
+<main>
+    <h2>{{firstName}} {{lastName}} </h2>
+    <img src="{{profilePicture}}">
+    <p>{{email}}</p>
+    <p>{{city}}</p>
+    <p>{{state}}</p>
+    <p>{{age}}</p>
+
+
+    {{#if isEditing}}
+        <form if="edit-profile" action="/users" method="patch">
+            <label for="firstName">First Name
+                <input type="text" id="firstName" name="firstName">
+            </label>
+            <label for="lastName">Last Name
+                <input type="text" id="lastName" name="lastName">
+            </label>
+            <label for="profilePicture">Profile Picture
+                <input type="file" id="profilePicture" name="profilePicture">
+            </label>
+            <label for="email">Email
+                <input type="text" id="email" name="email">
+            </label>
+            <label for="city">City
+                <input type="text" id="city" name="city">
+            </label>
+            <label for="state">State
+                <input type="text" id="state" name="state">
+            </label>
+            <label for="age">First Name
+                <input type="text" id="age" name="age">
+            </label>
+        </form>
+    {{/if}}
+</main>

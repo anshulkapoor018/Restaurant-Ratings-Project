@@ -1,14 +1,26 @@
 const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const configRoutes = require('./routes');
 const static = express.static(__dirname + '/public');
 
+app.use(cookieParser());
 app.use(cors());
 app.use('/public', static);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+    session({
+        name: 'AuthCookie',
+        secret: 'some secret string',
+        resave: false,
+        saveUninitialized: true
+    })
+);
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');

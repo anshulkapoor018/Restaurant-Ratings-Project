@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const restaurants = mongoCollections.restaurants;
 // const uuid = require('uuid/v4');
@@ -39,10 +41,9 @@ module.exports = {
 
     async getRestaurant(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const restaurantCollection = await restaurants();
-        const { ObjectId } = require('mongodb');
-        const objId = ObjectId.createFromHexString(id);
-        const restaurant = await restaurantCollection.findOne({ _id: objId});
+        const restaurant = await restaurantCollection.findOne({ _id: id});
         if (!restaurant) throw "restaurant with that id does not exist";
         return restaurant;
     },

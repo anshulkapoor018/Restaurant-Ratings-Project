@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
@@ -36,6 +38,7 @@ module.exports = {
 
     async getUser(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const userCollection = await users();
         const user = await userCollection.findOne({ _id: id});
         if (!user) throw "user with that id does not exist";
@@ -47,5 +50,41 @@ module.exports = {
         const userList = await userCollection.find({}).toArray();
         if (userList.length === 0) throw "no users in the collection";
         return userList;
+    },
+
+    async updateUser(id, updatedUser) {
+        if (!id) throw "id is missing";
+        if (!updatedUser) throw "user is missing";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
+        const userCollection = await users();
+        const updatedUserData = {};
+
+        if (updatedUser.firstName) {
+            updatedUserData.firstName = updatedUser.firstName;
+        }
+        if (updatedUser.lastName) {
+            updatedUserData.lastName = updatedUser.lastName;
+        }
+        if (updatedUser.email) {
+            updatedUserData.email = updatedUser.email;
+        }
+        if (updatedUser.profilePicture) {
+            updatedUserData.profilePicture = updatedUser.profilePicture;
+        }
+        if (updatedUser.city) {
+            updatedUserData.city = updatedUser.city;
+        }
+        if (updatedUser.state) {
+            updatedUserData.state = updatedUser.state;
+        }
+        if (updatedUser.age) {
+            updatedUserData.age = updatedUser.age;
+        }
+        if (updatedUser.hashedPassword) {
+            updatedUserData.hashedPassword = updatedUser.hashedPassword;
+        }
+        const updateInfoUser = await userCollection.updateOne({ _id: id }, { $set: updatedUserData });
+        if (updateInfoUser.modifiedCount === 0) throw "could not update user";
+        return await this.getUser(id);
     }
 }

@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const mongoCollections = require("../config/mongoCollections");
 const comments = mongoCollections.comments;
 const reviews = mongoCollections.reviews;
@@ -20,7 +22,6 @@ module.exports = {
         
         const revCollection = await reviews();
         const usersCollection = await users();
-        const { ObjectId } = require('mongodb');
         const objIdForRev = ObjectId.createFromHexString(reviewId);
         const objIdForUser = ObjectId.createFromHexString(userId);
         
@@ -47,10 +48,9 @@ module.exports = {
 
     async getComment(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
-        const { ObjectId } = require('mongodb');
-        const objId = ObjectId.createFromHexString(id);
-        const comment = await commentCollection.findOne({ _id: objId});
+        const comment = await commentCollection.findOne({ _id: id});
         if (!comment) throw "Comment with that id does not exist";
         return comment;
     },
@@ -64,6 +64,7 @@ module.exports = {
 
     async removeComment(id) {
         if (!id) throw "id must be given";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
         let comment = await this.getComment(id);
         const deleteInfo = await commentCollection.removeOne({ _id: id});
@@ -78,5 +79,15 @@ module.exports = {
         const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
         if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
         return true;
+    },
+
+    async updateComment(id, commentText) {
+        if (!id) throw "id is missing";
+        if (!commentText) throw "text is missing";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
+        const commentCollection = await comments();
+        const updateCommentInfo = await commentCollection.updateOne({ _id: id }, { $set: updatedAlbumData });
+        if (updateCommentInfo.modifiedCount === 0) throw "Could not update comment";
+        return await this.getComment(id);
     }
 }

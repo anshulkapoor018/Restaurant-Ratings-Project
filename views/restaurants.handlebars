@@ -1,12 +1,12 @@
-<header>
-    <h2>Restaurants</h2>
-</header>
 <main>
+    <h2>Restaurants</h2>
     {{#each restaurants}}
-    <h3>{{this.name}}</h3>
-    <p>{{this.category}}</p>
-    <p>{{this.address}}</p>
-    <p>{{this.city}}, {{this.state}} {{this.zip}}</p>
-    <br/>
+    <div>
+        <h3><a href="/restaurants/{{this._id}}">{{this.name}}</a></h3>
+        <p>{{this.category}}</p>
+        <p>{{this.address}}</p>
+        <p>{{this.city}}, {{this.state}} {{this.zip}}</p>
+        <br/>
+    </div>
     {{/each}}
 </main>
