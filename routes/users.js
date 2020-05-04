@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const data = require('../data/');
+const userData = require('../users');
 const users = data.users;
 const uData = require("../data/userData");
+const bcrypt = require("bcryptjs");
 
 router.get("/login", (req, res) => {
   res.status(200).render("login");
@@ -25,18 +27,19 @@ router.get("/profile", async (req, res) => {
     }
 });
 
-router.get("/myprofile", (req, res) => {
-  if (!req.session.user) {
+router.get("/myprofile", async (req, res) => {
+  if (!req.session.AuthCookie) {
       return res.redirect("/users/login");
   } else {
+    const currentUser = await users.getUser(req.session.AuthCookie);
       return res.status(307).render('myprofile', { 
-        firstName: req.session.firstName,
-        lastName: req.session.lastName,
-        profilePicture: req.session.profilePicture,
-        email: req.session.email,
-        city: req.session.city,
-        state: req.session.state,
-        age: req.session.age,
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        profilePicture: currentUser.profilePicture,
+        email: currentUser.email,
+        city: currentUser.city,
+        state: currentUser.state,
+        age: currentUser.age,
         isEditing: false });
   }
 });
@@ -94,9 +97,39 @@ router.patch("/myprofile", async (req, res) => {
     }
   });
 
-router.post("/login", (req, res) => {
-  // TODO
-  res.status(404).send();
-})
+  router.post("/login", async (req, res) => {
+    let hasErrors = false;
+    let errors = [];
+    let userId = req.session.AuthCookie;
+    if(userId) {
+      auth = "Authorised User"
+      return res.redirect("/users/myprofile");
+    } else {
+      let userName = req.body.username;
+      let password = req.body.password;
+      user = userData.users.find(element=>element.username === userName)
+      if(!user) {
+          auth = "Not Authorised User"
+          hasErrors = true;
+          errors.push("Invalid Username or Password");
+          res.status(401);
+          return res.render("login", {hasErrors:hasErrors, errors: errors});
+      } else {
+          let isSame = await bcrypt.compare(password, user.hashedPassword);
+          if(!isSame) {
+             auth = "Not Authorised User"
+             hasErrors = true;
+             errors.push("Invalid Username/Password");
+             res.status(401);
+             return res.render("login", {hasErrors:hasErrors, errors: errors});
+          } else {
+            auth = "Authorised User"
+            let userId = await uData.getUserId(userName);
+            req.session.AuthCookie = userId;
+            return res.redirect("/users/myprofile");
+          }
+      }
+    }
+  });
 
 module.exports = router;

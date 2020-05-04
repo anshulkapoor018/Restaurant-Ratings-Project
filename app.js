@@ -63,41 +63,6 @@ app.use("/profile", function(req, res, next){
     }
   });
 
-  app.post("/login", async (req, res) => {
-    let hasErrors = false;
-    let errors = [];
-    let userId = req.session.AuthCookie;
-    if(userId) {
-      auth = "Authorised User"
-      res.redirect("users/profile");
-    } else {
-      let userName = req.body.username;
-      let password = req.body.password;
-      user = data.users.find(element=>element.username === userName)
-      if(!user) {
-          auth = "Not Authorised User"
-          hasErrors = true;
-          errors.push("Invalid Username or Password");
-          res.status(401);
-          res.render("layouts/main", {hasErrors:hasErrors, errors: errors});
-      } else {
-          let isSame = await bcrypt.compare(password, user.hashedPassword);
-          if(!isSame) {
-             auth = "Not Authorised User"
-             hasErrors = true;
-             errors.push("Invalid Username/Password");
-             res.status(401);
-             res.render("layouts/main", {hasErrors:hasErrors, errors: errors});
-          } else {
-            auth = "Authorised User"
-            let userId = await uData.getUserId(userName);
-            req.session.AuthCookie = userId;
-            res.redirect("users/profile");
-          }
-      }
-    }
-  });
-
 configRoutes(app);
 
 app.listen(3000, () => {
