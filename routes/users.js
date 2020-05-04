@@ -31,16 +31,23 @@ router.get("/myprofile", async (req, res) => {
   if (!req.session.AuthCookie) {
       return res.redirect("/users/login");
   } else {
-    const currentUser = await users.getUser(req.session.AuthCookie);
-      return res.status(307).render('myprofile', { 
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        profilePicture: currentUser.profilePicture,
-        email: currentUser.email,
-        city: currentUser.city,
-        state: currentUser.state,
-        age: currentUser.age,
-        isEditing: false });
+    // I think these lines of code should work with the dynamic log in using database
+    // const currentUser = await users.getUser(req.session.AuthCookie);
+    //   return res.status(307).render('myprofile', { 
+    //     firstName: currentUser.firstName,
+    //     lastName: currentUser.lastName,
+    //     profilePicture: currentUser.profilePicture,
+    //     email: currentUser.email,
+    //     city: currentUser.city,
+    //     state: currentUser.state,
+    //     age: currentUser.age,
+    //     isEditing: false });
+
+    //Temporary testing with static log in
+    return res.status(307).render('myprofile', {
+      firstName: req.session.user.firstName,
+      lastName: req.session.user.lastName
+    })
   }
 });
 
@@ -126,6 +133,7 @@ router.patch("/myprofile", async (req, res) => {
             auth = "Authorised User"
             let userId = await uData.getUserId(userName);
             req.session.AuthCookie = userId;
+            req.session.user = user;
             return res.redirect("/users/myprofile");
           }
       }
