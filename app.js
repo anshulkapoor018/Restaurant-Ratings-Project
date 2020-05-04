@@ -62,20 +62,6 @@ app.use("/profile", function(req, res, next){
       next();
     }
   });
-  
-  // app.get("/", async (req, res) => {
-  //   let hasErrors = false;
-  //   let errors = [];
-  //   let userId = req.session.AuthCookie;
-  //   if(!userId) {
-  //     auth = "Not Authorised User"
-  //     errors.push("Not Authorised, Please Login");
-  //     res.render("layouts/main", {hasErrors:hasErrors, errors: errors});
-  //   } else {
-  //     auth = "Authorised User"
-  //     res.redirect("/");
-  //   }
-  // });
 
   app.post("/login", async (req, res) => {
     let hasErrors = false;
@@ -116,6 +102,7 @@ configRoutes(app);
 
 app.listen(3000, () => {
   console.log("We've now got a server!");
+  console.log("Routes will be running on http://localhost:3000")
   if (process && process.send) {
     process.send({done: true});
   }
