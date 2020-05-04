@@ -1,14 +1,24 @@
-<main>
-    <h1>Login</h1>
-    <div class="login">
-        <form method="POST" action="/users/login">
-            <label>Username: 
-                <input name="username" type="text" />
-            </label><br/>
-            <label>Password :
-                <input name="password" type="password" />
-            </label><br/><br/>
-            <input class="btn" type="submit" value="Login" />
-        </form>
-    </div>
-</main>
+    <main>
+        <div class="main">
+            <form id="login-form" name ="loginForm" class = "form1" action="/login" method="POST">
+                <label>
+                    <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Username" />  
+                </label>
+                <label>
+                    <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter your Password" />
+                 </label>
+                <button type="submit" class="submit">Login</button>
+            </form>
+        </div>
+        <div>
+            {{#if hasErrors}}
+                <ul class="error">
+                    {{#each errors}}
+                        <li>
+                            {{this}}
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+        </div>
+    </main>

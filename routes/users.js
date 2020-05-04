@@ -2,9 +2,27 @@ const express = require("express");
 const router = express.Router();
 const data = require('../data/');
 const users = data.users;
+const uData = require("../data/userData");
 
 router.get("/login", (req, res) => {
   res.status(200).render("login");
+});
+
+router.get("/profile", async (req, res) => {
+    let hasErrors = true;
+    let errors = [];
+    if(!req.session.AuthCookie) {
+      auth = "Not Authorised User"
+      errors.push("Not Authorised, Please Login");
+      res.status(403).render("layouts/main", {hasErrors:hasErrors, errors: errors});
+    } else {
+      auth = "Authorised User"
+      let userId = req.session.AuthCookie;
+      let userData = await uData.getUserData(userId);
+      return res.status(307).render('profile', { 
+        firstName: userData.firstName,
+        lastName: userData.lastName});
+    }
 });
 
 router.get("/myprofile", (req, res) => {

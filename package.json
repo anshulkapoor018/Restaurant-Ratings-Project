@@ -17,6 +17,8 @@
     "express-handlebars": "^4.0.3",
     "express-session": "^1.17.1",
     "mongodb": "^3.5.5",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.2",
+    "bcryptjs": "^2.4.3",
+    "get-form-data": "^2.0.0"
   }
 }
