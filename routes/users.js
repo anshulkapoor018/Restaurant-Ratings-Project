@@ -16,7 +16,7 @@ router.get("/profile", async (req, res) => {
     if(!req.session.AuthCookie) {
       auth = "Not Authorised User"
       errors.push("Not Authorised, Please Login");
-      res.status(403).render("layouts/main", {hasErrors:hasErrors, errors: errors});
+      res.status(403).render("login", {hasErrors:hasErrors, errors: errors});
     } else {
       auth = "Authorised User"
       let userId = req.session.AuthCookie;
@@ -110,7 +110,7 @@ router.patch("/myprofile", async (req, res) => {
     let userId = req.session.AuthCookie;
     if(userId) {
       auth = "Authorised User"
-      return res.redirect("/users/myprofile");
+      return res.redirect("/users/profile");
     } else {
       let userName = req.body.username;
       let password = req.body.password;
@@ -134,7 +134,7 @@ router.patch("/myprofile", async (req, res) => {
             let userId = await uData.getUserId(userName);
             req.session.AuthCookie = userId;
             req.session.user = user;
-            return res.redirect("/users/myprofile");
+            return res.redirect("/users/profile");
           }
       }
     }
