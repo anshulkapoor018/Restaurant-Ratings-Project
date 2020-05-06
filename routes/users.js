@@ -7,8 +7,25 @@ const uData = require("../data/userData");
 const bcrypt = require("bcryptjs");
 
 router.get("/login", (req, res) => {
-  res.status(200).render("login");
+  let hasErrors = false;
+  let errors = [];
+  let userId = req.session.AuthCookie;
+  if(!userId) {
+    auth = "Not Authorised User"
+    errors.push("Not Authorised, Please Login");
+    res.render("login");
+  } else {
+    auth = "Authorised User"
+    res.redirect("/users/profile");
+  }
 });
+
+router.get("/logout", (req, res) => {
+  req.session.destroy(function(err) {
+    console.log("User logged out!");
+  })
+  res.status.render("login");
+})
 
 router.get("/profile", async (req, res) => {
     let hasErrors = true;
