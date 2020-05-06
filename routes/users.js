@@ -24,7 +24,7 @@ router.get("/logout", (req, res) => {
   req.session.destroy(function(err) {
     console.log("User logged out!");
   })
-  res.status.render("login");
+  res.status(200).render("login");
 })
 
 router.get("/profile", async (req, res) => {
