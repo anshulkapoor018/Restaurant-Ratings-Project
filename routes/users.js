@@ -50,23 +50,16 @@ router.get("/myprofile", async (req, res) => {
   if (!req.session.AuthCookie) {
       return res.redirect("/users/login");
   } else {
-    // I think these lines of code should work with the dynamic log in using database
-    // const currentUser = await users.getUser(req.session.AuthCookie);
-    //   return res.status(307).render('myprofile', { 
-    //     firstName: currentUser.firstName,
-    //     lastName: currentUser.lastName,
-    //     profilePicture: currentUser.profilePicture,
-    //     email: currentUser.email,
-    //     city: currentUser.city,
-    //     state: currentUser.state,
-    //     age: currentUser.age,
-    //     isEditing: false });
-
-    //Temporary testing with static log in
-    return res.status(307).render('myprofile', {
-      firstName: req.session.user.firstName,
-      lastName: req.session.user.lastName
-    })
+    const currentUser = await users.getUser(req.session.AuthCookie);
+      return res.status(307).render('myprofile', { 
+        firstName: currentUser.firstName,
+        lastName: currentUser.lastName,
+        profilePicture: currentUser.profilePicture,
+        email: currentUser.email,
+        city: currentUser.city,
+        state: currentUser.state,
+        age: currentUser.age,
+        isEditing: false });
   }
 });
 
@@ -89,7 +82,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.patch("/myprofile", async (req, res) => {
+router.post("/myprofile", async (req, res) => {
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
@@ -108,7 +101,7 @@ router.patch("/myprofile", async (req, res) => {
     age: age
   }
   try {
-    const updatedUser = await users.updateUser(req.session.id, editedUser);
+    const updatedUser = await users.updateUser(req.session.AuthCookie, editedUser);
     return res.render('myprofile', { 
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,

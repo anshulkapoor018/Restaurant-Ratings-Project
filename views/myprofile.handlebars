@@ -6,7 +6,7 @@
     <p>{{state}}</p>
     <p>{{age}}</p>
 
-        <form if="edit-profile" action="/users/myprofile" method="patch">
+        <form if="edit-profile" action="/users/myprofile" method="post">
             <label for="firstName">First Name
                 <input type="text" id="firstName" name="firstName">
             </label>
@@ -29,5 +29,6 @@
             <label for="age">Age
                 <input type="text" id="age" name="age">
             </label>
+            <button type="submit">Confirm</button>
         </form>
 </main>
