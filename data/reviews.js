@@ -16,7 +16,7 @@ module.exports = {
         if (!rating || (typeof rating != "number") || (rating < 1) || (rating > 5)) throw "rating must be given as a number from 1 to 5";
         const reviewCollection = await reviews();
         let newReview = {
-            resaurantId: restaurantId,
+            restaurantId: restaurantId,
             userId: userId,
             reviewText: reviewText,
             rating: rating,

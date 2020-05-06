@@ -1,6 +1,15 @@
 <main>
     <h2>{{firstName}} {{lastName}} </h2>
     <img src="{{profilePicture}}">
-    <p><a href="/users/myprofile">Edit Profile</p>
+    <p><a href="/users/myprofile">Edit Profile</a></p>
+    <h2>Reviews</h2>
+    {{#each reviews}}
+    <div>
+        <h3><a href="/reviews/{{this.restaurant._id}}">{{this.restaurant.name}}</a></h3>
+        <p><a href="/reviews/{{this.review._id}}">{{this.review.rating}}</a></p>
+        <p>{{this.review.reviewText}}</p>
+        <br/>
+    </div>
+    {{/each}}
     <button type="button" class="submit" onclick="window.location.href='/users/logout'" > Logout </button>
 </main>

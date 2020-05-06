@@ -5,7 +5,10 @@ const express = require("express");
 const router = express.Router();
 const data = require('../data/');
 const users = data.users;
+const restaurants = data.restaurants;
+const reviews = data.reviews;
 const bcrypt = require("bcryptjs");
+const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
 
 router.get("/login", (req, res) => {
@@ -40,9 +43,20 @@ router.get("/profile", async (req, res) => {
       auth = "Authorised User"
       let userId = req.session.AuthCookie;
       let userData = await users.getUser(userId);
+      let reviewObject = [];
+      for (i=0; i<userData.reviewIds.length; i++) {
+        let curReview = await reviews.getReview(userData.reviewIds[i]);
+        let curRestaurant = await restaurants.getRestaurant(curReview.restaurantId);
+        let reviewInfo = {
+          review: curReview,
+          restaurant: curRestaurant
+        }
+        reviewObject.push(reviewInfo);
+      }
       return res.status(307).render('profile', { 
         firstName: userData.firstName,
-        lastName: userData.lastName});
+        lastName: userData.lastName,
+        reviews: reviewObject});
     }
 });
 
@@ -66,7 +80,7 @@ router.get("/myprofile", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
       const user = await users.getUser(req.params.id);
-      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture});
+      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, reviews: user.reviwIds});
     } catch (e) {
       res.status(404).json({ message: "User not found!" });
     }
