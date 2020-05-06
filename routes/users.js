@@ -1,10 +1,12 @@
+const { ObjectId } = require('mongodb');
+const mongoCollections = require("../config/mongoCollections");
+
 const express = require("express");
 const router = express.Router();
 const data = require('../data/');
-const userData = require('../users');
 const users = data.users;
-const uData = require("../data/userData");
 const bcrypt = require("bcryptjs");
+const userData = mongoCollections.users;
 
 router.get("/login", (req, res) => {
   let hasErrors = false;
@@ -37,7 +39,7 @@ router.get("/profile", async (req, res) => {
     } else {
       auth = "Authorised User"
       let userId = req.session.AuthCookie;
-      let userData = await uData.getUserData(userId);
+      let userData = await users.getUser(userId);
       return res.status(307).render('profile', { 
         firstName: userData.firstName,
         lastName: userData.lastName});
@@ -129,9 +131,13 @@ router.patch("/myprofile", async (req, res) => {
       auth = "Authorised User"
       return res.redirect("/users/profile");
     } else {
+      const userCollection = await userData();
       let userName = req.body.username;
       let password = req.body.password;
-      user = userData.users.find(element=>element.username === userName)
+      
+      const user = await userCollection.findOne({ email: userName});
+
+      console.log(user)
       if(!user) {
           auth = "Not Authorised User"
           hasErrors = true;
@@ -148,7 +154,7 @@ router.patch("/myprofile", async (req, res) => {
              return res.render("login", {hasErrors:hasErrors, errors: errors});
           } else {
             auth = "Authorised User"
-            let userId = await uData.getUserId(userName);
+            let userId = await users.getUserId(userName);
             req.session.AuthCookie = userId;
             req.session.user = user;
             return res.redirect("/users/profile");

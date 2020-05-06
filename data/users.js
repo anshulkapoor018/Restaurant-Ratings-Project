@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
-
 const mongoCollections = require("../config/mongoCollections");
+
 const users = mongoCollections.users;
 const reviews = mongoCollections.reviews;
 const comments = mongoCollections.comments;
@@ -50,6 +50,13 @@ module.exports = {
         const userList = await userCollection.find({}).toArray();
         if (userList.length === 0) throw "no users in the collection";
         return userList;
+    },
+
+    async getUserId(username) {    
+        if (!username) throw "username must be given";
+        const userCollection = await users();
+        const userData = await userCollection.findOne({ email: username});
+        return userData._id;
     },
 
     async updateUser(id, updatedUser) {

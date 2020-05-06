@@ -23,40 +23,40 @@ const main = async () => {
 
 
     //Seed Sample Users
-    const U1 = await users.addUser("Anna", "Brown", "anna@gmail.com", "", "Jersey City", "NJ", "21", "123456789");
-    const U2 = await users.addUser("Anshul", "Kapoor", "Anshul@gmail.com", "", "Jersey City", "NJ", "25", "123456789");
-    const U3 = await users.addUser("Kamil", "Zambrowski", "Kamil@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    const U4 = await users.addUser("Michael", "Lyons", "Michael@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    const U5 = await users.addUser("John", "Doe", "John@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    const U6 = await users.addUser("Ava", "Tartaglia", "Ava@gmail.com", "", "Hoboken", "NJ", "23", "123456789");
-    const U7 = await users.addUser("Dan", "Pelis", "Dan@gmail.com", "", "Hoboken", "NJ", "24", "123456789");
-    const U8 = await users.addUser("Jessica", "Su", "Jessica@gmail.com", "", "Hoboken", "NJ", "25", "123456789");
-    const U9 = await users.addUser("Miles", "Rosenberg", "Miles@gmail.com", "", "Hoboken", "NJ", "28", "123456789");
-    const U10 = await users.addUser("Joe", "Smith", "Joe@gmail.com", "", "Hoboken", "NJ", "26", "123456789");
+    const U1 = await users.addUser("Anna", "Brown", "anna@gmail.com", "", "Jersey City", "NJ", "21", "$2a$16$55b4ftaRCsHZcJ2X3VAmL.X85wi/K3ydOMWRoyafn2ubiA38l4HnK");
+    // const U2 = await users.addUser("Anshul", "Kapoor", "Anshul@gmail.com", "", "Jersey City", "NJ", "25", "123456789");
+    // const U3 = await users.addUser("Kamil", "Zambrowski", "Kamil@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
+    // const U4 = await users.addUser("Michael", "Lyons", "Michael@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
+    // const U5 = await users.addUser("John", "Doe", "John@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
+    // const U6 = await users.addUser("Ava", "Tartaglia", "Ava@gmail.com", "", "Hoboken", "NJ", "23", "123456789");
+    // const U7 = await users.addUser("Dan", "Pelis", "Dan@gmail.com", "", "Hoboken", "NJ", "24", "123456789");
+    // const U8 = await users.addUser("Jessica", "Su", "Jessica@gmail.com", "", "Hoboken", "NJ", "25", "123456789");
+    // const U9 = await users.addUser("Miles", "Rosenberg", "Miles@gmail.com", "", "Hoboken", "NJ", "28", "123456789");
+    // const U10 = await users.addUser("Joe", "Smith", "Joe@gmail.com", "", "Hoboken", "NJ", "26", "123456789");
 
     //Seed Sample Reviews
     const reviewForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food!", 4);
-    const reviewForR2 = await reviews.addReview(String(R2._id), String(U2._id), "Amazing Food!", 2);
-    const reviewForR3 = await reviews.addReview(String(R3._id), String(U3._id), "Amazing Food!", 3);
-    const reviewForR4 = await reviews.addReview(String(R4._id), String(U4._id), "Amazing Food!", 1);
-    const reviewForR5 = await reviews.addReview(String(R5._id), String(U5._id), "Amazing Food!", 4);
-    const reviewForR6 = await reviews.addReview(String(R6._id), String(U6._id), "Amazing Food!", 5);
-    const reviewForR7 = await reviews.addReview(String(R7._id), String(U7._id), "Amazing Food!", 5);
-    const reviewForR8 = await reviews.addReview(String(R8._id), String(U8._id), "Amazing Food!", 5);
-    const reviewForR9 = await reviews.addReview(String(R9._id), String(U9._id), "Amazing Food!", 4);
-    const reviewForR10 = await reviews.addReview(String(R10._id), String(U10._id), "Amazing Food!", 3);
+    const reviewForR2 = await reviews.addReview(String(R2._id), String(U1._id), "Amazing Food!", 2);
+    const reviewForR3 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
+    const reviewForR4 = await reviews.addReview(String(R4._id), String(U1._id), "Amazing Food!", 1);
+    const reviewForR5 = await reviews.addReview(String(R5._id), String(U1._id), "Amazing Food!", 4);
+    const reviewForR6 = await reviews.addReview(String(R6._id), String(U1._id), "Amazing Food!", 5);
+    const reviewForR7 = await reviews.addReview(String(R7._id), String(U1._id), "Amazing Food!", 5);
+    const reviewForR8 = await reviews.addReview(String(R8._id), String(U1._id), "Amazing Food!", 5);
+    const reviewForR9 = await reviews.addReview(String(R9._id), String(U1._id), "Amazing Food!", 4);
+    const reviewForR10 = await reviews.addReview(String(R10._id), String(U1._id), "Amazing Food!", 3);
 
     //Seed Sample Reviews
     const commentForReviewForR1 = await comments.addComment(String(U1._id), String(reviewForR1._id), "Amazing Food!");
-    const commentForReviewForR2 = await comments.addComment(String(U2._id), String(reviewForR2._id), "Amazing Food!");
-    const commentForReviewForR3 = await comments.addComment(String(U3._id), String(reviewForR3._id), "Amazing Food!");
-    const commentForReviewForR4 = await comments.addComment(String(U4._id), String(reviewForR4._id), "Amazing Food!");
-    const commentForReviewForR5 = await comments.addComment(String(U5._id), String(reviewForR5._id), "Amazing Food!");
-    const commentForReviewForR6 = await comments.addComment(String(U6._id), String(reviewForR6._id), "Amazing Food!");
-    const commentForReviewForR7 = await comments.addComment(String(U7._id), String(reviewForR7._id), "Amazing Food!");
-    const commentForReviewForR8 = await comments.addComment(String(U8._id), String(reviewForR8._id), "Amazing Food!");
-    const commentForReviewForR9 = await comments.addComment(String(U9._id), String(reviewForR9._id), "Amazing Food!");
-    const commentForReviewForR10 = await comments.addComment(String(U10._id), String(reviewForR10._id), "Amazing Food!");
+    const commentForReviewForR2 = await comments.addComment(String(U1._id), String(reviewForR2._id), "Amazing Food!");
+    const commentForReviewForR3 = await comments.addComment(String(U1._id), String(reviewForR3._id), "Amazing Food!");
+    const commentForReviewForR4 = await comments.addComment(String(U1._id), String(reviewForR4._id), "Amazing Food!");
+    const commentForReviewForR5 = await comments.addComment(String(U1._id), String(reviewForR5._id), "Amazing Food!");
+    const commentForReviewForR6 = await comments.addComment(String(U1._id), String(reviewForR6._id), "Amazing Food!");
+    const commentForReviewForR7 = await comments.addComment(String(U1._id), String(reviewForR7._id), "Amazing Food!");
+    const commentForReviewForR8 = await comments.addComment(String(U1._id), String(reviewForR8._id), "Amazing Food!");
+    const commentForReviewForR9 = await comments.addComment(String(U1._id), String(reviewForR9._id), "Amazing Food!");
+    const commentForReviewForR10 = await comments.addComment(String(U1._id), String(reviewForR10._id), "Amazing Food!");
     console.log('Done seeding database for Restaurant Collection!');
 	await db.serverConfig.close();
 };
