@@ -83,6 +83,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/myprofile", async (req, res) => {
+  let hasErrors = false;
+  let errors = [];
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
@@ -91,6 +93,14 @@ router.post("/myprofile", async (req, res) => {
   const city = data.city;
   const state = data.state;
   const age = data.age;
+  const password = data.password;
+  const confirm = data.confirm;
+  if (password != confirm) {
+    hasErrors = true;
+    errors.push("Passwords must match");
+    return res.render("myprofile", {hasErrors: hasErrors, errors: errors});
+  }
+  const hashedPassword = bcrypt.hashSync(password, 10);
   const editedUser = {
     firstName: firstName,
     lastName: lastName,
@@ -98,7 +108,8 @@ router.post("/myprofile", async (req, res) => {
     email: email,
     city: city,
     state: state,
-    age: age
+    age: age,
+    hashedPassword: hashedPassword
   }
   try {
     const updatedUser = await users.updateUser(req.session.AuthCookie, editedUser);
@@ -110,7 +121,7 @@ router.post("/myprofile", async (req, res) => {
       city: updatedUser.city,
       state: updatedUser.state,
       age: updatedUser.age,
-      isEditing: false });
+      hashedPassword: hashedPassword})
     } catch(e) {
       res.status(404).json({ message: "Could not update user!" });
     }

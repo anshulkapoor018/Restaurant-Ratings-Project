@@ -29,6 +29,23 @@
             <label for="age">Age
                 <input type="text" id="age" name="age">
             </label>
+            <label for="password">Password
+                <input type="text" id="password" name="password">
+            </label>
+            <label for="confirm">Confirm Password
+                <input type="text" id="confirm" name="confirm">
+            </label>
             <button type="submit">Confirm</button>
         </form>
+        <div>
+            {{#if hasErrors}}
+                <ul class="error">
+                    {{#each errors}}
+                        <li>
+                            {{this}}
+                        </li>
+                    {{/each}}
+                </ul>
+            {{/if}}
+        </div>
 </main>
