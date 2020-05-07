@@ -5,7 +5,7 @@ const restaurants = mongoCollections.restaurants;
 // const uuid = require('uuid/v4');
 
 module.exports = {
-    async addRestaurant(name, website, category, address, city, state, zip, longitude, latitude, hashedPassword) {
+    async addRestaurant(name, website, category, address, city, state, zip, latitude, longitude, hashedPassword) {
         if (!name || (typeof name != "string")) throw "must give name as a string";
         if (!website || (typeof website != "string")) throw "must give website as a string";
         if (!category || (typeof category != "string")) throw "must give category as a string";
