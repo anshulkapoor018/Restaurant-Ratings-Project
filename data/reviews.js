@@ -87,7 +87,7 @@ module.exports = {
         if (updatedReview.rating) {
             updatedReviewData.rating = updatedReview.rating;
         }
-        await reviewCollection.updateOne({_id: id}, {$set: updatedReviwData});
+        await reviewCollection.updateOne({_id: id}, {$set: updatedReviewData});
         return await this.getReview(id);
     },
 

@@ -12,7 +12,7 @@ router.get("/:id", async (req, res) => {
       if(req.session.AuthCookie === review.userId) {
         isReviewer = true;
       }
-      res.status(200).render("review", { review: review, isReviewer: isReviewer });
+      res.status(200).render("review", { review: review, isReviewer: isReviewer, id: req.params.id });
     } catch (e) {
       res.status(404).json({ message: "review not found!" });
     }
@@ -44,14 +44,15 @@ router.post("/:id/edit", async (req, res) => {
   const data = req.body;
   const rating = data.rating;
   const reviewText = data.reviewText;
-  const editedUser = {
-    ratings: rating,
+  const editedReview = {
+    rating: rating,
     reviewText: reviewText
   }
   try {
-    const updatedReview = await reviews.updateReview(req.params.id, editedUser);
-    return res.redirect("/:id");
+    const updatedReview = await reviews.updateReview(req.params.id, editedReview);
+    return res.redirect("../"+req.params.id);
   } catch (e) {
+    console.log(e);
     res.status(404).json ({message: "could not update review"});
   }
 });
