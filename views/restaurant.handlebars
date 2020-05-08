@@ -11,6 +11,9 @@
         {{#each reviews}}
         <p class = "rating">Rating: {{this.rating}}/5</p>
         <p>{{this.reviewText}}</p>
+        {{#if this.isReviewer}}
+        <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+        {{/if}}
         <div class = "comments">
             <h4>Comments</h4>
                 {{#each this.commentList}}
