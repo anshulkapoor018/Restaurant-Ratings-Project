@@ -10,10 +10,10 @@ const longitude = parseFloat(document.currentScript.getAttribute('longitude'));
 
 window.initMap = function() {
     let gmap = new google.maps.Map(document.getElementById('gmap'), {
-        center: {lat: longitude, lng: latitude}, // TODO: This will need to be fixed, some lat/lng combos are reversed in DB
+        center: {lat: latitude, lng: longitude},
         zoom: 16
     });
-    let marker = new google.maps.Marker({position: {lat: longitude, lng: latitude}, map: gmap});
+    let marker = new google.maps.Marker({position: {lat: latitude, lng: longitude}, map: gmap});
 }
 
 document.head.appendChild(script);

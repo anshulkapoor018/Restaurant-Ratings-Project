@@ -43,4 +43,8 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/search", async (req, res) => {
+  // TODO Add search logic, probably will require data module modifications as well
+})
+
 module.exports = router;

@@ -223,3 +223,12 @@ a{
 a:hover{
     color: #E4572E;
 }
+
+#search-bar {
+    width: 200px;
+    margin: 0 auto;
+}
+
+#search-form {
+    text-align: center;
+}
