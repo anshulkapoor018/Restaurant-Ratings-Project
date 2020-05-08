@@ -1,24 +1,23 @@
 {
-  "name": "final",
+  "name": "restaurant_rating_system",
   "version": "1.0.0",
   "description": "final project restaurants",
   "main": "app.js",
   "scripts": {
     "seed": "node ./tasks/seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "author": "Group 7: Anshul Kapoor - 10456388 | Anna Brown - 10422836 | Kamil Zambrowski - 10428741 | Michael Lyons - 10425199",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.3",
     "express-session": "^1.17.1",
+    "get-form-data": "^2.0.0",
     "mongodb": "^3.5.5",
-    "uuid": "^7.0.2",
-    "bcryptjs": "^2.4.3",
-    "get-form-data": "^2.0.0"
+    "uuid": "^7.0.2"
   }
 }
