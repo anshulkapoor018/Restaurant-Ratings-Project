@@ -1,7 +1,7 @@
 <main>
     <!-- We should consider having review titles, otherwise rating will be header -->
-    <p>Rating: {{rating}}/5</p>
-    <p>{{reviewText}}</p>
+    <p>Rating: {{review.rating}}/5</p>
+    <p>{{review.reviewText}}</p>
     {{#if isReviewer}}
         <p><a href="/reviews/{{id}}/edit">Edit Review</a></p>
     {{/if}}
