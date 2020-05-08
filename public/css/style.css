@@ -255,9 +255,14 @@ input[type="password"] {
 }
 
 @media screen and (max-width: 1500px) {
+    .card{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 900px) {
     .card,
     .card-wide{
         width: 98%;
-        text-align: center;
     }
 }
