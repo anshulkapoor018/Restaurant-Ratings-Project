@@ -183,6 +183,7 @@ router.post("/myprofile", async (req, res) => {
 
 router.post("/signup", async (req, res) => {
 	let hasErrors = false;
+	const saltRounds = 16;
 	let errors = [];
 	let hashedPassword = ""
 	let firstName = req.body.firstname;
@@ -222,19 +223,8 @@ router.post("/signup", async (req, res) => {
 		res.status(401);
 		return res.render("login", {hasErrors:hasErrors, errors: errors});
 	}
-
-
-	// let newUser = {
-	// 	firstName: firstName,
-	// 	lastName: lastName,
-	// 	email: userName,
-	// 	state: state,
-	// 	age: age,
-	// }
-
-	// console.log(newUser)
-
-	bcrypt.genSalt(16, function (err, salt) {
+	
+	bcrypt.genSalt(saltRounds, function (err, salt) {
 		if (err) {
 			hasErrors = true;
 			errors.push("Error in Parsing the Password, Please Try Again!");
@@ -256,18 +246,10 @@ router.post("/signup", async (req, res) => {
 					users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
 					errors.push("Signed Up Successfully!");
       				res.status(200).render("login", {hasErrors:true, errors: errors});
-					// const staticForm = document.getElementById("signup-form");
-					// staticForm.reset();  // Reset all form data
-					// return false;
-					// alert("Hello! I am an alert box!!");
 				}
 		  	})
 		}
 	});
-	// const U1 = await users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
-	// const staticForm = document.getElementById("signup-form");
-	// staticForm.reset();  // Reset all form data
-	// return false; // Prevent page refresh
 });
 
 module.exports = router;
