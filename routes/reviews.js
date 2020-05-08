@@ -5,9 +5,14 @@ const reviews = data.reviews;
 
 //TODO
 router.get("/:id", async (req, res) => {
+  let isReviewer = false;
     try {
       const review = await reviews.getReview(req.params.id);
-      res.status(200).render("review", { review: review });
+      // if the reviewer is on the page, give them a button to edit
+      if(req.session.AuthCookie === review.userId) {
+        isReviewer = true;
+      }
+      res.status(200).render("review", { review: review, isReviewer: isReviewer });
     } catch (e) {
       res.status(404).json({ message: "review not found!" });
     }
@@ -21,6 +26,34 @@ router.get("/", async (req, res) => {
       // Something went wrong with the server!
       res.status(404).send();
     }
+});
+
+router.get("/:id/edit", async (req, res) => {
+  try {
+    const review = await reviews.getReview(req.params.id);
+    if (req.session.AuthCookie != review.userId) {
+      return res.redirect("/reviews");
+    } else {
+      res.status(200).render("editReview", {reviewId: req.params.id});
+    }} catch (e) {
+      res.status(404).json({ message: "review not found" });
+    }
+});
+
+router.post("/:id/edit", async (req, res) => {
+  const data = req.body;
+  const rating = data.rating;
+  const reviewText = data.reviewText;
+  const editedUser = {
+    ratings: rating,
+    reviewText: reviewText
+  }
+  try {
+    const updatedReview = await reviews.updateReview(req.params.id, editedUser);
+    return res.redirect("/:id");
+  } catch (e) {
+    res.status(404).json ({message: "could not update review"});
+  }
 });
 
 module.exports = router;

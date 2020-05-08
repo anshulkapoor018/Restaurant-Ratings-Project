@@ -2,4 +2,7 @@
     <!-- We should consider having review titles, otherwise rating will be header -->
     <p>Rating: {{rating}}/5</p>
     <p>{{reviewText}}</p>
+    {{#if isReviewer}}
+        <p><a href="/reviews/{{id}}/edit">Edit Review</a></p>
+    {{/if}}
 </main>
