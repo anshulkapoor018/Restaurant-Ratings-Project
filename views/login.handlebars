@@ -1,12 +1,26 @@
-    <main>
-        <div class="main">
+<main>
+    <div class="login_container">
+        <div class="login_form">
+            <header id = "login_headers" align="center">Login</header>
             <form id="login-form" name ="loginForm" class = "form1" action="/users/login" method="POST">
                 <label>
                     <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Username" />  
                 </label>
                 <label>
                     <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter your Password" />
-                 </label>
+                </label>
+                <button type="submit" class="submit">Login</button>
+            </form>
+        </div>
+        <div class="signup_form">
+            <header id = "login_headers" align="center">Signup</header>
+            <form id="login-form" name ="loginForm" class = "form1" action="/users/login" method="POST">
+                <label>
+                    <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Username" />  
+                </label>
+                <label>
+                    <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter your Password" />
+                </label>
                 <button type="submit" class="submit">Login</button>
             </form>
         </div>
@@ -21,4 +35,5 @@
                 </ul>
             {{/if}}
         </div>
-    </main>
+    </div>
+</main>
