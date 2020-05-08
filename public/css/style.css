@@ -28,12 +28,6 @@ input[type="submit"] {
     font-family: Cambria;
 }
 
-/* .login_container {
-    background-color: #FFFFFF;
-    width: 100%;
-    height: 100%;
-} */
-
 .signup_form {
     background-color: #FFFFFF;
     width: 400px;
@@ -181,6 +175,8 @@ nav a:hover{
 }
 
 body{
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding-top: 15px;
     background-color: whitesmoke;
@@ -268,10 +264,36 @@ a:hover{
 }
 
 #search-bar {
-    width: 200px;
+    width: 400px;
     margin: 0 auto;
 }
 
 #search-form {
     text-align: center;
+}
+
+.searchFields{
+    /* margin-bottom: 50px; */
+    /* margin-left: 46px; */
+    text-align: center;
+    margin-bottom: 27px;
+    width: 75%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid lightsalmon;
+}
+
+#indexPage {
+    background-image:url('images/BG1.jpg');
+    background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
