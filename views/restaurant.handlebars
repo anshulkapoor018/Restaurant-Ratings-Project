@@ -1,5 +1,5 @@
 <main>
-    <h3>{{restaurant.name}}</h3>
+    <h1>{{restaurant.name}}</h1>
     <p class = "category">{{restaurant.category}}</p>
     <p>{{restaurant.address}}</p>
     <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
@@ -7,15 +7,16 @@
 
 <div class = "reviews">
     <h3>Reviews</h3>
-    {{#each reviews}}
-
-    <p>Rating: {{this.rating}}/5</p>
-    <p>{{this.reviewText}}</p>
-    <div class = "comments">
-        <h4>Comments</h4>
-            {{#each this.commentList}}
-            <p>{{this.commentText}}</p>
-            {{/each}}
+    <div class = "card">
+        {{#each reviews}}
+        <p class = "rating">Rating: {{this.rating}}/5</p>
+        <p>{{this.reviewText}}</p>
+        <div class = "comments">
+            <h4>Comments</h4>
+                {{#each this.commentList}}
+                <p>{{this.commentText}}</p>
+                {{/each}}
+        </div>
     </div>
 </div>
 {{/each}}

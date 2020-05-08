@@ -1,6 +1,65 @@
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding-top: 15px;
+    background-color: #fafafa;
+}
+
+main{
+    align-items: center;
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    background-color: #fafafa;
+}
+
+.private{
+    display: none;
+}
+.public{
+    display: inline;
+}
+
+h1{
+    text-align: center;
+    color: #8FC93A;
+    font-size: xx-large;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2{
+    text-align: center;
+    color: #8FC93A;
+    font-size: x-large;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h3{
+    color: #8FC93A;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h4{
+    color: #8FC93A;
+    font-size: large;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p{
+    text-align: center;
+    color: #001514;
+    font-size: large;
+    font-family: 'Mukta', sans-serif;
+}
 nav{
     background-color: #E4572E;
     padding: 10px;
+    font-family: 'Montserrat', sans-serif;
     list-style-type: none;
     width: 100%;
     position: fixed;
@@ -11,156 +70,6 @@ nav li {
     padding: 3px;
     margin: 3px;
 }
-
-.private{
-    display: none;
-}
-
-input[type="text"] {
-    display: block;
-}
-
-input[type="password"] {
-    display: block;
-}
-
-input[type="submit"] {
-    font-family: Cambria;
-}
-
-.signup_form {
-    background-color: #FFFFFF;
-    width: 400px;
-    height: 540px;
-    margin: 7em auto;
-    border-radius: 15px;
-    float: right;
-    margin-right: 200px;
-    margin-top: 100px;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-
-#login_headers {
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding-top: 20px;
-    color: #E4572E;
-    font-size: large;
-}
-
-.login_form {
-    background-color: #FFFFFF;
-    width: 400px;
-    height: 280px;
-    margin: 7em auto;
-    border-radius: 15px;
-    float: left;
-    margin-left: 200px;
-    margin-top: 100px;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-
-.sign {
-    padding-top: 40px;
-    color: #8C55AA;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: bold;
-    font-size: 23px;
-}
-
-.inputFields{
-    margin-bottom: 50px;
-    margin-left: 46px;
-    text-align: center;
-    margin-bottom: 27px;
-    width: 75%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-}
-
-.inputDateFields{
-    margin-bottom: 50px;
-    margin-left: -10px;
-    text-align: center;
-    margin-bottom: 27px;
-    width: 75%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-}
-
-.selectFields{
-    margin-bottom: 50px;
-    margin-left: -10px;
-    text-align: center;
-    margin-bottom: 27px;
-    width: 75%;
-    color: rgb(38, 50, 56);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    background: rgba(136, 126, 126, 0.04);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    outline: none;
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.02);
-}
-
-.error {
-    background-color: #FFFFFF;
-    padding-top: 20px;
-    padding-left: 20px;
-    width: 300px;
-    height: 40px;
-    margin: auto;
-    border-radius: 15px;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
-
-.buttonDiv{
-    text-align: center;
-}
-
-form.form1 {
-    padding-top: 40px;
-    text-align: center;
-}
-
-.submit {
-    cursor: pointer;
-    border-radius: 5em;
-    color: #fff;
-    background: grey;
-    border: 0;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-size: 22px;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-}
-
 nav a {
     color:#fafafa;
     text-decoration: none;
@@ -174,21 +83,66 @@ nav a:hover{
     color: #001514;
 }
 
-body{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding-top: 15px;
-    background-color: whitesmoke;
+a{
+    color: #1E96FC;
+    text-decoration: none;
 }
 
-main{
-    align-items: center;
-    padding-top: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+a:hover{
+    color: #8FC93A;
+}
+
+input[type="text"] {
+    display: block;
+}
+
+input[type="password"] {
+    display: block;
+}
+
+.sign {
+    padding-top: 40px;
+    color: #8C55AA;
+    font-weight: bold;
+    font-size: 23px;
+}
+
+.inputFields{
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 15px;
+    width: 75%;
+    color: #001514;
+    font-weight: bold;
+    font-size: medium;
+    letter-spacing: 1px;
+    background-color: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+}
+
+.error {
     background-color: #fafafa;
+    padding-top: 20px;
+    padding-left: 20px;
+    text-decoration: none;
+    text-align: center;
+    list-style-type: none;
+    width: 300px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+.buttonDiv{
+    text-align: center;
 }
 
 .category{
@@ -196,16 +150,16 @@ main{
 }
 
 .reviews{
-    text-align: left;
+    text-align: center;
+}
+.rating{
+    color: #E4572E;
 }
 .reviews h3{
-    text-align: left;
+    text-align: center;
 }
 .reviews p {
-    text-align: left;
-}
-.comments{
-    padding-left: 25px;
+    text-align: center;
 }
 
 .login{
@@ -214,53 +168,18 @@ main{
 }
 
 .btn{
-    color: #E4572E;
+    color: #1E96FC;
+    font-size: large;
     background-color: #fafafa;
-    border: 2px solid #E4572E;
+    border: 2px solid #1E96FC;
+    border-radius: 5em;
     padding: 8px;
+    margin: 15px;
+    text-align: center;
 }
 .btn:hover {
     color: #fafafa;
-    background-color: #E4572E;
-}
-
-h1{
-    text-align: center;
-    color: #8FC93A;
-    font-size: xx-large;
-}
-
-h2{
-    text-align: center;
-    color: #8FC93A;
-    font-size: x-large;
-}
-
-h3{
-    color: #8FC93A;
-    text-align: center;
-    font-weight: bold;
-    font-size: x-large;
-}
-
-h4{
-    color: #8FC93A;
-    font-size: large;
-}
-
-p{
-    text-align: center;
-    color: #001514;
-    font-size: large;
-}
-
-a{
-    color: #1E96FC;
-    text-decoration: none;
-}
-
-a:hover{
-    color: #E4572E;
+    background-color: #1E96FC;
 }
 
 #search-bar {
@@ -273,12 +192,10 @@ a:hover{
 }
 
 .searchFields{
-    /* margin-bottom: 50px; */
-    /* margin-left: 46px; */
     text-align: center;
     margin-bottom: 27px;
     width: 75%;
-    color: rgb(38, 50, 56);
+    color:#001514;
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 1px;
@@ -288,12 +205,59 @@ a:hover{
     border-radius: 20px;
     outline: none;
     box-sizing: border-box;
-    border: 1px solid lightsalmon;
+    border: 1px solid #E4572E;
 }
 
-#indexPage {
-    background-image:url('images/BG1.jpg');
-    background-attachment:fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+.card {
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+    text-align: center;
+    float: left; 
+    width: 23%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 1%;
+}
+
+.card-wide {
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    float: left; 
+    width: 45%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 2%;
+}
+.card-full {
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    float: left; 
+    width: 96%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 2%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card-wide:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 1500px) {
+    .card,
+    .card-wide{
+        width: 98%;
+        text-align: center;
+    }
 }
