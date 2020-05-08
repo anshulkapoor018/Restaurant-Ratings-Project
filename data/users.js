@@ -12,7 +12,14 @@ module.exports = {
         if (!lastName || (typeof lastName != "string")) throw "must give last name as a string";
         if (!email || (typeof email != "string")) throw "must give email as a string";
         // if (!profilePicture || (typeof profilePicture != "string")) throw "must give profilePicture as a string";
-        if (!city || (typeof city != "string")) throw "must give city as a string";
+        if (city == "" || !city){
+            city = ""
+        } else {
+            if (typeof city != "string") {
+                throw "must give city as a string";
+            }
+        }
+
         if (!state || (typeof state != "string")) throw "must give state as a string";
         if (!age || (typeof age != "string")) throw "must give age as a string";
         if (!hashedPassword || (typeof hashedPassword != "string")) throw "must give hashed password as a string";

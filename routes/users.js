@@ -149,36 +149,125 @@ router.post("/myprofile", async (req, res) => {
       auth = "Authorised User"
       return res.redirect("/users/profile");
     } else {
-      const userCollection = await userData();
-      let userName = req.body.username;
-      let password = req.body.password;
+      	const userCollection = await userData();
+      	let userName = req.body.username;
+      	let password = req.body.password;
       
-      const user = await userCollection.findOne({ email: userName});
+      	const user = await userCollection.findOne({ email: userName});
 
-      console.log(user)
-      if(!user) {
-          auth = "Not Authorised User"
-          hasErrors = true;
-          errors.push("Invalid Username or Password");
-          res.status(401);
-          return res.render("login", {hasErrors:hasErrors, errors: errors});
-      } else {
-          let isSame = await bcrypt.compare(password, user.hashedPassword);
-          if(!isSame) {
-             auth = "Not Authorised User"
-             hasErrors = true;
-             errors.push("Invalid Username/Password");
-             res.status(401);
-             return res.render("login", {hasErrors:hasErrors, errors: errors});
-          } else {
-            auth = "Authorised User"
-            let userId = await users.getUserId(userName);
-            req.session.AuthCookie = userId;
-            req.session.user = user;
-            return res.redirect("/users/profile");
-          }
-      }
+      	console.log(user)
+      	if(!user) {
+			auth = "Not Authorised User"
+			hasErrors = true;
+			errors.push("Invalid Username or Password");
+			res.status(401);
+			return res.render("login", {hasErrors:hasErrors, errors: errors});
+		} else {
+			let isSame = await bcrypt.compare(password, user.hashedPassword);
+			if(!isSame) {
+				auth = "Not Authorised User"
+				hasErrors = true;
+				errors.push("Invalid Username/Password");
+				res.status(401);
+				return res.render("login", {hasErrors:hasErrors, errors: errors});
+			} else {
+				auth = "Authorised User"
+				let userId = await users.getUserId(userName);
+				req.session.AuthCookie = userId;
+				req.session.user = user;
+				return res.redirect("/users/profile");
+			}
+      	}
     }
-  });
+});
+
+router.post("/signup", async (req, res) => {
+	let hasErrors = false;
+	let errors = [];
+	let hashedPassword = ""
+	let firstName = req.body.firstname;
+	let lastName = req.body.lastname;
+	let age = req.body.age;
+	let userName = req.body.username;
+	let password = req.body.password;
+	let state = req.body.state;
+
+	if(firstName == "" || !firstName){
+		hasErrors = true;
+		errors.push("Please Enter your First Name");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+	}
+	if(lastName == "" || !lastName){
+		hasErrors = true;
+		errors.push("Please Enter your Last Name");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+	}
+	if(age == "" || !age){
+		hasErrors = true;
+		errors.push("Please Enter your age");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+	}
+	if(userName == "" || !userName){
+		hasErrors = true;
+		errors.push("Please Enter your Email");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+	}
+	if(password == "" || !password){
+		hasErrors = true;
+		errors.push("Please Enter a Password");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+	}
+
+
+	// let newUser = {
+	// 	firstName: firstName,
+	// 	lastName: lastName,
+	// 	email: userName,
+	// 	state: state,
+	// 	age: age,
+	// }
+
+	// console.log(newUser)
+
+	bcrypt.genSalt(16, function (err, salt) {
+		if (err) {
+			hasErrors = true;
+			errors.push("Error in Parsing the Password, Please Try Again!");
+			res.status(401);
+			return res.render("login", {hasErrors:hasErrors, errors: err});
+			// throw err
+		} else {
+			bcrypt.hash(password, salt, function(err, hash) {
+				if (err) {
+					hasErrors = true;
+					errors.push("Error in Parsing the Password, Please Try Again!");
+					res.status(401);
+					return res.render("login", {hasErrors:hasErrors, errors: err});
+					// throw err
+				} else {
+					console.log(hash);
+					console.log(typeof(hash));
+					hashedPassword = hash;
+					users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
+					errors.push("Signed Up Successfully!");
+      				res.status(200).render("login", {hasErrors:true, errors: errors});
+					// const staticForm = document.getElementById("signup-form");
+					// staticForm.reset();  // Reset all form data
+					// return false;
+					// alert("Hello! I am an alert box!!");
+				}
+		  	})
+		}
+	});
+	// const U1 = await users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
+	// const staticForm = document.getElementById("signup-form");
+	// staticForm.reset();  // Reset all form data
+	// return false; // Prevent page refresh
+});
 
 module.exports = router;
