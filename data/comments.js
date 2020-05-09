@@ -34,10 +34,10 @@ module.exports = {
                 throw 'Could not update Review Collection with Review Data!';
             }
             //Add the comment id to the user
-            const updatedInfo2 = await usersCollection.updateOne({ _id: objIdForUser }, { $push: { commentIds: String(newComment._id) } });
-            if (updatedInfo2.modifiedCount === 0) {
-                throw 'Could not update Users Collection with Review Data!';
-            }
+            // const updatedInfo2 = await usersCollection.updateOne({ _id: objIdForUser }, { $push: { commentIds: String(newComment._id) } });
+            // if (updatedInfo2.modifiedCount === 0) {
+            //     throw 'Could not update Users Collection with Review Data!';
+            // }
         }
 
         const newId = insertInfo.insertedId;
@@ -72,12 +72,12 @@ module.exports = {
             throw "could not delete comment with id of ${id}";
         }
         //remove the comment from the user and the review
-        const userCollection = await users();
-        const reviewCollection = await reviews();
-        const updateInfoUser = await userCollection.updateOne({_id: comment.userId}, {$pull: {commentIds: id}});
-        if (!updateInfoUser.matchedCount && !updateInfoUser.modifiedCount) throw "could not remove commentId from the user";
-        const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
-        if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
+        // const userCollection = await users();
+        // const reviewCollection = await reviews();
+        // const updateInfoUser = await userCollection.updateOne({_id: comment.userId}, {$pull: {commentIds: id}});
+        // if (!updateInfoUser.matchedCount && !updateInfoUser.modifiedCount) throw "could not remove commentId from the user";
+        // const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
+        // if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
         return true;
     },
 

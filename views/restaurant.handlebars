@@ -38,6 +38,7 @@
                 <p>{{this.reviewText}}</p>
                 {{#if this.isReviewer}}
                 <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
                 {{/if}}
                 <div class = "comments">
                     <h4>Comments</h4>

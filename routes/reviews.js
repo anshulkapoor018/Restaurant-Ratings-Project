@@ -80,4 +80,28 @@ router.post("/:id/edit", async (req, res) => {
   }
 });
 
+router.get('/:restaurantId/:reviewId/delete', async (req, res) => {
+	if (!req.params.reviewId) {
+		res.status(400).json({ error: 'You must Supply an ID to delete' });
+		return;
+	}
+	try {
+		await reviews.getReview(req.params.reviewId);
+	} catch (e) {
+		res.status(404).json({ error: 'Review not found!' });
+		return;
+	}
+	try {
+    deleteReviewWithComments = await reviews.removeReview(req.params.reviewId);
+    if(deleteReviewWithComments){
+      return res.redirect("/restaurants/" + req.params.restaurantId);
+    } else {
+      return res.status(404).send();
+    }
+		//res.json({deleted: true, data: toBeDeletedReview});
+	} catch (e) {
+		res.status(500).json({ error: e });
+	}
+});
+
 module.exports = router;
