@@ -12,4 +12,15 @@
             <button type="submit">Confirm</button>
         </form>
     </div>
+    <div>
+        {{#if hasError}}
+            <ul class="error">
+                {{#each error}}
+                    <li>
+                        {{this}}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
 </main>
