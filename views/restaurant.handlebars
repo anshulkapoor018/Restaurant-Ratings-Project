@@ -12,7 +12,7 @@
     {{!-- <button class="open-button" onclick="openForm()">Post a Review</button> --}}
     <div class="form-popup" id="myForm">
         <h2>Post a Review</h2>
-        <form id="login-form" name ="loginForm" class="form-container" action="/reviews" method="POST">
+        <form id="login-form" name ="loginForm" class="form-container" action="/reviews/{{restaurant._id}}/add" method="POST">
             <label>
                 <input type="text" name="rating" id="rating" class = "inputFields" pattern="\d+" placeholder="Enter your Rating" /> 
             </label>
@@ -30,9 +30,9 @@
             <button type="button" class="btn cancel" onclick="closeLoginForm()">Cancel</button>
         </form>
     </div>
+    <h3>Reviews</h3>
     {{#each reviews}}
         <div class = "reviews">
-            <h3>Reviews</h3>
             <div class = "card">
                 <p class = "rating">Rating: {{this.rating}}/5</p>
                 <p>{{this.reviewText}}</p>

@@ -18,13 +18,16 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/:id/add", async (req, res) => {
   try {
     const reviewRating = req.body.rating;
     const reviewText = req.body.reviewText;
     console.log(reviewText);
-    // const reviewForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food!", 4);
-    
+    let userId = req.session.AuthCookie;
+    let restaurantID = req.params.id;
+    const reviewForRes = await reviews.addReview(restaurantID, userId, reviewText, Number(reviewRating));
+    const redirectURL = "/restaurants/" + restaurantID;
+    return res.redirect(redirectURL);
   } catch (e) {
     // Something went wrong with the server!
     res.status(404).send();
