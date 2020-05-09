@@ -4,24 +4,46 @@
     <p>{{restaurant.address}}</p>
     <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
     <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
-
-<div class = "reviews">
-    <h3>Reviews</h3>
-    <div class = "card">
-        {{#each reviews}}
-        <p class = "rating">Rating: {{this.rating}}/5</p>
-        <p>{{this.reviewText}}</p>
-        {{#if this.isReviewer}}
-        <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
-        {{/if}}
-        <div class = "comments">
-            <h4>Comments</h4>
-                {{#each this.commentList}}
-                <p>{{this.commentText}}</p>
-                {{/each}}
-        </div>
+    <button class="open-button" onclick="openForm()">Post a Review</button>
+    <div class="form-popup" id="myForm">
+        <h2>Post a Review</h2>
+        <form id="login-form" name ="loginForm" class="form-container" action="/users/login" method="POST">
+            <label>
+                <input type="text" name="rating" id="rating" class = "inputFields" pattern="\d+" placeholder="Enter your Rating" /> 
+            </label>
+            <label>
+                <input type="text" name="reviewText" id="reviewText" class = "inputFields" placeholder="Enter your Review" />
+            </label>
+            <button type="submit" class="btn">Post!</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
     </div>
-</div>
-{{/each}}
-<script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
+    {{#each reviews}}
+        <div class = "reviews">
+            <h3>Reviews</h3>
+            <div class = "card">
+                <p class = "rating">Rating: {{this.rating}}/5</p>
+                <p>{{this.reviewText}}</p>
+                {{#if this.isReviewer}}
+                <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                {{/if}}
+                <div class = "comments">
+                    <h4>Comments</h4>
+                    {{#each this.commentList}}
+                        <p>{{this.commentText}}</p>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+    <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
 </main>
