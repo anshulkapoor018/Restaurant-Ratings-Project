@@ -17,6 +17,19 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ message: "review not found!" });
     }
 });
+
+router.post("/", async (req, res) => {
+  try {
+    const reviewRating = req.body.rating;
+    const reviewText = req.body.reviewText;
+    console.log(reviewText);
+    // const reviewForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food!", 4);
+    
+  } catch (e) {
+    // Something went wrong with the server!
+    res.status(404).send();
+  }
+});
   
 router.get("/", async (req, res) => {
     try {

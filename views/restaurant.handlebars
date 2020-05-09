@@ -4,10 +4,15 @@
     <p>{{restaurant.address}}</p>
     <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
     <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
-    <button class="open-button" onclick="openForm()">Post a Review</button>
+    {{#if userLoggedIn}}
+        <button class="open-button" onclick="openForm()">Post a Review</button>
+    {{else}}
+        <button class="open-button" onclick="openLoginForm()">Post a Review</button>
+    {{/if}}
+    {{!-- <button class="open-button" onclick="openForm()">Post a Review</button> --}}
     <div class="form-popup" id="myForm">
         <h2>Post a Review</h2>
-        <form id="login-form" name ="loginForm" class="form-container" action="/users/login" method="POST">
+        <form id="login-form" name ="loginForm" class="form-container" action="/reviews" method="POST">
             <label>
                 <input type="text" name="rating" id="rating" class = "inputFields" pattern="\d+" placeholder="Enter your Rating" /> 
             </label>
@@ -16,6 +21,13 @@
             </label>
             <button type="submit" class="btn">Post!</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+    <div class="form-popup" id="myLoginForm">
+        <h2>Login to post a review!</h2>
+        <form id="login-form" name ="loginForm" class="form-container" action="javascript:void(0);">
+            <button type="submit" class="btn" id="routeToLogin">Login</button>
+            <button type="button" class="btn cancel" onclick="closeLoginForm()">Cancel</button>
         </form>
     </div>
     {{#each reviews}}
@@ -45,5 +57,17 @@
         function closeForm() {
             document.getElementById("myForm").style.display = "none";
         }
+
+        function openLoginForm() {
+            document.getElementById("myLoginForm").style.display = "block";
+        }
+
+        function closeLoginForm() {
+            document.getElementById("myLoginForm").style.display = "none";
+        }
+        
+        document.getElementById("routeToLogin").onclick = function () {
+            location.href = "/users/login";
+        };
     </script>
 </main>

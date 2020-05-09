@@ -9,6 +9,7 @@ router.get("/:id", async (req, res) => {
     try {
       const restaurant = await restaurants.getRestaurant(req.params.id);
       let reviewList = [];
+      let userLoggedIn = false;
       try { // Get reviews of restaurant
         for (reviewId of restaurant.reviews) {
           review = await reviews.getReview(reviewId);
@@ -33,7 +34,13 @@ router.get("/:id", async (req, res) => {
       } catch (e) {
         console.log(e);
       }
-      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList })
+      let userId = req.session.AuthCookie;
+      if(!userId) {
+        userLoggedIn = false;
+      } else {
+        userLoggedIn = true;
+      }
+      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn })
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }
