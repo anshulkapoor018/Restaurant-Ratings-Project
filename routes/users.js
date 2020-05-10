@@ -207,7 +207,17 @@ router.post("/signup", async (req, res) => {
 	let age = req.body.age;
 	let userName = req.body.username;
 	let password = req.body.password;
-	let state = req.body.state;
+  let state = req.body.state;
+  
+  const userCollection = await userData();      
+  const user = await userCollection.findOne({ email: userName});
+  if (user) {
+    hasErrors = true;
+    errors.push("User with this email already exists");
+    res.status(401);
+    return res.render("login", {hasErrors:hasErrors, errors: errors});
+  }
+
 
 	if(firstName == "" || !firstName){
 		hasErrors = true;
