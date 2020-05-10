@@ -68,10 +68,15 @@ module.exports = {
 
     async updateUser(id, updatedUser) {
         if (!id) throw "id is missing";
-        if (!updatedUser) throw "user is missing";
+        if (!updatedUser) {
+            return await this.getUser(id);
+        }
         if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const userCollection = await users();
-        const updatedUserData = {};
+        let updatedUserData = {};
+        if (updatedUser === await this.getUser(id)) {
+            return await this.getUser(id);
+        }
 
         if (updatedUser.firstName) {
             updatedUserData.firstName = updatedUser.firstName;
@@ -96,6 +101,9 @@ module.exports = {
         }
         if (updatedUser.hashedPassword) {
             updatedUserData.hashedPassword = updatedUser.hashedPassword;
+        }
+        if (updatedUserData = {}) {
+            return await this.getUser(id);
         }
         const updateInfoUser = await userCollection.updateOne({ _id: id }, { $set: updatedUserData });
         if (updateInfoUser.modifiedCount === 0) throw "could not update user";
