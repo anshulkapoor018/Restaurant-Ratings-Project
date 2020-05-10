@@ -4,6 +4,7 @@ const data = require('../data/');
 const comments = data.comments;
 const restaurants = data.restaurants;
 const reviews = data.reviews;
+const users = data.users;
 
 router.get("/:id", async (req, res) => {
     try {
@@ -29,7 +30,9 @@ router.get("/:id", async (req, res) => {
           } else {
             review.isReviewer = false;
           }
+          review.user = await users.getUser(review.userId);
           reviewList.push(review); // This is a simple FIFO - can be improved or filtered in client JS
+
         }
       } catch (e) {
         console.log(e);

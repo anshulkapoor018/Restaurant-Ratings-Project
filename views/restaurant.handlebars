@@ -12,6 +12,7 @@
         {{#each reviews}}
             <div class = "reviews">
                 <div class = "card-full">
+                    <p>{{this.user.firstName}} {{this.user.lastName}}</p>
                     <p class = "rating">Rating: {{this.rating}}/5</p>
                     <p>{{this.reviewText}}</p>
                     {{#if this.isReviewer}}
