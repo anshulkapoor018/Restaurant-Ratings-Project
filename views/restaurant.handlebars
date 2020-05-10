@@ -1,9 +1,35 @@
 <main>
-    <h1>{{restaurant.name}}</h1>
-    <p class = "category">{{restaurant.category}}</p>
-    <p>{{restaurant.address}}</p>
-    <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
-    <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
+    <div class="card-wide" id ="sticky">
+        <h1>{{restaurant.name}}</h1>
+        <p class = "category">{{restaurant.category}}</p>
+        <p>{{restaurant.address}}</p>
+        <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
+        <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
+    </div>
+    
+    <div class="card-wide" id="right">
+        <h3>Reviews</h3>
+        {{#each reviews}}
+            <div class = "reviews">
+                <div class = "card-full">
+                    <p class = "rating">Rating: {{this.rating}}/5</p>
+                    <p>{{this.reviewText}}</p>
+                    {{#if this.isReviewer}}
+                    <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                    <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
+                    {{/if}}
+                    <div class = "comments">
+                        <h4>Comments</h4>
+                        {{#each this.commentList}}
+                            <p>{{this.commentText}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+
     {{#if userLoggedIn}}
         <button class="open-button" onclick="openForm()">Post a Review</button>
     {{else}}
@@ -30,25 +56,7 @@
             <button type="button" class="btn cancel" onclick="closeLoginForm()">Cancel</button>
         </form>
     </div>
-    <h3>Reviews</h3>
-    {{#each reviews}}
-        <div class = "reviews">
-            <div class = "card">
-                <p class = "rating">Rating: {{this.rating}}/5</p>
-                <p>{{this.reviewText}}</p>
-                {{#if this.isReviewer}}
-                <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
-                <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
-                {{/if}}
-                <div class = "comments">
-                    <h4>Comments</h4>
-                    {{#each this.commentList}}
-                        <p>{{this.commentText}}</p>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-    {{/each}}
+    
     <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
     <script>
         function openForm() {

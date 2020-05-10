@@ -97,13 +97,15 @@
 
     <div>
         {{#if hasErrors}}
-            <ul class="error">
+        <div class="error">
+            <ul>
                 {{#each errors}}
                     <li>
                         {{this}}
                     </li>
                 {{/each}}
             </ul>
+        </div>
         {{/if}}
     </div>
 </main>

@@ -10,7 +10,15 @@ const constructorMethod = app => {
   app.use("/users", users);
   
   app.get("/", (req, res) => {
-    res.status(200).render("index");
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+    if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+
+    res.status(200).render("index", {userLoggedIn: userLoggedIn});
   });
 
   app.use('*', (req, res) => {

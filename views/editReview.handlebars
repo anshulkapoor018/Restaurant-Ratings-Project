@@ -1,26 +1,28 @@
 <main>
     <br>
-    <div>
+    <div class = "card-full">
         <form if="edit-review" action="/reviews/{{reviewId}}/edit" method="post">
-            <label for="rating">Rating
-                <input type="number" id="rating" name="rating" value={{rating}}>
+            <label for="rating"><h4>Rating</h4>
+                <input type="number" id="rating" name="rating" value={{rating}} class="inputFields">
             </label>
             <br>
-            <label for="reviewText">Review Text
-                <input type="text" id="reviewText" name="reviewText" value="{{reviewText}}">
+            <label for="reviewText"><h4>Review Text</h4>
+                <input type="text" id="reviewText" name="reviewText" value="{{reviewText}}" class="inputFields">
             </label>
-            <button type="submit">Confirm</button>
+            <button type="submit" class="btn">Confirm</button>
         </form>
     </div>
     <div>
         {{#if hasError}}
-            <ul class="error">
+        <div class="error">
+            <ul>
                 {{#each error}}
                     <li>
                         {{this}}
                     </li>
                 {{/each}}
             </ul>
+        </div>
         {{/if}}
     </div>
 </main>

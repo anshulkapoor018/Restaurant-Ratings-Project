@@ -49,7 +49,14 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
       const restaurantList = await restaurants.getAllRestaurants();
-      res.status(200).render("restaurants", { restaurants: restaurantList });
+      let userLoggedIn = false;
+      let userId = req.session.AuthCookie;
+      if(!userId) {
+        userLoggedIn = false;
+      } else {
+        userLoggedIn = true;
+      }
+      res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
     } catch (e) {
       // Something went wrong with the server!
       res.status(404).send();
@@ -64,7 +71,16 @@ router.post("/search", async (req, res) => {
     if (restaurantList.length === 0) {
       restaurantList = await restaurants.getRestaurantsByName(body.search);
     }
-    res.status(200).render("restaurants", { restaurants: restaurantList });
+
+  let userLoggedIn = false;
+  let userId = req.session.AuthCookie;
+  if(!userId) {
+    userLoggedIn = false;
+  } else {
+    userLoggedIn = true;
+  }
+
+    res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
   } catch (e) {
     res.status(500).send();
   }

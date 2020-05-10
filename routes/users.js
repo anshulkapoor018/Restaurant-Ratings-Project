@@ -56,7 +56,8 @@ router.get("/profile", async (req, res) => {
       return res.status(307).render('profile', { 
         firstName: userData.firstName,
         lastName: userData.lastName,
-        reviews: reviewObject});
+        reviews: reviewObject,
+        userLoggedIn: true});
     }
 });
 
@@ -73,7 +74,8 @@ router.get("/myprofile", async (req, res) => {
         city: currentUser.city,
         state: currentUser.state,
         age: currentUser.age,
-        isEditing: false });
+        isEditing: false,
+        userLoggedIn: true});
   }
 });
 
@@ -135,7 +137,8 @@ router.post("/myprofile", async (req, res) => {
       city: updatedUser.city,
       state: updatedUser.state,
       age: updatedUser.age,
-      hashedPassword: hashedPassword})
+      hashedPassword: hashedPassword,
+      userLoggedIn: true})
     } catch(e) {
       res.status(404).json({ message: "Could not update user!" });
     }
