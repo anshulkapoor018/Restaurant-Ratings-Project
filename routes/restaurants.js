@@ -58,9 +58,12 @@ router.get("/", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   const body = req.body;
+  // TODO: Case insensitive search
   try {
-    const restaurantList = await restaurants.getRestaurantsByCategory(body.search);
-    console.log(restaurantList);
+    let restaurantList = await restaurants.getRestaurantsByCategory(body.search);
+    if (restaurantList.length === 0) {
+      restaurantList = await restaurants.getRestaurantsByName(body.search);
+    }
     res.status(200).render("restaurants", { restaurants: restaurantList });
   } catch (e) {
     res.status(500).send();

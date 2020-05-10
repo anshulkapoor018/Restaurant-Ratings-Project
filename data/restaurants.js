@@ -56,6 +56,14 @@ module.exports = {
         return restaurantList;
     },
 
+    async getRestaurantsByName(name) {
+        if (!name) throw "Error (getRestaurantsByName): Must provide name.";
+        if (typeof(name) !== "string") throw "Error (getRestaurantsByName): Name must be a string.";
+        const restaurantCollection = await restaurants();
+        const restaurantList = await restaurantCollection.find({ name: name }).toArray();
+        return restaurantList;
+    },
+
     async getAllRestaurants() {
         const restaurantCollection = await restaurants();
         const restaurantList = await restaurantCollection.find({}).toArray();
