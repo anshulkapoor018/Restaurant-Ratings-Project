@@ -48,6 +48,14 @@ module.exports = {
         return restaurant;
     },
 
+    async getRestaurantsByCategory(category) {
+        if (!category) throw "Error (getRestaurantsByCategory): Must provide category.";
+        if (typeof(category) !== "string") throw "Error (getRestaurantsByCategory): Category must be a string.";
+        const restaurantCollection = await restaurants();
+        const restaurantList = await restaurantCollection.find({ category: category }).toArray();
+        return restaurantList;
+    },
+
     async getAllRestaurants() {
         const restaurantCollection = await restaurants();
         const restaurantList = await restaurantCollection.find({}).toArray();

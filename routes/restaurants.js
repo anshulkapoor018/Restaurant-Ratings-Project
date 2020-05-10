@@ -57,7 +57,14 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/search", async (req, res) => {
-  // TODO Add search logic, probably will require data module modifications as well
+  const body = req.body;
+  try {
+    const restaurantList = await restaurants.getRestaurantsByCategory(body.search);
+    console.log(restaurantList);
+    res.status(200).render("restaurants", { restaurants: restaurantList });
+  } catch (e) {
+    res.status(500).send();
+  }
 })
 
 module.exports = router;
