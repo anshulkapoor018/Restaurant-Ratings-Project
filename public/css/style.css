@@ -3,7 +3,7 @@ body{
     height: 100%;
     margin: 0;
     padding-top: 15px;
-    background: url("../images/BG1.jpg")
+    background: url("../images/BG1.jpg") no-repeat;
 }
 
 main{
@@ -385,24 +385,53 @@ input[type="password"] {
     display: inline-block;
 }
   
-  .dropdown-content {
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-  }
+}
   
-  .dropdown-content a {
+.dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
+}
   
-  .dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #ddd;}
   
-  .dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {display: block;}
   
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.comments {
+    text-align: left;
+}
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+
+#col-md-6-override {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* #row-override {
+    display: none;
+} */

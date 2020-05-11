@@ -20,12 +20,9 @@
                             <p class = "rating">Rating: {{this.rating}}/5</p>
                         </div>
                     </div>
-
                     <div class = "reviewText">
                         <p>{{this.reviewText}}</p>
                     </div>
-                    {{!-- <br>
-                    <br> --}}
                     {{#if this.isReviewer}}
                         <div class="dropdown">
                             <button class="dropbtn">Menu</button>
@@ -34,14 +31,43 @@
                                 <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
                             </div>
                         </div>
-                        {{!-- <div class = "reviewText">
-                            <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
-                            <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
-                        </div> --}}
+                    {{/if}}
+                    {{#if userLoggedIn}}
+                        <div class="dropdown">
+                            <button class="dropbtn">Menu</button>
+                            <div class="dropdown-content">
+                                <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                                <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
+                            </div>
+                        </div>
+                        <button class = "btn" onclick="openCommentBox()">Add a Comment</button>
                     {{/if}}
                     <div class = "comments">
-                        <h4>Comments</h4>
+                        {{!-- <button class = "btn" onclick="openCommentBox()">Add a Comment</button> --}}
+                        <br>
+                            <div class="row bootstrap snippets" id = "row-override">
+                                <div class="col-md-6" id="col-md-6-override">
+                                    <div class="comment-wrapper">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                Comment Panel
+                                            </div>
+                                            <div class="panel-body">
+                                                <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{this.user._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
+                                                    <label>
+                                                        <input type="textarea" name = "commentValue" id = "commentValue" class="form-control" placeholder="Write a comment..." rows="3" /> 
+                                                    </label>
+                                                    <button type="submit" class="">Post!</button>
+                                                    {{!-- <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button> --}}
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <h3>Comments</h3>
                         {{#each this.commentList}}
+
                             <p>{{this.commentText}}</p>
                         {{/each}}
                     </div>
@@ -49,8 +75,6 @@
             </div>
         {{/each}}
     </div>
-
-
     {{#if userLoggedIn}}
         {{#if loggedInReviewer}}
             <button class="open-button" onclick="openAlert()">Post a Review</button>
@@ -111,6 +135,14 @@
 
         function closeAlert() {
             document.getElementById("myAlert").style.display = "none";
+        }
+
+        function openCommentBox() {
+            document.getElementById("row-override").style.display = "block";
+        }
+
+        function closeCommentBox() {
+            document.getElementById("row-override").style.display = "none";
         }
         
         document.getElementById("routeToLogin").onclick = function () {

@@ -22,4 +22,23 @@ router.get("/", async (req, res) => {
       res.status(404).send();
     }
 });
+
+router.post('/:userId/:reviewId/:restaurantId/add', async (req, res) => {
+    if (!req.params.reviewId || !req.params.userId) {
+      res.status(400).json({ error: 'You must Supply an ID to add comment to!' });
+      return;
+	}
+	const commentVal = req.body.commentValue;
+    try {
+      addCommentOnReview = await comments.addComment(req.params.userId, req.params.reviewId, commentVal)
+      if(addCommentOnReview){
+        return res.redirect("/restaurants/" + req.params.restaurantId);
+      } else {
+        return res.status(404).send();
+      }
+      //res.json({deleted: true, data: toBeDeletedReview});
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+});
 module.exports = router;
