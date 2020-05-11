@@ -71,20 +71,16 @@ router.get("/", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   const body = req.body;
-  // TODO: Case insensitive search
   try {
-    let restaurantList = await restaurants.getRestaurantsByCategory(body.search);
-    if (restaurantList.length === 0) {
-      restaurantList = await restaurants.getRestaurantsByName(body.search);
-    }
+    let restaurantList = await restaurants.getRestaurantsViaSearch(body.search);
 
-  let userLoggedIn = false;
-  let userId = req.session.AuthCookie;
-  if(!userId) {
-    userLoggedIn = false;
-  } else {
-    userLoggedIn = true;
-  }
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+    if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
 
     res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
   } catch (e) {

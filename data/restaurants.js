@@ -48,19 +48,12 @@ module.exports = {
         return restaurant;
     },
 
-    async getRestaurantsByCategory(category) {
-        if (!category) throw "Error (getRestaurantsByCategory): Must provide category.";
-        if (typeof(category) !== "string") throw "Error (getRestaurantsByCategory): Category must be a string.";
+    async getRestaurantsViaSearch(search) {
+        if (!search) throw "Error (getRestaurantsViaSearch): Must provide search.";
+        if (typeof(search) !== "string") throw "Error (getRestaurantsViaSearch): Search must be a string.";
         const restaurantCollection = await restaurants();
-        const restaurantList = await restaurantCollection.find({ category: category }).toArray();
-        return restaurantList;
-    },
-
-    async getRestaurantsByName(name) {
-        if (!name) throw "Error (getRestaurantsByName): Must provide name.";
-        if (typeof(name) !== "string") throw "Error (getRestaurantsByName): Name must be a string.";
-        const restaurantCollection = await restaurants();
-        const restaurantList = await restaurantCollection.find({ name: name }).toArray();
+        const query = new RegExp(search, "i");
+        const restaurantList = await restaurantCollection.find({ $or: [ {category: {$regex: query}}, {name: {$regex: query}} ] }).toArray();
         return restaurantList;
     },
 
