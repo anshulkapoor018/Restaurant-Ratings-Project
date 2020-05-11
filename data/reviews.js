@@ -102,9 +102,10 @@ module.exports = {
             throw 'No Review with id - ' + id;
         }
         if (commentList.length != 0) {
-            if (commentList.length != []) {
+            console.log("comments not empty");
             for (var j = 0; j < commentList.length; j++){
                 try {
+                    console.log("trying to delete comments");
                     const commentCollection = await comments();
                     const { ObjectId } = require('mongodb');
                     const objCommentId = ObjectId.createFromHexString(commentList[j]);
@@ -118,23 +119,24 @@ module.exports = {
                 }
             }
         }
-    }
             try {
+                console.log("trying to delete review from user");
                 const userCollection = await users();
                 const { ObjectId } = require('mongodb');
-                const objUserId = ObjectId.createFromHexString(review.userId);
+                const objUserId = ObjectId.createFromHexString(reviewSearch.userId);
                 const deletionInfoForReviewFromUsers = await userCollection.updateOne({ _id: objUserId }, { $pull: { reviewIds: String(id) } });
                 
                 if (deletionInfoForReviewFromUsers.deletedCount === 0) {
                     throw `Could not delete Review with id of ${id}`;
                 }
             } catch (e) {
-                throw e;
+                throw "Could not Delete Review from User while Deleting Review!";
             }
             try {
+                console.log("trying to delete review from restaurant");
                 const resCollection = await restaurants();
                 const { ObjectId } = require('mongodb');
-                const objResId = ObjectId.createFromHexString(review.restaurantId);
+                const objResId = ObjectId.createFromHexString(reviewSearch.restaurantId);
                 const deletionInfoForReviewFromRestaurant = await resCollection.updateOne({ _id: objResId }, { $pull: { reviews: String(id) } });
                 
                 if (deletionInfoForReviewFromRestaurant.deletedCount === 0) {
