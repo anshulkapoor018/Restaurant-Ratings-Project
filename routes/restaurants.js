@@ -81,8 +81,12 @@ router.post("/search", async (req, res) => {
     } else {
       userLoggedIn = true;
     }
-
-    res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
+    
+    if (restaurantList.length > 0) {
+      res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
+    } else {
+      res.status(200).render("search");
+    }
   } catch (e) {
     res.status(500).send();
   }
