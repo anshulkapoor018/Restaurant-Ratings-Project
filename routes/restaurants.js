@@ -86,7 +86,7 @@ router.post("/search", async (req, res) => {
     if (restaurantList.length > 0) {
       res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
     } else {
-      res.status(200).render("search");
+      res.status(200).render("search", { userLoggedIn: userLoggedIn });
     }
   } catch (e) {
     res.status(500).send();
