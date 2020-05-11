@@ -10,6 +10,7 @@ router.get("/:id", async (req, res) => {
     try {
       const restaurant = await restaurants.getRestaurant(req.params.id);
       let reviewList = [];
+      let userData = {}
       let userLoggedIn = false;
       let loggedInReviewer = false
       try { // Get reviews of restaurant
@@ -46,8 +47,10 @@ router.get("/:id", async (req, res) => {
         userLoggedIn = false;
       } else {
         userLoggedIn = true;
+        userData = await users.getUser(userId);
       }
-      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer})
+      // console.log(userData);
+      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData})
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }
