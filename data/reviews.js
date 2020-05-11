@@ -102,10 +102,8 @@ module.exports = {
             throw 'No Review with id - ' + id;
         }
         if (commentList.length != 0) {
-            console.log("comments not empty");
             for (var j = 0; j < commentList.length; j++){
                 try {
-                    console.log("trying to delete comments");
                     const commentCollection = await comments();
                     const { ObjectId } = require('mongodb');
                     const objCommentId = ObjectId.createFromHexString(commentList[j]);
@@ -120,7 +118,6 @@ module.exports = {
             }
         }
             try {
-                console.log("trying to delete review from user");
                 const userCollection = await users();
                 const { ObjectId } = require('mongodb');
                 const objUserId = ObjectId.createFromHexString(reviewSearch.userId);
@@ -133,7 +130,6 @@ module.exports = {
                 throw "Could not Delete Review from User while Deleting Review!";
             }
             try {
-                console.log("trying to delete review from restaurant");
                 const resCollection = await restaurants();
                 const { ObjectId } = require('mongodb');
                 const objResId = ObjectId.createFromHexString(reviewSearch.restaurantId);
