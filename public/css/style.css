@@ -3,7 +3,7 @@ body{
     height: 100%;
     margin: 0;
     padding-top: 15px;
-    background: url("../images/BG1.jpg") no-repeat;
+    background: url("../images/BG1.jpg");
 }
 
 main{
