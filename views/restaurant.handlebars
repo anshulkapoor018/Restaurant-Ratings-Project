@@ -12,12 +12,32 @@
         {{#each reviews}}
             <div class = "reviews">
                 <div class = "card-full">
-                    <p>{{this.user.firstName}} {{this.user.lastName}}</p>
-                    <p class = "rating">Rating: {{this.rating}}/5</p>
-                    <p>{{this.reviewText}}</p>
+                    <div class="reviewHeading">
+                        <div class="reviewerName">
+                            <p class = "p_inline">{{this.user.firstName}} {{this.user.lastName}}</p>
+                        </div>
+                        <div class="reviewerRating">
+                            <p class = "rating">Rating: {{this.rating}}/5</p>
+                        </div>
+                    </div>
+
+                    <div class = "reviewText">
+                        <p>{{this.reviewText}}</p>
+                    </div>
+                    {{!-- <br>
+                    <br> --}}
                     {{#if this.isReviewer}}
-                    <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
-                    <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
+                        <div class="dropdown">
+                            <button class="dropbtn">Menu</button>
+                            <div class="dropdown-content">
+                                <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                                <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
+                            </div>
+                        </div>
+                        {{!-- <div class = "reviewText">
+                            <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
+                            <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
+                        </div> --}}
                     {{/if}}
                     <div class = "comments">
                         <h4>Comments</h4>
