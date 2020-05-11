@@ -97,11 +97,12 @@ module.exports = {
         const { ObjectId } = require('mongodb');
         const objRevId = ObjectId.createFromHexString(id);
         const reviewSearch = await reviewcollection.findOne({_id: objRevId});
+        const commentList = reviewSearch.comments;
         if (reviewSearch === null){
             throw 'No Review with id - ' + id;
-        } else{
-            const commentList = reviewSearch.comments;
+        }
         if (commentList.length != 0) {
+            if (commentList.length != []) {
             for (var j = 0; j < commentList.length; j++){
                 try {
                     const commentCollection = await comments();
@@ -117,17 +118,18 @@ module.exports = {
                 }
             }
         }
+    }
             try {
                 const userCollection = await users();
                 const { ObjectId } = require('mongodb');
                 const objUserId = ObjectId.createFromHexString(review.userId);
                 const deletionInfoForReviewFromUsers = await userCollection.updateOne({ _id: objUserId }, { $pull: { reviewIds: String(id) } });
                 
-                if (deletionInfoForReviewFromUsers.modifiedCount === 0) {
+                if (deletionInfoForReviewFromUsers.deletedCount === 0) {
                     throw `Could not delete Review with id of ${id}`;
                 }
             } catch (e) {
-                throw 'Could not delete Review from User while Deleting Review!';
+                throw e;
             }
             try {
                 const resCollection = await restaurants();
@@ -135,7 +137,7 @@ module.exports = {
                 const objResId = ObjectId.createFromHexString(review.restaurantId);
                 const deletionInfoForReviewFromRestaurant = await resCollection.updateOne({ _id: objResId }, { $pull: { reviews: String(id) } });
                 
-                if (deletionInfoForReviewFromRestaurant.modifiedCount === 0) {
+                if (deletionInfoForReviewFromRestaurant.deletedCount === 0) {
                     throw `Could not delete Review with id of ${id}`;
                 }
             } catch (e) {
@@ -148,4 +150,3 @@ module.exports = {
             return true;
         }
     }
-}
