@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require('../data/');
 const reviews = data.reviews;
 const users = data.users;
+const restaurants = data.restaurants;
 
 //TODO
 router.get("/:id", async (req, res) => {
@@ -10,11 +11,12 @@ router.get("/:id", async (req, res) => {
     try {
       const review = await reviews.getReview(req.params.id);
       const user = await users.getUser(review.userId);
+      const restaurant = await restaurants.getRestaurant(review.restaurantId);
       // if the reviewer is on the page, give them a button to edit
       if(req.session.AuthCookie === review.userId) {
         isReviewer = true;
       }
-      res.status(200).render("review", { review: review, user: user, isReviewer: isReviewer, id: req.params.id });
+      res.status(200).render("review", { review: review, user: user, restaurant: restaurant, isReviewer: isReviewer, id: req.params.id });
     } catch (e) {
       res.status(404).json({ message: "review not found!" });
     }

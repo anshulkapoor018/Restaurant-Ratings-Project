@@ -101,7 +101,7 @@ module.exports = {
             throw 'No Review with id - ' + id;
         } else{
             const commentList = reviewSearch.comments;
-
+        if (commentList.length != 0) {
             for (var j = 0; j < commentList.length; j++){
                 try {
                     const commentCollection = await comments();
@@ -116,17 +116,18 @@ module.exports = {
                     throw 'Could not Delete Comment while deleting Review!';
                 }
             }
+        }
             try {
                 const userCollection = await users();
                 const { ObjectId } = require('mongodb');
                 const objUserId = ObjectId.createFromHexString(review.userId);
                 const deletionInfoForReviewFromUsers = await userCollection.updateOne({ _id: objUserId }, { $pull: { reviewIds: String(id) } });
                 
-                if (deletionInfoForReviewFromUsers.deletedCount === 0) {
+                if (deletionInfoForReviewFromUsers.modifiedCount === 0) {
                     throw `Could not delete Review with id of ${id}`;
                 }
             } catch (e) {
-                throw `Could not delete Review from Users while Deleting Review!`;
+                throw 'Could not delete Review from User while Deleting Review!';
             }
             try {
                 const resCollection = await restaurants();
@@ -134,7 +135,7 @@ module.exports = {
                 const objResId = ObjectId.createFromHexString(review.restaurantId);
                 const deletionInfoForReviewFromRestaurant = await resCollection.updateOne({ _id: objResId }, { $pull: { reviews: String(id) } });
                 
-                if (deletionInfoForReviewFromRestaurant.deletedCount === 0) {
+                if (deletionInfoForReviewFromRestaurant.modifiedCount === 0) {
                     throw `Could not delete Review with id of ${id}`;
                 }
             } catch (e) {
