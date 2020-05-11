@@ -4,7 +4,8 @@
         <p class = "category">{{restaurant.category}}</p>
         <p>{{restaurant.address}}</p>
         <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
-        <div id="gmap"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our lat/long estimation -->
+        <p class="avg">{{restaurant.rating}}/5</p>
+        <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
     </div>
     
     <div class="card-wide" id="right">
@@ -25,7 +26,7 @@
                     </div>
                     {{#if this.isReviewer}}
                         <div class="dropdown">
-                            <button class="dropbtn">Menu</button>
+                            <button class="dropbtn">Options</button>
                             <div class="dropdown-content">
                                 <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
                                 <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
@@ -34,15 +35,12 @@
                     {{/if}}
                     <h3>Comments</h3>
                     <div class = "comments">
-                        {{!-- <button class = "btn" onclick="openCommentBox()">Add a Comment</button> --}}
-                        <div>
-                            <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{../currentUserData._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
+                        <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{this.user._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
                                 <label>
-                                    <input type="textarea" name = "commentValue" id = "commentValue" class="inputFields" placeholder="Write a comment..."/> 
+                                    <input type="textarea" name = "commentValue" id = "commentValue" class="inputFields" placeholder="Write a comment..." rows="3" /> 
                                 </label>
-                                <button type="submit" class="btn">Post!</button>
-                            </form>
-                        </div>
+                                <button type="submit" class="btn">Submit</button>
+                        </form>
                         {{#each this.commentList}}
                             <div class = "card-full">
                                 <p class = "p_inline">{{this.user.firstName}} {{this.user.lastName}}</p>

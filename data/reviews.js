@@ -54,6 +54,7 @@ module.exports = {
                 throw 'Could not update Users Collection with Review Data!';
             }
         }
+
         const newId = insertInfo.insertedId;
         const newIDString = String(newId);
         const review = await this.getReview(newIDString);

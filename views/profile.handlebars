@@ -1,8 +1,13 @@
 <main>
     <div class="card-full">
-        <h2>{{firstName}} {{lastName}} </h2>
+        <h1>{{firstName}} {{lastName}} </h1>
         <img src="{{profilePicture}}">
-        <p><a href="/users/myprofile">Edit Profile</a></p>
+        <p>{{email}}</p>
+        <p>{{city}}</p>
+        <p>{{state}}</p>
+        <p>{{age}}</p>
+        <p><a href="/users/myprofile" class="btn">Edit Profile</a></p>
+        <br>
         <h2>Reviews</h2>
         {{#each reviews}}
         <div>

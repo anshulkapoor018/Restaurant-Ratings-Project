@@ -56,6 +56,10 @@ router.get("/profile", async (req, res) => {
       return res.status(307).render('profile', { 
         firstName: userData.firstName,
         lastName: userData.lastName,
+        email: userData.email,
+        city: userData.city,
+        state: userData.state,
+        age: userData.age,
         reviews: reviewObject,
         userLoggedIn: true});
     }

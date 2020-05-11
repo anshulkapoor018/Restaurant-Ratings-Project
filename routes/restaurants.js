@@ -5,18 +5,36 @@ const comments = data.comments;
 const restaurants = data.restaurants;
 const reviews = data.reviews;
 const users = data.users;
+const mongoCollections = require("../config/mongoCollections");
+const rest = mongoCollections.restaurants;
+const { ObjectId } = require('mongodb');
 
 router.get("/:id", async (req, res) => {
     try {
-      const restaurant = await restaurants.getRestaurant(req.params.id);
+      let restaurant = await restaurants.getRestaurant(req.params.id);
       let reviewList = [];
       let userData = {}
       let userLoggedIn = false;
-      let loggedInReviewer = false
+      let loggedInReviewer = false;
+      let sumRating = 0;
+      let totalRating = 0;
+
       try { // Get reviews of restaurant
         for (reviewId of restaurant.reviews) {
           review = await reviews.getReview(reviewId);
           commentList = [];
+            //Get Avg
+            totalRating += 1;
+            sumRating += parseInt(review.rating);
+        
+          //Rating Updates
+          let avgRating = sumRating/totalRating;
+          avgRating = avgRating.toFixed(2);
+          const restCollection = await rest();
+          const objIdForRes = ObjectId.createFromHexString(req.params.id);
+          const updated = await restCollection.updateOne({_id: objIdForRes}, {$set: { rating: avgRating}})
+          if(!updated.matchedCount && !updated.modifiedCount) res.status(500).json({ message: "Couldn't update rating" });
+
           try { // Get comments of review
             for (commentId of review.comments) {
               comment = await comments.getComment(commentId);
@@ -42,6 +60,8 @@ router.get("/:id", async (req, res) => {
       } catch (e) {
         console.log(e);
       }
+      
+
       let userId = req.session.AuthCookie;
       if(!userId) {
         userLoggedIn = false;
@@ -57,20 +77,45 @@ router.get("/:id", async (req, res) => {
 });
   
 router.get("/", async (req, res) => {
-    try {
-      const restaurantList = await restaurants.getAllRestaurants();
-      let userLoggedIn = false;
-      let userId = req.session.AuthCookie;
-      if(!userId) {
-        userLoggedIn = false;
-      } else {
-        userLoggedIn = true;
+  let sumRating = 0;
+  let totalRating = 0;
+
+  try {
+    let restaurantList = await restaurants.getAllRestaurants();
+    for (resto of restaurantList){
+      let sumRating = 0;
+      let totalRating = 0;
+      for (reviewId of resto.reviews) {
+        review = await reviews.getReview(reviewId);
+        //Get Avg
+        totalRating += 1;
+        sumRating += parseInt(review.rating);
       }
-      res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
-    } catch (e) {
-      // Something went wrong with the server!
-      res.status(404).send();
+      //Rating Updates
+      let avgRating = sumRating/totalRating;
+      avgRating = avgRating.toFixed(2);
+      const restCollection = await rest();
+      const updated = await restCollection.updateOne({_id: resto._id}, {$set: { rating: avgRating}});
+      if(!updated.matchedCount && !updated.modifiedCount) res.status(500).json({ message: "Couldn't update rating" });
     }
+    
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+
+    if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+    restaurantList = await restaurants.getAllRestaurants();
+    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+  } catch (e) {
+    // Something went wrong with the server!
+    console.log(e);
+    res.status(404).send();
+  }
+
+    
 });
 
 router.post("/search", async (req, res) => {
