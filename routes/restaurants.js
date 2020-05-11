@@ -19,6 +19,7 @@ router.get("/:id", async (req, res) => {
           try { // Get comments of review
             for (commentId of review.comments) {
               comment = await comments.getComment(commentId);
+              comment.user = await users.getUser(comment.userId);
               commentList.push(comment); // This is a simple FIFO - can be improved or filtered in client JS
             }
           } catch (e) {

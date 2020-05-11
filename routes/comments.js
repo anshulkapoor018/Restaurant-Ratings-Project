@@ -36,7 +36,6 @@ router.post('/:userId/:reviewId/:restaurantId/add', async (req, res) => {
       } else {
         return res.status(404).send();
       }
-      //res.json({deleted: true, data: toBeDeletedReview});
     } catch (e) {
       res.status(500).json({ error: e });
     }
