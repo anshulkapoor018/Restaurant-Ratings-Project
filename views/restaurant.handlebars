@@ -4,7 +4,7 @@
         <p class = "category">{{restaurant.category}}</p>
         <p>{{restaurant.address}}</p>
         <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
-        <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
+        <div id="gmap"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our lat/long estimation -->
     </div>
     
     <div class="card-wide" id="right">
@@ -14,7 +14,7 @@
                 <div class = "card-full">
                     <div class="reviewHeading">
                         <div class="reviewerName">
-                            <p class = "p_inline">{{this.user.firstName}} {{this.user.lastName}}</p>
+                            <p class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
                         </div>
                         <div class="reviewerRating">
                             <p class = "rating">Rating: {{this.rating}}/5</p>
@@ -91,41 +91,5 @@
     </div>
     
     <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
-    <script>
-        function openForm() {
-            document.getElementById("myForm").style.display = "block";
-        }
-
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
-        }
-
-        function openLoginForm() {
-            document.getElementById("myLoginForm").style.display = "block";
-        }
-
-        function closeLoginForm() {
-            document.getElementById("myLoginForm").style.display = "none";
-        }
-
-        function openAlert() {
-            document.getElementById("myAlert").style.display = "block";
-        }
-
-        function closeAlert() {
-            document.getElementById("myAlert").style.display = "none";
-        }
-
-        function openCommentBox() {
-            document.getElementById("row-override").style.display = "block";
-        }
-
-        function closeCommentBox() {
-            document.getElementById("row-override").style.display = "none";
-        }
-        
-        document.getElementById("routeToLogin").onclick = function () {
-            location.href = "/users/login";
-        };
-    </script>
+    <script src="/public/javascript/forms.js"></script>
 </main>

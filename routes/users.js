@@ -82,7 +82,7 @@ router.get("/myprofile", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
       const user = await users.getUser(req.params.id);
-      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, reviews: user.reviwIds});
+      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, reviews: user.reviewIds});
     } catch (e) {
       res.status(404).json({ message: "User not found!" });
     }

@@ -435,3 +435,8 @@ input[type="password"] {
 /* #row-override {
     display: none;
 } */
+
+#gmap {
+    height:400px; 
+    width:100%;
+}
