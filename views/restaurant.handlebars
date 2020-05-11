@@ -32,16 +32,6 @@
                             </div>
                         </div>
                     {{/if}}
-                    {{#if userLoggedIn}}
-                        <div class="dropdown">
-                            <button class="dropbtn">Menu</button>
-                            <div class="dropdown-content">
-                                <p><a href="../reviews/{{this._id}}/edit">Edit Review</a></p>
-                                <p><a href="../reviews/{{this.restaurantId}}/{{this._id}}/delete">Delete Review</a></p>
-                            </div>
-                        </div>
-                        <button class = "btn" onclick="openCommentBox()">Add a Comment</button>
-                    {{/if}}
                     <div class = "comments">
                         {{!-- <button class = "btn" onclick="openCommentBox()">Add a Comment</button> --}}
                         <br>
