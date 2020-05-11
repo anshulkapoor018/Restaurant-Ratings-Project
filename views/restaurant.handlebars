@@ -32,11 +32,14 @@
 
 
     {{#if userLoggedIn}}
-        <button class="open-button" onclick="openForm()">Post a Review</button>
+        {{#if loggedInReviewer}}
+            <button class="open-button" onclick="openAlert()">Post a Review</button>
+        {{else}}
+            <button class="open-button" onclick="openForm()">Post a Review</button>
+        {{/if}}
     {{else}}
         <button class="open-button" onclick="openLoginForm()">Post a Review</button>
     {{/if}}
-    {{!-- <button class="open-button" onclick="openForm()">Post a Review</button> --}}
     <div class="form-popup" id="myForm">
         <h2>Post a Review</h2>
         <form id="login-form" name ="loginForm" class="form-container" action="/reviews/{{restaurant._id}}/add" method="POST">
@@ -57,6 +60,12 @@
             <button type="button" class="btn cancel" onclick="closeLoginForm()">Cancel</button>
         </form>
     </div>
+    <div class="form-popup" id="myAlert">
+        <p>You have already Posted a Review! <br> You can edit your Review Above.</p>
+        <form id="login-form" name ="loginForm" class="form-container" action="javascript:void(0);">
+            <button type="button" class="btn cancel" onclick="closeAlert()">Close</button>
+        </form>
+    </div>
     
     <script src="/public/javascript/maps.js" latitude={{restaurant.latitude}} longitude={{restaurant.longitude}}></script>
     <script>
@@ -74,6 +83,14 @@
 
         function closeLoginForm() {
             document.getElementById("myLoginForm").style.display = "none";
+        }
+
+        function openAlert() {
+            document.getElementById("myAlert").style.display = "block";
+        }
+
+        function closeAlert() {
+            document.getElementById("myAlert").style.display = "none";
         }
         
         document.getElementById("routeToLogin").onclick = function () {

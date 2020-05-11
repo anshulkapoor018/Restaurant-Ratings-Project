@@ -11,6 +11,7 @@ router.get("/:id", async (req, res) => {
       const restaurant = await restaurants.getRestaurant(req.params.id);
       let reviewList = [];
       let userLoggedIn = false;
+      let loggedInReviewer = false
       try { // Get reviews of restaurant
         for (reviewId of restaurant.reviews) {
           review = await reviews.getReview(reviewId);
@@ -27,8 +28,10 @@ router.get("/:id", async (req, res) => {
           // If this review is by the logged in user, let them edit it from here
           if (req.session.AuthCookie === review.userId) {
             review.isReviewer = true;
+            loggedInReviewer = true;
           } else {
             review.isReviewer = false;
+            loggedInReviewer = false;
           }
           review.user = await users.getUser(review.userId);
           reviewList.push(review); // This is a simple FIFO - can be improved or filtered in client JS
@@ -43,7 +46,7 @@ router.get("/:id", async (req, res) => {
       } else {
         userLoggedIn = true;
       }
-      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn })
+      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer})
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }
