@@ -84,6 +84,10 @@ router.get("/myprofile", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  let userLoggedIn = false;
+  if (req.session.AuthCookie) {
+    userLoggedIn = true;
+  }
   if (req.params.id === req.session.AuthCookie) {
     return res.redirect("/users/profile");
   }
@@ -99,7 +103,13 @@ router.get("/:id", async (req, res) => {
         }
         reviewObject.push(reviewInfo);
       }
-      res.status(200).render("user", { firstName: userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, reviews: reviewObject});
+      res.status(200).render("user", { 
+        firstName: userData.firstName, 
+        lastName: userData.lastName, 
+        profilePicture: userData.profilePicture, 
+        state: userData.state,
+        reviews: reviewObject,
+        userLoggedIn: userLoggedIn});
     } catch (e) {
       console.log(e);
       res.status(404).json({ message: "User not found!" });
