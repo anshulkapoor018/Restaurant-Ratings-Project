@@ -35,12 +35,14 @@
                     {{/if}}
                     <h3>Comments</h3>
                     <div class = "comments">
-                        <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{../currentUserData._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
-                                <label>
-                                    <input type="textarea" name = "commentValue" id = "commentValue" class="inputFields" placeholder="Write a comment..." rows="3" /> 
-                                </label>
-                                <button type="submit" class="btn">Submit</button>
-                        </form>
+                        {{#if ../userLoggedIn}}
+                            <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{../currentUserData._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
+                                    <label>
+                                        <input type="textarea" name = "commentValue" id = "commentValue" class="inputFields" placeholder="Write a comment..." rows="3" /> 
+                                    </label>
+                                    <button type="submit" class="btn">Submit</button>
+                            </form>
+                        {{/if}}
                         {{#each this.commentList}}
                             <div class = "card-full">
                                 <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
