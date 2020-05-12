@@ -47,6 +47,15 @@
                             <div class = "card-full">
                                 <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
                                 <p>{{this.commentText}}</p>
+                                {{#if this.isCommenter}}
+                                    <div class="dropdown">
+                                        <button class="dropbtn">Options</button>
+                                        <div class="dropdown-content">
+                                            <p><a href="">Edit Comment</a></p>
+                                            <p><a href="/comments/{{this.restaurantId}}/{{this._id}}/delete">Delete Comment</a></p>
+                                        </div>
+                                    </div>
+                                {{/if}}
                             </div>
                         {{/each}}
                     </div>

@@ -40,11 +40,19 @@ router.get("/:id", async (req, res) => {
             for (commentId of review.comments) {
               comment = await comments.getComment(commentId);
               comment.user = await users.getUser(comment.userId);
+              comment.restaurantId = req.params.id;
+              // If this comment is by the logged in user, let them edit it from here
+              if (req.session.AuthCookie === comment.userId) {
+                comment.isCommenter = true;
+              } else {
+                comment.isCommenter = false;
+              }
               commentList.push(comment); // This is a simple FIFO - can be improved or filtered in client JS
             }
           } catch (e) {
             console.log(e);
           }
+          // console.log(commentList);
           review.commentList = commentList; // Add new array inside review object
           // If this review is by the logged in user, let them edit it from here
           if (req.session.AuthCookie === review.userId) {

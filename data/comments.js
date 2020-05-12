@@ -71,13 +71,19 @@ module.exports = {
         if (deleteInfo.deletedCount === 0) {
             throw "could not delete comment with id of ${id}";
         }
-        //remove the comment from the user and the review
-        // const userCollection = await users();
-        // const reviewCollection = await reviews();
-        // const updateInfoUser = await userCollection.updateOne({_id: comment.userId}, {$pull: {commentIds: id}});
-        // if (!updateInfoUser.matchedCount && !updateInfoUser.modifiedCount) throw "could not remove commentId from the user";
-        // const updateInfoReview = await reviewCollection.updateOne({_id: comment.reviewId}, {$pull: {comments: id}});
-        // if (!updateInfoReview.matchedCount && !updateInfoReview.modifiedCount) throw "could not remove commentId from the review";
+        try {
+            const reviewCollection = await reviews();
+            const { ObjectId } = require('mongodb');
+            const objUserId = ObjectId.createFromHexString(comment.reviewId);
+            const deletionInfoForCommentFromReview = await reviewCollection.updateOne({ _id: objUserId }, { $pull: { comments: String(id) } });
+            
+            if (deletionInfoForCommentFromReview.deletedCount === 0) {
+                throw `Could not delete Comment with id of ${id}`;
+            }
+        } catch (e) {
+            throw "Could not Delete Comment from Review while Deleting Comment!";
+        }
+
         return true;
     },
 

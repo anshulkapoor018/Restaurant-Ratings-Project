@@ -3,7 +3,6 @@ const router = express.Router();
 const data = require('../data/');
 const comments = data.comments;
 
-//TODO
 router.get("/:id", async (req, res) => {
     try {
       const comment = await comments.getComment(req.params.id);
@@ -40,4 +39,28 @@ router.post('/:userId/:reviewId/:restaurantId/add', async (req, res) => {
       res.status(500).json({ error: e });
     }
 });
+
+router.get('/:restaurantId/:commentId/delete', async (req, res) => {
+	if (!req.params.commentId) {
+		res.status(400).json({ error: 'You must Supply an ID to delete' });
+		return;
+	}
+	try {
+		await comments.getComment(req.params.commentId);
+	} catch (e) {
+		res.status(404).json({ error: 'Comment not found!' });
+		return;
+	}
+	try {
+    deleteCommentsFromReview = await comments.removeComment(req.params.commentId);
+    if(deleteCommentsFromReview){
+      return res.redirect("/restaurants/" + req.params.restaurantId);
+    } else {
+      return res.status(404).send();
+    }
+	} catch (e) {
+		res.status(500).json({ error: e });
+	}
+});
+
 module.exports = router;
