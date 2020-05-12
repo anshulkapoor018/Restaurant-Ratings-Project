@@ -78,6 +78,7 @@ router.get("/:id", async (req, res) => {
         userData = await users.getUser(userId);
         userData.reviewedRestaurantPage = reviewList.some(item => item.userId === String(userData._id));
       }
+      restaurant = await restaurants.getRestaurant(req.params.id);
       res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData, hasError: hasError, error: error})
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
