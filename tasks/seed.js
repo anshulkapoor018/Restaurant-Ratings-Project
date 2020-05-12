@@ -45,39 +45,210 @@ const main = async () => {
 
     //Seed Sample Users
     const U1 = await users.addUser("Anna", "Brown", "anna@gmail.com", "", "Jersey City", "NJ", "21", "$2a$16$55b4ftaRCsHZcJ2X3VAmL.X85wi/K3ydOMWRoyafn2ubiA38l4HnK");
-    // const U2 = await users.addUser("Anshul", "Kapoor", "Anshul@gmail.com", "", "Jersey City", "NJ", "25", "123456789");
-    // const U3 = await users.addUser("Kamil", "Zambrowski", "Kamil@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    // const U4 = await users.addUser("Michael", "Lyons", "Michael@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    // const U5 = await users.addUser("John", "Doe", "John@gmail.com", "", "Jersey City", "NJ", "22", "123456789");
-    // const U6 = await users.addUser("Ava", "Tartaglia", "Ava@gmail.com", "", "Hoboken", "NJ", "23", "123456789");
-    // const U7 = await users.addUser("Dan", "Pelis", "Dan@gmail.com", "", "Hoboken", "NJ", "24", "123456789");
-    // const U8 = await users.addUser("Jessica", "Su", "Jessica@gmail.com", "", "Hoboken", "NJ", "25", "123456789");
-    // const U9 = await users.addUser("Miles", "Rosenberg", "Miles@gmail.com", "", "Hoboken", "NJ", "28", "123456789");
-    // const U10 = await users.addUser("Joe", "Smith", "Joe@gmail.com", "", "Hoboken", "NJ", "26", "123456789");
+    const U2 = await users.addUser("Anshul", "Kapoor", "anshul@gmail.com", "", "Jersey City", "NJ", "25", "$2y$16$44T/HRDYr7ZJr5NgxKZ0GO5VUWIO7eEzeh.SQauQqfsUhjLLm8XBq");
+    const U3 = await users.addUser("Kamil", "Zambrowski", "kamil@gmail.com", "", "Jersey City", "NJ", "22", "$2y$16$hJSJuDrg9GRus/zD3mfg..OhlFSEM1VFeOi4cxJhxKhHHmpPZRnjW");
+    const U4 = await users.addUser("Michael", "Lyons", "michael@gmail.com", "", "Jersey City", "NJ", "22", "$2y$16$yRArTdcisBcd6ED5FEWJuO/Z.LMWsUbHz52FotTzYtf86Kc4QKE6a");
+    const U5 = await users.addUser("John", "Doe", "john@gmail.com", "", "Jersey City", "NJ", "22", "$2y$16$KIjnyLrJ02Kpp6Y6HLZ6C.BDZidhOY73JYc4utfKCJB48Ithhr1oK");
+    const U6 = await users.addUser("Ava", "Tartaglia", "ava@gmail.com", "", "Hoboken", "NJ", "23", "$2y$16$ZvmyAhGKEXDIe1gDejC38.K7xWYnF2SzYhlr4GTuv6cNFmqbtH2k6");
+    const U7 = await users.addUser("Dan", "Pelis", "dan@gmail.com", "", "Hoboken", "NJ", "24", "$2y$16$dm4xV.Gvptu2Xl3Kh/S/suk8OoUoKZXUkqKExk8WD3ZUZXxd4QeK.");
+    const U8 = await users.addUser("Jessica", "Su", "jessica@gmail.com", "", "Hoboken", "NJ", "25", "$2y$16$nEHCMDVuRC52/1j2AXfsyu5zsh3btEm0a3uvq.35kpEYR/pnFfS2a");
+    const U9 = await users.addUser("Miles", "Rosenberg", "miles@gmail.com", "", "Hoboken", "NJ", "28", "$2y$16$IlU5ezmEuCip.KMmemBi7ePqMtT9JKkzZXhH05ILe7tqeKZemFn.m");
+    const U10 = await users.addUser("Joe", "Smith", "joe@gmail.com", "", "Hoboken", "NJ", "26", "$2y$16$E0t0gNTnCXbW.nvDjnQSZ.yUN0cjdv4sHIWHciyu45N4BEdamdBzu");
 
     //Seed Sample Reviews
-    const reviewForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food!", 4);
-    const reviewForR2 = await reviews.addReview(String(R2._id), String(U1._id), "Amazing Food!", 2);
-    const reviewForR3 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
-    const reviewForR4 = await reviews.addReview(String(R4._id), String(U1._id), "Amazing Food!", 1);
-    const reviewForR5 = await reviews.addReview(String(R5._id), String(U1._id), "Amazing Food!", 4);
-    const reviewForR6 = await reviews.addReview(String(R6._id), String(U1._id), "Amazing Food!", 5);
-    const reviewForR7 = await reviews.addReview(String(R7._id), String(U1._id), "Amazing Food!", 5);
-    const reviewForR8 = await reviews.addReview(String(R8._id), String(U1._id), "Amazing Food!", 5);
-    const reviewForR9 = await reviews.addReview(String(R9._id), String(U1._id), "Amazing Food!", 4);
-    const reviewForR10 = await reviews.addReview(String(R10._id), String(U1._id), "Amazing Food!", 3);
+    const review1ForR1 = await reviews.addReview(String(R1._id), String(U1._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR1 = await comments.addComment(String(U10._id), String(review1ForR1._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR1 = await comments.addComment(String(U9._id), String(review1ForR1._id), "Yes, Yes, Yes!!");
+
+    const review2ForR1 = await reviews.addReview(String(R1._id), String(U2._id), "Loved the Pizza!", 5);
+    const comment1ForReview2ForR1 = await comments.addComment(String(U8._id), String(review2ForR1._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR1 = await comments.addComment(String(U7._id), String(review2ForR1._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR2 = await reviews.addReview(String(R2._id), String(U3._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR2 = await comments.addComment(String(U6._id), String(review1ForR2._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR2 = await comments.addComment(String(U5._id), String(review1ForR2._id), "Yes, Yes, Yes!!");
+
+    const review2ForR2 = await reviews.addReview(String(R2._id), String(U4._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR2 = await comments.addComment(String(U3._id), String(review2ForR2._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR2 = await comments.addComment(String(U2._id), String(review2ForR2._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR3 = await reviews.addReview(String(R3._id), String(U5._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR3 = await comments.addComment(String(U1._id), String(review1ForR3._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR3 = await comments.addComment(String(U2._id), String(review1ForR3._id), "Yes, Yes, Yes!!");
+
+    const review2ForR3 = await reviews.addReview(String(R3._id), String(U6._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR3 = await comments.addComment(String(U3._id), String(review2ForR3._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR3 = await comments.addComment(String(U4._id), String(review2ForR3._id), "Yes, Yes, Yes!!");
+
+    const review1ForR4 = await reviews.addReview(String(R4._id), String(U7._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR4 = await comments.addComment(String(U5._id), String(review1ForR4._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR4 = await comments.addComment(String(U6._id), String(review1ForR4._id), "Yes, Yes, Yes!!");
+
+    const review2ForR4 = await reviews.addReview(String(R4._id), String(U8._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR4 = await comments.addComment(String(U7._id), String(review2ForR4._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR4 = await comments.addComment(String(U9._id), String(review2ForR4._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR5 = await reviews.addReview(String(R5._id), String(U8._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR5 = await comments.addComment(String(U10._id), String(review1ForR5._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR5 = await comments.addComment(String(U1._id), String(review1ForR5._id), "Yes, Yes, Yes!!");
+
+    const review2ForR5 = await reviews.addReview(String(R5._id), String(U10._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR5 = await comments.addComment(String(U2._id), String(review2ForR5._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR5 = await comments.addComment(String(U3._id), String(review2ForR5._id), "Yes, Yes, Yes!!");
+
+    const review1ForR6 = await reviews.addReview(String(R6._id), String(U1._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR6 = await comments.addComment(String(U10._id), String(review1ForR6._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR6 = await comments.addComment(String(U9._id), String(review1ForR6._id), "Yes, Yes, Yes!!");
+
+    const review2ForR6 = await reviews.addReview(String(R6._id), String(U2._id), "Loved the Pizza!", 5);
+    const comment1ForReview2ForR6 = await comments.addComment(String(U8._id), String(review2ForR6._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR6 = await comments.addComment(String(U7._id), String(review2ForR6._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR7 = await reviews.addReview(String(R7._id), String(U3._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR7 = await comments.addComment(String(U6._id), String(review1ForR7._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR7 = await comments.addComment(String(U5._id), String(review1ForR7._id), "Yes, Yes, Yes!!");
+
+    const review2ForR7 = await reviews.addReview(String(R7._id), String(U4._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR7 = await comments.addComment(String(U3._id), String(review2ForR7._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR7 = await comments.addComment(String(U2._id), String(review2ForR7._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR8 = await reviews.addReview(String(R8._id), String(U5._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR8 = await comments.addComment(String(U1._id), String(review1ForR8._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR8 = await comments.addComment(String(U2._id), String(review1ForR8._id), "Yes, Yes, Yes!!");
+
+    const review2ForR8 = await reviews.addReview(String(R8._id), String(U6._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR8 = await comments.addComment(String(U3._id), String(review2ForR8._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR8 = await comments.addComment(String(U4._id), String(review2ForR8._id), "Yes, Yes, Yes!!");
+
+    const review1ForR9 = await reviews.addReview(String(R9._id), String(U7._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR9 = await comments.addComment(String(U5._id), String(review1ForR9._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR9 = await comments.addComment(String(U6._id), String(review1ForR9._id), "Yes, Yes, Yes!!");
+
+    const review2ForR9 = await reviews.addReview(String(R9._id), String(U8._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR9 = await comments.addComment(String(U7._id), String(review2ForR9._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR9 = await comments.addComment(String(U9._id), String(review2ForR9._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR10 = await reviews.addReview(String(R10._id), String(U8._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR10 = await comments.addComment(String(U10._id), String(review1ForR10._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR10 = await comments.addComment(String(U1._id), String(review1ForR10._id), "Yes, Yes, Yes!!");
+
+    const review2ForR10 = await reviews.addReview(String(R10._id), String(U10._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR10 = await comments.addComment(String(U2._id), String(review2ForR10._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR10 = await comments.addComment(String(U3._id), String(review2ForR10._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR11 = await reviews.addReview(String(R11._id), String(U1._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR11 = await comments.addComment(String(U10._id), String(review1ForR11._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR11 = await comments.addComment(String(U9._id), String(review1ForR11._id), "Yes, Yes, Yes!!");
+
+    const review2ForR11 = await reviews.addReview(String(R11._id), String(U2._id), "Loved the Pizza!", 5);
+    const comment1ForReview2ForR11 = await comments.addComment(String(U8._id), String(review2ForR11._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR11 = await comments.addComment(String(U7._id), String(review2ForR11._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR12 = await reviews.addReview(String(R12._id), String(U3._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR12 = await comments.addComment(String(U6._id), String(review1ForR12._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR12 = await comments.addComment(String(U5._id), String(review1ForR12._id), "Yes, Yes, Yes!!");
+
+    const review2ForR12 = await reviews.addReview(String(R12._id), String(U4._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR12 = await comments.addComment(String(U3._id), String(review2ForR12._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR12 = await comments.addComment(String(U2._id), String(review2ForR12._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR13 = await reviews.addReview(String(R13._id), String(U5._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR13 = await comments.addComment(String(U1._id), String(review1ForR13._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR13 = await comments.addComment(String(U2._id), String(review1ForR13._id), "Yes, Yes, Yes!!");
+
+    const review2ForR13 = await reviews.addReview(String(R13._id), String(U6._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR13 = await comments.addComment(String(U3._id), String(review2ForR13._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR13 = await comments.addComment(String(U4._id), String(review2ForR13._id), "Yes, Yes, Yes!!");
+
+    const review1ForR14 = await reviews.addReview(String(R14._id), String(U7._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR14 = await comments.addComment(String(U5._id), String(review1ForR14._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR14 = await comments.addComment(String(U6._id), String(review1ForR14._id), "Yes, Yes, Yes!!");
+
+    const review2ForR14 = await reviews.addReview(String(R14._id), String(U8._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR14 = await comments.addComment(String(U7._id), String(review2ForR14._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR14 = await comments.addComment(String(U9._id), String(review2ForR14._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR15 = await reviews.addReview(String(R15._id), String(U8._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR15 = await comments.addComment(String(U10._id), String(review1ForR15._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR15 = await comments.addComment(String(U1._id), String(review1ForR15._id), "Yes, Yes, Yes!!");
+
+    const review2ForR15 = await reviews.addReview(String(R15._id), String(U10._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR15 = await comments.addComment(String(U2._id), String(review2ForR15._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR15 = await comments.addComment(String(U3._id), String(review2ForR15._id), "Yes, Yes, Yes!!");
+
+    const review1ForR16 = await reviews.addReview(String(R16._id), String(U1._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR16 = await comments.addComment(String(U10._id), String(review1ForR16._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR16 = await comments.addComment(String(U9._id), String(review1ForR16._id), "Yes, Yes, Yes!!");
+
+    const review2ForR16 = await reviews.addReview(String(R16._id), String(U2._id), "Loved the Pizza!", 5);
+    const comment1ForReview2ForR16 = await comments.addComment(String(U8._id), String(review2ForR16._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR16 = await comments.addComment(String(U7._id), String(review2ForR16._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR17 = await reviews.addReview(String(R17._id), String(U3._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR17 = await comments.addComment(String(U6._id), String(review1ForR17._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR17 = await comments.addComment(String(U5._id), String(review1ForR17._id), "Yes, Yes, Yes!!");
+
+    const review2ForR17 = await reviews.addReview(String(R17._id), String(U4._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR17 = await comments.addComment(String(U3._id), String(review2ForR17._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR17 = await comments.addComment(String(U2._id), String(review2ForR17._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR18 = await reviews.addReview(String(R18._id), String(U5._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR18 = await comments.addComment(String(U1._id), String(review1ForR18._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR18 = await comments.addComment(String(U2._id), String(review1ForR18._id), "Yes, Yes, Yes!!");
+
+    const review2ForR18 = await reviews.addReview(String(R18._id), String(U6._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR18 = await comments.addComment(String(U3._id), String(review2ForR18._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR18 = await comments.addComment(String(U4._id), String(review2ForR18._id), "Yes, Yes, Yes!!");
+
+    const review1ForR19 = await reviews.addReview(String(R19._id), String(U7._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR19 = await comments.addComment(String(U5._id), String(review1ForR19._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR19 = await comments.addComment(String(U6._id), String(review1ForR19._id), "Yes, Yes, Yes!!");
+
+    const review2ForR19 = await reviews.addReview(String(R19._id), String(U8._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR19 = await comments.addComment(String(U7._id), String(review2ForR19._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR19 = await comments.addComment(String(U9._id), String(review2ForR19._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR20 = await reviews.addReview(String(R20._id), String(U8._id), "Amazing Food! But can improve.", 4);
+    const comment1ForReview1ForR20 = await comments.addComment(String(U10._id), String(review1ForR20._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview1ForR20 = await comments.addComment(String(U1._id), String(review1ForR20._id), "Yes, Yes, Yes!!");
+
+    const review2ForR20 = await reviews.addReview(String(R20._id), String(U10._id), "Loved the Curries!", 5);
+    const comment1ForReview2ForR20 = await comments.addComment(String(U2._id), String(review2ForR20._id), "Yes, they have Amazing Food! I went there last week");
+    const comment2ForReview2ForR20 = await comments.addComment(String(U3._id), String(review2ForR20._id), "Yes, Yes, Yes!!");
+    
+    const review1ForR21 = await reviews.addReview(String(R21._id), String(U10._id), "The food tastes authentic and the staff is very pleasant. We have dined in and ordered online multiple times from this restaurant and never had any issues with the quality of the food or the delivery service. My favorite is the Maharaja thali served only on weekends.", 4);
+    const review1ForR22 = await reviews.addReview(String(R22._id), String(U9._id), "This place has very good starters. Their gobi chilly has won a  special place in my heart. The variety of biryanis is just too good. The taste is even better. I have been taking all my friends there and they love it too. The service is polite and accurate.", 4);
+    const review1ForR23 = await reviews.addReview(String(R23._id), String(U8._id), "This place has very good starters. Their gobi chilly has won a  special place in my heart. The variety of biryanis is just too good. The taste is even better. I have been taking all my friends there and they love it too. The service is polite and accurate.", 4);
+    const review1ForR24 = await reviews.addReview(String(R24._id), String(U7._id), "Amazing Food! But can improve.", 4);
+    const review1ForR25 = await reviews.addReview(String(R25._id), String(U6._id), "This place has very good starters. Their gobi chilly has won a  special place in my heart. The variety of biryanis is just too good. The taste is even better. I have been taking all my friends there and they love it too. The service is polite and accurate.", 4);
+    const review1ForR26 = await reviews.addReview(String(R26._id), String(U5._id), "This place has very good starters. Their gobi chilly has won a  special place in my heart. The variety of biryanis is just too good. The taste is even better. I have been taking all my friends there and they love it too. The service is polite and accurate.", 4);
+    const review1ForR27 = await reviews.addReview(String(R27._id), String(U4._id), "Really Bad Experience", 1);
+    const review1ForR28 = await reviews.addReview(String(R28._id), String(U3._id), "Bad Experience! Wont try again", 1);
+    const review1ForR29 = await reviews.addReview(String(R29._id), String(U2._id), "Slurpy!", 5);
+    const review1ForR30 = await reviews.addReview(String(R30._id), String(U1._id), "Good prices", 3);
+
+    // const review3ForR1 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
+    // const review3ForR2 = await reviews.addReview(String(R4._id), String(U2._id), "Amazing Food!", 1);
+    // const review3ForR3 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
+    // const review3ForR4 = await reviews.addReview(String(R4._id), String(U2._id), "Amazing Food!", 1);
+    // const review3ForR5 = await reviews.addReview(String(R5._id), String(U3._id), "Amazing Food!", 4);
+    // const review3ForR6 = await reviews.addReview(String(R6._id), String(U4._id), "Amazing Food!", 5);
+    // const review3ForR7 = await reviews.addReview(String(R7._id), String(U5._id), "Amazing Food!", 5);
+    // const review3ForR8 = await reviews.addReview(String(R8._id), String(U6._id), "Amazing Food!", 5);
+    // const review3ForR9 = await reviews.addReview(String(R9._id), String(U7._id), "Amazing Food!", 4);
+    // const review3ForR10 = await reviews.addReview(String(R10._id), String(U8._id), "Amazing Food!", 3);
 
     //Seed Sample Reviews
-    const commentForReviewForR1 = await comments.addComment(String(U1._id), String(reviewForR1._id), "Amazing Food!");
-    const commentForReviewForR2 = await comments.addComment(String(U1._id), String(reviewForR2._id), "Amazing Food!");
-    const commentForReviewForR3 = await comments.addComment(String(U1._id), String(reviewForR3._id), "Amazing Food!");
-    const commentForReviewForR4 = await comments.addComment(String(U1._id), String(reviewForR4._id), "Amazing Food!");
-    const commentForReviewForR5 = await comments.addComment(String(U1._id), String(reviewForR5._id), "Amazing Food!");
-    const commentForReviewForR6 = await comments.addComment(String(U1._id), String(reviewForR6._id), "Amazing Food!");
-    const commentForReviewForR7 = await comments.addComment(String(U1._id), String(reviewForR7._id), "Amazing Food!");
-    const commentForReviewForR8 = await comments.addComment(String(U1._id), String(reviewForR8._id), "Amazing Food!");
-    const commentForReviewForR9 = await comments.addComment(String(U1._id), String(reviewForR9._id), "Amazing Food!");
-    const commentForReviewForR10 = await comments.addComment(String(U1._id), String(reviewForR10._id), "Amazing Food!");
+    
+    // const commentForReviewForR2 = await comments.addComment(String(U1._id), String(reviewForR2._id), "Amazing Food!");
+    // const commentForReviewForR3 = await comments.addComment(String(U1._id), String(reviewForR3._id), "Amazing Food!");
+    // const commentForReviewForR4 = await comments.addComment(String(U1._id), String(reviewForR4._id), "Amazing Food!");
+    // const commentForReviewForR5 = await comments.addComment(String(U1._id), String(reviewForR5._id), "Amazing Food!");
+    // const commentForReviewForR6 = await comments.addComment(String(U1._id), String(reviewForR6._id), "Amazing Food!");
+    // const commentForReviewForR7 = await comments.addComment(String(U1._id), String(reviewForR7._id), "Amazing Food!");
+    // const commentForReviewForR8 = await comments.addComment(String(U1._id), String(reviewForR8._id), "Amazing Food!");
+    // const commentForReviewForR9 = await comments.addComment(String(U1._id), String(reviewForR9._id), "Amazing Food!");
+    // const commentForReviewForR10 = await comments.addComment(String(U1._id), String(reviewForR10._id), "Amazing Food!");
     console.log('Done seeding database for Restaurant Collection!');
 	await db.serverConfig.close();
 };
