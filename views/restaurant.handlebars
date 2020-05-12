@@ -55,7 +55,7 @@
         {{/each}}
     </div>
     {{#if userLoggedIn}}
-        {{#if loggedInReviewer}}
+        {{#if currentUserData.reviewedRestaurantPage}}
             <button class="open-button" onclick="openAlert()">Post a Review</button>
         {{else}}
             <button class="open-button" onclick="openForm()">Post a Review</button>

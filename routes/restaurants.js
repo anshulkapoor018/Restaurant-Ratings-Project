@@ -23,9 +23,9 @@ router.get("/:id", async (req, res) => {
         for (reviewId of restaurant.reviews) {
           review = await reviews.getReview(reviewId);
           commentList = [];
-            //Get Avg
-            totalRating += 1;
-            sumRating += parseInt(review.rating);
+          //Get Avg
+          totalRating += 1;
+          sumRating += parseInt(review.rating);
         
           //Rating Updates
           let avgRating = sumRating/totalRating;
@@ -60,7 +60,6 @@ router.get("/:id", async (req, res) => {
       } catch (e) {
         console.log(e);
       }
-      
 
       let userId = req.session.AuthCookie;
       if(!userId) {
@@ -68,8 +67,8 @@ router.get("/:id", async (req, res) => {
       } else {
         userLoggedIn = true;
         userData = await users.getUser(userId);
+        userData.reviewedRestaurantPage = reviewList.some(item => item.userId === String(userData._id));
       }
-      // console.log(userData);
       res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData})
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
