@@ -86,13 +86,20 @@ module.exports = {
 
         return true;
     },
-
+    
     async updateComment(id, commentText) {
-        if (!id) throw "id is missing";
-        if (!commentText) throw "text is missing";
+        if (!id) throw "Comment Id is missing";
+        
+        const updatedCommentData = {};
+        if (!commentText){
+            throw "Please Enter a Comment";
+        } else {
+            updatedCommentData.commentText = commentText;
+        }
+    
         if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const commentCollection = await comments();
-        const updateCommentInfo = await commentCollection.updateOne({ _id: id }, { $set: updatedAlbumData });
+        const updateCommentInfo = await commentCollection.updateOne({ _id: id }, { $set: updatedCommentData });
         if (updateCommentInfo.modifiedCount === 0) throw "Could not update comment";
         return await this.getComment(id);
     }

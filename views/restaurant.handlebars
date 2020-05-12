@@ -46,12 +46,19 @@
                         {{#each this.commentList}}
                             <div class = "card-full">
                                 <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
-                                <p>{{this.commentText}}</p>
+                                <p id = "comment-value-tag-{{@index}}">{{this.commentText}}</p>
                                 {{#if this.isCommenter}}
+                                    <form id="comment-form-{{@index}}" name ="loginForm" class="comment-container" action="/comments/{{this.restaurantId}}/{{this._id}}/edit" method="POST">
+                                        <label>
+                                            <input type="textarea" name = "commentValue" id = "commentValue" class="inputFields" placeholder="Edit your comment..."required/> 
+                                        </label>
+                                        <button type="submit" class="btn">Post!</button>
+                                        <button type="button" class="btn cancel" onclick="javascript:commentBoxEditForm('{{@index}}');">Cancel</button>
+                                    </form>
                                     <div class="dropdown">
                                         <button class="dropbtn">Options</button>
                                         <div class="dropdown-content">
-                                            <p><a href="">Edit Comment</a></p>
+                                            <p><a href="javascript:commentBoxEditForm('{{@index}}');">Edit Comment</a></p>
                                             <p><a href="/comments/{{this.restaurantId}}/{{this._id}}/delete">Delete Comment</a></p>
                                         </div>
                                     </div>

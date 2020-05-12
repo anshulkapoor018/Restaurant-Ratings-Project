@@ -63,4 +63,20 @@ router.get('/:restaurantId/:commentId/delete', async (req, res) => {
 	}
 });
 
+router.post("/:restaurantId/:commentId/edit", async (req, res) => {
+  const data = req.body;
+  const rating = data.rating;
+  const commentVal = req.body.commentValue;
+  let hasError = false;
+  let error = [];
+
+  try {
+    const updatedComment = await comments.updateComment(req.params.commentId, commentVal);
+    return res.redirect("/restaurants/" + req.params.restaurantId);
+  } catch (e) {
+    console.log(e);
+    res.status(404).json ({message: "Could not update comment!"});
+  }
+});
+
 module.exports = router;

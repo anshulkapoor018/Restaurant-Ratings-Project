@@ -432,3 +432,17 @@ input[type="password"] {
     padding-right: 2%;
     text-align: left;
 }
+
+/* #comment-form {
+    display: none;
+} */
+
+/* #commform-container */
+
+.comment-container {
+    display: none;
+    text-align: center;
+    height: 100%;
+    padding: 10px;
+    margin: auto;
+}

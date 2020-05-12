@@ -26,6 +26,17 @@ function openCommentBox() {
     document.getElementById("row-override").style.display = "block";
 }
 
+function commentBoxEditForm(index) {
+    var formElement = "comment-form-" + index;
+    console.log(formElement);
+    var x = document.getElementById(formElement);
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+}
+
 function closeCommentBox() {
     document.getElementById("row-override").style.display = "none";
 }
