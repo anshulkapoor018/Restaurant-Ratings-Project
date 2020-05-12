@@ -18,7 +18,8 @@ router.get("/:id", async (req, res) => {
       let loggedInReviewer = false;
       let sumRating = 0;
       let totalRating = 0;
-
+      let hasError = false;
+      let error = [];
       try { // Get reviews of restaurant
         for (reviewId of restaurant.reviews) {
           review = await reviews.getReview(reviewId);
@@ -69,7 +70,7 @@ router.get("/:id", async (req, res) => {
         userData = await users.getUser(userId);
         userData.reviewedRestaurantPage = reviewList.some(item => item.userId === String(userData._id));
       }
-      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData})
+      res.status(200).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData, hasError: hasError, error: error})
     } catch (e) {
       res.status(404).json({ message: "Restaurant not found!" });
     }
