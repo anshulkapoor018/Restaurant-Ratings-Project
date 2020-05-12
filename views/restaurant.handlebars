@@ -43,7 +43,7 @@
                         </form>
                         {{#each this.commentList}}
                             <div class = "card-full">
-                                <p class = "p_inline">{{this.user.firstName}} {{this.user.lastName}}</p>
+                                <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
                                 <p>{{this.commentText}}</p>
                             </div>
                         {{/each}}
