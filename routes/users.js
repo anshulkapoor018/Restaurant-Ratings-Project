@@ -84,10 +84,24 @@ router.get("/myprofile", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  if (req.params.id === req.session.AuthCookie) {
+    return res.redirect("/users/profile");
+  }
     try {
-      const user = await users.getUser(req.params.id);
-      res.status(200).render("profile", { firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture, reviews: user.reviewIds});
+      let userData = await users.getUser(req.params.id);
+      let reviewObject = [];
+      for (i=0; i<userData.reviewIds.length; i++) {
+        let curReview = await reviews.getReview(userData.reviewIds[i]);
+        let curRestaurant = await restaurants.getRestaurant(curReview.restaurantId);
+        let reviewInfo = {
+          review: curReview,
+          restaurant: curRestaurant
+        }
+        reviewObject.push(reviewInfo);
+      }
+      res.status(200).render("user", { firstName: userData.firstName, lastName: userData.lastName, profilePicture: userData.profilePicture, reviews: reviewObject});
     } catch (e) {
+      console.log(e);
       res.status(404).json({ message: "User not found!" });
     }
 });
