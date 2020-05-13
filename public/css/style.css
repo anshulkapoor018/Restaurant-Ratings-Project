@@ -284,6 +284,10 @@ input[type="password"] {
     margin-top: 5%
 }
 
+.restaurant_Collection {
+    padding-left: 47px;
+}
+
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
@@ -362,7 +366,12 @@ input[type="password"] {
 
 .reviewerRating {
     width: 50%;
-    float: left;
+    float: right;
+}
+
+.ratingFilter {
+    width: 20%;
+    float: right;
 }
 
 .dropbtn {

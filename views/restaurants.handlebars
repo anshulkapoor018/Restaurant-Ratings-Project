@@ -1,15 +1,31 @@
 <main>
-    <h1>Restaurants</h1>
-    <h1><a href="/restaurants/sort/best">Sort by Best</a></h1>
-    <h1><a href="/restaurants/sort/worst">Sort by Worst</a></h1>
-    {{#each restaurants}}
-    <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
-        <h2><a href="/restaurants/{{this._id}}">{{this.name}}</a></h2>
-        <p class = "category">{{this.category}}</p>
-        <p>{{this.address}}</p>
-        <p>{{this.city}}, {{this.state}} {{this.zip}}</p>  
-        <p class="avg">{{this.rating}}/5</p>
-        <br/>
+    <div class = "card-full">
+        <div class="reviewHeading">
+            <div class="reviewerName">
+                <h1 class = "p_inline">Restaurants</h3>
+            </div>
+            <div class="ratingFilter">
+                <div class="dropdown">
+                    <button class="dropbtn">Sort by Rating</button>
+                    <div class="dropdown-content">
+                        <p><a href="/restaurants/sort/best">High to Low</a></p>
+                        <p><a href="/restaurants/sort/worst">Low to High</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div  class = "restaurant_Collection">
+    {{#each restaurants}}
+        <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
+            <h2><a href="/restaurants/{{this._id}}">{{this.name}}</a></h2>
+            <p class = "category">{{this.category}}</p>
+            <p>{{this.address}}</p>
+            <p>{{this.city}}, {{this.state}} {{this.zip}}</p>  
+            <p class="avg">{{this.rating}}/5</p>
+            <br/>
+        </div>
     {{/each}}
+    </div>
+    
 </main>
