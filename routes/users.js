@@ -119,7 +119,7 @@ router.get("/myprofile", async (req, res) => {
         id : req.session.AuthCookie,
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
-        profilePicture: currentUser.profilePicture,
+        //profilePicture: currentUser.profilePicture,
         email: currentUser.email,
         city: currentUser.city,
         state: currentUser.state,
@@ -219,7 +219,7 @@ router.post("/myprofile", async (req, res) => {
   try {
     const updatedUser = await users.updateUser(req.session.AuthCookie, editedUser);
     return res.render('myprofile', { 
-      id: req.session.Authookie,
+      id: req.session.AuthCookie,
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       email: updatedUser.email,
