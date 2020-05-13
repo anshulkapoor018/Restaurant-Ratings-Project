@@ -117,7 +117,8 @@ router.get("/myprofile", async (req, res) => {
       return res.redirect("/users/login");
   } else {
     const currentUser = await users.getUser(req.session.AuthCookie);
-      return res.status(307).render('myprofile', { 
+      return res.status(307).render('myprofile', {
+        id : req.session.AuthCookie,
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
         profilePicture: currentUser.profilePicture,

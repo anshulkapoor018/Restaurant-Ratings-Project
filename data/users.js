@@ -45,12 +45,13 @@ module.exports = {
 
     async addUserProfilePicture(id, profilePicture) {
         if (!id) throw "User id is missing";
-        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
+        var objRevId = ""
+        if (typeof(id) === "string") objRevId = ObjectId.createFromHexString(id);
         const userCollection = await users();
         let updatedUserData = {};
-        let gotten = await this.getUser(id);
+        let gotten = await this.getUser(objRevId);
         updatedUserData.profilePicture = profilePicture;
-        const updateInfoUser = await userCollection.updateOne({ _id: id }, { $set: updatedUserData });
+        const updateInfoUser = await userCollection.updateOne({ _id: objRevId }, { $set: updatedUserData });
         if (updateInfoUser.modifiedCount === 0 && updateInfoUser.deletedCount === 0) throw "could not update user";
         return await this.getUser(id);
     },

@@ -1,7 +1,7 @@
 <main>
     <div class="card-full">
         <h1>{{firstName}} {{lastName}} </h1>
-        <img src="{{profilePicture}}" alt="Profile Picture">
+        <img src="/users/profilepic/{{id}}" onerror="this.src='/public/images/Avatar.png'" alt="Profile Picture">
         <p>{{email}}</p>
         <p>{{city}}</p>
         <p>{{state}}</p>
