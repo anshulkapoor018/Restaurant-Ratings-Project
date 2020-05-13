@@ -10,6 +10,8 @@ const reviews = data.reviews;
 const bcrypt = require("bcryptjs");
 const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
+const xss = require('xss');
+
 
 router.get("/login", (req, res) => {
   let hasErrors = false;
@@ -246,7 +248,6 @@ router.post("/signup", async (req, res) => {
     return res.render("login", {hasErrors:hasErrors, errors: errors});
   }
 
-
 	if(firstName == "" || !firstName){
 		hasErrors = true;
 		errors.push("Please Enter your First Name");
@@ -294,10 +295,8 @@ router.post("/signup", async (req, res) => {
 					return res.render("login", {hasErrors:hasErrors, errors: err});
 					// throw err
 				} else {
-					console.log(hash);
-					console.log(typeof(hash));
 					hashedPassword = hash;
-					users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
+					users.addUser(xss(firstName), xss(lastName), xss(userName), "", "", xss(state), xss(age), xss(hashedPassword));
 					errors.push("Signed Up Successfully!");
       				res.status(200).render("login", {hasErrors:true, errors: errors});
 				}
