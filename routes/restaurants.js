@@ -8,6 +8,32 @@ const users = data.users;
 const mongoCollections = require("../config/mongoCollections");
 const rest = mongoCollections.restaurants;
 const { ObjectId } = require('mongodb');
+const session = require("express-session");
+
+router.get("/manage", async (req, res) => {
+  if (!req.session.AuthCookie) {
+    res.status(401).redirect("/users/login");
+  } else{ 
+    try {
+      const restaurantList = await restaurants.getRestaurantsByOwner(req.session.AuthCookie);
+      // const userLoggedIn = (req.session.AuthCookie) ? true : false;
+      res.status(200).render("management", { restaurants: restaurantList, userLoggedIn: true })
+    } catch (e) {
+      console.log(e);
+      res.status(200).render("management", { restaurants: [], userLoggedIn: true })
+    }
+  }
+});
+
+router.get("/edit/:id", async (req, res) => {
+  if (!req.session.AuthCookie) {
+    res.status(401).redirect("/users/login");
+  } else if (!restaurants.checkRestaurantOwnership(req.params.id, req.session.AuthCookie)) {
+    res.status(401).redirect("/restaurants/manage");
+  } else {
+    res.status(200).render("editRestaurant", { id: req.params.id, userLoggedIn: true })
+  }
+});
 
 router.get("/:id", async (req, res) => {
     try {
@@ -126,6 +152,94 @@ router.get("/", async (req, res) => {
 
     
 });
+
+router.get("/sort/best", async (req, res) => {
+  try {
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+
+   if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+    restaurantList = await restaurants.getBestRestaurants();
+    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+  } catch (e) {
+    // Something went wrong with the server!
+    console.log(e);
+    res.status(404).send();
+}
+});
+
+router.get("/sort/worst", async (req, res) => {
+  try {
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+
+   if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+    restaurantList = await restaurants.getWorstRestaurants();
+    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+  } catch (e) {
+    // Something went wrong with the server!
+    console.log(e);
+    res.status(404).send();
+}
+});
+
+router.post("/add", async (req, res) => {
+  if (!req.session.AuthCookie) {
+    res.status(401).redirect("/users/login");
+  }
+  const body = req.body;
+  if (!body.name) res.status(400).redirect("/restaurants/manage"); 
+  if (!body.website) res.status(400).redirect("/restaurants/manage");
+  if (!body.category) res.status(400).redirect("/restaurants/manage");
+  if (!body.address) res.status(400).redirect("/restaurants/manage");
+  if (!body.city) res.status(400).redirect("/restaurants/manage");
+  if (!body.state) res.status(400).redirect("/restaurants/manage");
+  if (!body.zip) res.status(400).redirect("/restaurants/manage");
+  if (!body.longitude) res.status(400).redirect("/restaurants/manage");
+  if (!body.latitude) res.status(400).redirect("/restaurants/manage");
+  try {
+    await restaurants.addRestaurantWithOwner(body.name, body.website, body.category, body.address, body.city, body.state, body.zip, parseFloat(body.longitude), parseFloat(body.latitude), req.session.AuthCookie);
+  } catch (e) {
+    console.log(e);
+  }
+  res.redirect("/restaurants/manage");
+})
+
+router.post("/edit", async (req, res) => {
+  const body = req.body;
+  if (!req.session.AuthCookie) {
+    res.status(401).redirect("/users/login");
+  } else if (!body._id) { // Check that restaurant ID didn't get lost somehow
+    res.status(400).redirect("/restaurants/manage")
+  } else if (!restaurants.checkRestaurantOwnership(body._id, req.session.AuthCookie)) { // Check that user has permission to manage
+    res.status(401).redirect("/restaurants/manage");
+  } else {
+    if (!body.name) res.status(400).redirect("/restaurants/manage"); 
+    if (!body.website) res.status(400).redirect("/restaurants/manage");
+    if (!body.category) res.status(400).redirect("/restaurants/manage");
+    if (!body.address) res.status(400).redirect("/restaurants/manage");
+    if (!body.city) res.status(400).redirect("/restaurants/manage");
+    if (!body.state) res.status(400).redirect("/restaurants/manage");
+    if (!body.zip) res.status(400).redirect("/restaurants/manage");
+    if (!body.longitude) res.status(400).redirect("/restaurants/manage");
+    if (!body.latitude) res.status(400).redirect("/restaurants/manage");
+    try {
+      await restaurants.updateRestaurant(body._id, body.name, body.website, body.category, body.address, body.city, body.state, body.zip, parseFloat(body.longitude), parseFloat(body.latitude));
+    } catch (e) {
+      console.log(e);
+    }
+    res.redirect("/restaurants/manage");
+  }
+  
+})
 
 router.post("/search", async (req, res) => {
   const body = req.body;
