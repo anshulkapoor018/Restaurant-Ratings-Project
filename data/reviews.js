@@ -9,18 +9,24 @@ const commentFunctions = require("./comments")
 // const uuid = require('uuid/v4');
 
 module.exports = {
-    async addReview(restaurantId, userId, reviewText, rating) {
+    async addReview(restaurantId, userId, reviewText, rating, reviewPicture) {
         if (!restaurantId || (typeof restaurantId != "string")) throw "restaurant ID must be given as a string";
         if (!userId || (typeof userId != "string")) throw "user ID must be given as a string";
         if (!reviewText || (typeof reviewText != "string")) throw "review text must be given as a string";
         if (!rating || (typeof rating != "number") || (rating < 1) || (rating > 5)) throw "rating must be given as a number from 1 to 5";
+        if (!reviewPicture || reviewPicture == "") {
+            reviewPicture = "";
+        } 
+        // else if(reviewPicture != "" && (typeof reviewPicture != "object")) throw "must give reviewPicture as an Object";
+        
         const reviewCollection = await reviews();
         let newReview = {
             restaurantId: restaurantId,
             userId: userId,
             reviewText: reviewText,
             rating: rating,
-            comments: []
+            comments: [],
+            reviewPicture: reviewPicture
         }
         const alreadyReviewed = await reviewCollection.findOne({ 
             $and: [{

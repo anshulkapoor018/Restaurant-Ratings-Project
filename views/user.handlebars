@@ -18,6 +18,8 @@
                         <p class = "restaurant_rating"><a href="/reviews/{{this.review._id}}">Rating: {{this.review.rating}}</a></p>
                     </div>
                 </div>
+                
+                <img src="/reviews/reviewPic/{{this.review._id}}" onerror="this.style.display='none'" alt="Review Picture" class="profileIcon">
                 <div class = "reviewText">
                     <p>{{this.review.reviewText}}</p>
                 </div>

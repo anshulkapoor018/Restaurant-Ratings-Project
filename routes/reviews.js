@@ -8,7 +8,34 @@ const comments = data.comments;
 const mongoCollections = require("../config/mongoCollections");
 const rest = mongoCollections.restaurants;
 const { ObjectId } = require('mongodb');
+const multer = require('multer');
+const path = require('path');
 
+var fs = require('fs');
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+// router.post('/upload/profilepic', upload.single('picture'), async (req, res) => {
+//   var img = fs.readFileSync(req.file.path);
+//   var encode_image = img.toString('base64');
+//   let userId = req.session.AuthCookie;
+//   var finalImg = {
+//       contentType: req.file.mimetype,
+//       image: Buffer.from(encode_image, 'base64')
+//   };
+
+//   const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
+//   res.redirect("/users/profile");
+// });
 //TODO
 router.get("/:id", async (req, res) => {
   let isReviewer = false;
@@ -26,7 +53,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/:id/add", async (req, res) => {
+router.post("/:id/add", upload.single('picture'), async (req, res) => {
   const data = req.body;
   const rating = data.rating;
   const reviewText = data.reviewText;
@@ -98,14 +125,41 @@ router.post("/:id/add", async (req, res) => {
   try {
     const reviewRating = req.body.rating;
     const reviewText = req.body.reviewText;
+    var finalImg = ""
+    console.log(req.file);
+    if(!req.file){
+      finalImg = "";
+    } else {
+      var img = fs.readFileSync(req.file.path);
+      var encode_image = img.toString('base64');
+      finalImg = {
+        contentType: req.file.mimetype,
+          image: Buffer.from(encode_image, 'base64')
+      };
+    }
+    
     let userId = req.session.AuthCookie;
     let restaurantID = req.params.id;
-    const reviewForRes = await reviews.addReview(restaurantID, userId, reviewText, Number(reviewRating));
+    const reviewForRes = await reviews.addReview(restaurantID, userId, reviewText, Number(reviewRating), finalImg);
+    console.log(reviewForRes);
     const redirectURL = "/restaurants/" + restaurantID;
     return res.redirect(redirectURL);
   } catch (e) {
     // Something went wrong with the server!
     res.status(404).send();
+  }
+});
+
+router.get('/reviewPic/:id', async (req, res) => {
+  const getReviewData = await reviews.getReview(req.params.id);
+  const reviewPicData = getReviewData.reviewPicture;
+  if(reviewPicData == ""){
+    return res.status(400).send({
+      message: 'No Review Pic Found!'
+   })
+  } else {
+    res.contentType('image/jpeg');
+    res.send(reviewPicData.image.buffer);
   }
 });
   
