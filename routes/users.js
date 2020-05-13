@@ -11,7 +11,12 @@ const bcrypt = require("bcryptjs");
 const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
 const xss = require('xss');
+const fs = require("fs");
+const multer = require("multer");
 
+const upload = multer({
+  dest: "../public/images"
+});
 
 router.get("/login", (req, res) => {
   let hasErrors = false;
@@ -128,11 +133,12 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/myprofile", async (req, res) => {
+router.post("/myprofile", upload.single("file"), async (req, res) => {
   let hasErrors = false;
   let errors = [];
   let editedUser;
   let hashedPassword;
+  let newFileName;
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
@@ -143,6 +149,7 @@ router.post("/myprofile", async (req, res) => {
   const age = data.age;
   const password = data.password;
   const confirm = data.confirm;
+  console.log(data);
 
   if (password != confirm) {
     hasErrors = true;
@@ -172,8 +179,55 @@ router.post("/myprofile", async (req, res) => {
       age: age
     }
   }
+
+  if (profilePicture){
+    try {
+      console.log("Checkpoint 0");
+      console.log(req.file.path);
+      const tempPath = req.file.path;
+      console.log("Checkpoint 1");
+      newFileName = lastName + "_" + firstName + "_" + "ProfilePicture.png"
+      const targetPath = path.join(__dirname, "../public/images/" + newFileName);
+      console.log("Checkpoint 2");
+      console.log(path.extname(req.file.originalname).toLowerCase());
+      if (path.extname(req.file.originalname).toLowerCase() === ".png" || path.extname(req.file.originalname).toLowerCase() === ".jpg") {
+          console.log("Checkpoint 3");
+          fs.rename(tempPath, targetPath, err => {
+              console.log("Checkpoint 4");
+              if (err) {
+                  console.log(err);
+                  return handleError(err, res);
+              }
+              console.log("Checkpoint 5");
+          });
+      }
+      else {
+          fs.unlink(tempPath, err => {
+              console.log("Checkpoint 6");
+              if (err) {
+                  console.log(err);
+                  return handleError(err, res);
+              }
+              console.log("Checkpoint 7");
+              res.status(404).json({ message: "Could not update user! (0)" });
+              console.log("Error uploading profile image (0)");
+          });
+      }
+      console.log("Checkpoint 8");
+      const newUser = await userData.addUser(data.firstname, data.lastname, data.username, data.password1, newFileName);
+      console.log("Checkpoint 9");
+  
+    }
+    catch (e) {
+      console.log("Error uploading profile image (1)");
+      return res.status(404).json({ message: "Could not update user! (1)" });
+    }
+  }
+
   try {
+    console.log("1");
     const updatedUser = await users.updateUser(req.session.AuthCookie, editedUser);
+    console.log("2");
     return res.render('myprofile', { 
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
@@ -182,9 +236,9 @@ router.post("/myprofile", async (req, res) => {
       city: updatedUser.city,
       state: updatedUser.state,
       age: updatedUser.age,
-      userLoggedIn: true})
+      userLoggedIn: true});
     } catch(e) {
-      res.status(404).json({ message: "Could not update user!" });
+      return res.status(404).json({ message: "Could not update user! (2)" });
     }
   });
 

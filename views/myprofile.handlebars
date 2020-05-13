@@ -1,7 +1,7 @@
 <main>
     <div class="card-full">
         <h1>{{firstName}} {{lastName}} </h1>
-        <img src="{{profilePicture}}" alt="Profile Picture">
+        <img src="../{{profilePicture}}" alt="Profile Picture">
         <p>{{email}}</p>
         <p>{{city}}</p>
         <p>{{state}}</p>
@@ -10,6 +10,14 @@
 
     <div class="card-full">
         <h2>Edit Profile</h2>
+        
+        <form id = "edit-profile" method="post" action="/users/myprofile">
+                <input type="file" name="file" id="profilePicture" class="inputFields">
+                <label>
+                    <button type="submit" class = "btn">Confirm</button>
+                </label>
+        </form>
+
         <form id="edit-profile" action="/users/myprofile" method="post">
             <label for="firstName">
                 <input type="text" id="firstName" name="firstName" class="inputFields" placeholder="First Name" value="{{firstName}}">
@@ -17,12 +25,18 @@
             <label for="lastName">
                 <input type="text" id="lastName" name="lastName" class="inputFields" placeholder="Last Name" value="{{lastName}}">
             </label>
-            <div class="inputFields">
-                <label for="profilePicture"> 
-                    <p>Profile Picture</p>
-                    <input type="file" id="profilePicture" name="profilePicture">
-                </label>
-            </div>
+
+            
+
+            {{!-- <form id="edit-pic" action="" method="post">
+                <div class="inputFields">
+                    <label for="profilePicture"> 
+                        <p>Profile Picture</p>
+                        <input type="file" id="profilePicture" name="profilePicture">
+                    </label>
+                </div>
+            </form> --}}
+            
 
             <label for="email">
                 <input type="text" id="email" name="email" class="inputFields" placeholder="Email" value="{{email}}">
