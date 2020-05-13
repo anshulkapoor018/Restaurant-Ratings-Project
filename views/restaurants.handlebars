@@ -8,8 +8,8 @@
                 <div class="dropdown">
                     <button class="dropbtn">Sort by Rating</button>
                     <div class="dropdown-content">
-                        <p><a href="/restaurants/sort/best">High to Low</a></p>
-                        <p><a href="/restaurants/sort/worst">Low to High</a></p>
+                        <p onclick="sortCardsDescending()">High to Low</p>
+                        <p onClick="sortCardsAscending()">Low to High</p>
                     </div>
                 </div>
             </div>
@@ -31,5 +31,5 @@
         </div>
     {{/each}}
     </div>
-    
+    <script src="/public/javascript/sort.js"></script>
 </main>

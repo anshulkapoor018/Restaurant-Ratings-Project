@@ -134,21 +134,7 @@ module.exports = {
         if (restaurantList.length === 0) throw "no restaurants in the collection";
         return restaurantList;
     },
-
-    async getBestRestaurants() {
-        const restaurantCollection = await restaurants();
-        const restaurantList = await restaurantCollection.find({}).sort({rating: -1}).toArray();
-        if (restaurantList.length === 0) throw "no restaurants in the collection";
-        return restaurantList;
-    },
     
-    async getWorstRestaurants() {
-        const restaurantCollection = await restaurants();
-        const restaurantList = await restaurantCollection.find({}).sort({rating: 1}).toArray();
-        if (restaurantList.length === 0) throw "no restaurants in the collection";
-        return restaurantList;
-    },
-
     async checkRestaurantOwnership(restaurantId, userId) {
         if (!userId) throw "Error (checkRestaurantOwnership): Must provide ID of user to check.";
         if (!restaurantId) throw "Error (checkRestaurantOwnership): Must provide ID of restaurant to check.";
