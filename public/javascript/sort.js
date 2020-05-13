@@ -25,7 +25,7 @@ function sortCardsAscending() {
     for (restaurant of restaurants) { // Reinstantiate all cards in sorted order
         let div = document.createElement("div");
         div.setAttribute("class", "card");
-        div.setAttribute("onClick", "location.href=" + restaurant.link + ";");
+        div.setAttribute("onClick", "location.href=\"" + restaurant.link + "\";");
         let h2 = document.createElement("h2");
         let a = document.createElement("a");
         a.setAttribute("href", restaurant.link);
@@ -62,7 +62,7 @@ function sortCardsDescending() {
     for (restaurant of restaurants) {
         let div = document.createElement("div");
         div.setAttribute("class", "card");
-        div.setAttribute("onClick", "location.href=" + restaurant.link + ";");
+        div.setAttribute("onClick", "location.href=\"" + restaurant.link + "\";");
         let h2 = document.createElement("h2");
         let a = document.createElement("a");
         a.setAttribute("href", restaurant.link);
