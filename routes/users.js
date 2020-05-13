@@ -47,7 +47,7 @@ router.get('/profilepic/:id', async (req, res) => {
   const profilepicData = getUser.profilePicture;
   if(profilepicData == ""){
     return res.status(400).send({
-      message: 'No Profil Pic Found!'
+      message: 'No Profile Pic Found!'
    })
   } else {
     res.contentType('image/jpeg');
