@@ -108,7 +108,7 @@ module.exports = {
             return await this.getUser(id);
         }
         const updateInfoUser = await userCollection.updateOne({ _id: id }, { $set: updatedUserData });
-        if (updateInfoUser.modifiedCount === 0) throw "could not update user";
+        if (updateInfoUser.modifiedCount === 0 && updateInfoUser.deletedCount === 0) throw "could not update user";
         return await this.getUser(id);
     }
 }
