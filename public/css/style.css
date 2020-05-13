@@ -103,6 +103,7 @@ input[type="password"] {
 .inputFields{
     display: block;
     text-align: center;
+    text-align-last: center;
     margin: auto;
     margin-bottom: 15px;
     width: 75%;
