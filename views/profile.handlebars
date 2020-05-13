@@ -14,26 +14,26 @@
         {{#each reviews}}
         <div>
             <div class="card-full">
-            <div class="reviewHeading">
-                <div class="reviewerName">
-                    <p class = "restaurant_name"><a href="/restaurants/{{this.restaurant._id}}">{{this.restaurant.name}}</a></p>
+                <div class="reviewHeading">
+                    <div class="reviewerName">
+                        <p class = "restaurant_name"><a href="/restaurants/{{this.restaurant._id}}">{{this.restaurant.name}}</a></p>
+                    </div>
+                    <div class="reviewerRating">
+                        <p class = "restaurant_rating"><a href="/reviews/{{this.review._id}}">Your Rating: {{this.review.rating}}</a></p>
+                    </div>
                 </div>
-                <div class="reviewerRating">
-                    <p class = "restaurant_rating"><a href="/reviews/{{this.review._id}}">Your Rating: {{this.review.rating}}</a></p>
+                <div class = "reviewText">
+                    <p>{{this.review.reviewText}}</p>
                 </div>
-            </div>
-            <div class = "reviewText">
-                <p>{{this.review.reviewText}}</p>
-            </div>
-            <div class="dropdown">
-                <button class="dropbtn">Options</button>
-                <div class="dropdown-content">
-                    <p><a href="/reviews/{{this.review._id}}/edit">Edit Review</a></p>
-                    <p><a href="../reviews/{{this.restaurant._id}}/{{this.review._id}}/delete">Delete Review</a></p>
+                <div class="dropdown">
+                    <button class="dropbtn">Options</button>
+                    <div class="dropdown-content">
+                        <p><a href="/reviews/{{this.review._id}}/edit">Edit Review</a></p>
+                        <p><a href="../reviews/{{this.restaurant._id}}/{{this.review._id}}/delete">Delete Review</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-        
         {{/each}}
-    </div>
+    
 </main>

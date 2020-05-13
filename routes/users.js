@@ -150,6 +150,7 @@ router.get("/:id", async (req, res) => {
         reviewObject.push(reviewInfo);
       }
       res.status(200).render("user", { 
+        id: req.session.AuthCookie,
         firstName: userData.firstName, 
         lastName: userData.lastName, 
         profilePicture: userData.profilePicture, 
