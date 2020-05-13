@@ -36,10 +36,28 @@ router.post('/upload/profilepic', upload.single('picture'), async (req, res) => 
       contentType: req.file.mimetype,
       image: Buffer.from(encode_image, 'base64')
   };
-  users.addUserProfilePicture
+
   const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
   console.log(addingProfilePicture);
+  res.redirect("/users/profile");
+});
 
+router.get('/profilepic/:id', async (req, res) => {
+  const getUser = await users.getUser(req.params.id);
+  console.log(getUser);
+  const profilepicData = getUser.profilePicture;
+  res.contentType('image/jpeg');
+  res.send(profilepicData.image.buffer);
+   
+  // db.collection('mycollection').findOne({'_id': ObjectId(filename) }, (err, result) => {
+   
+  //     if (err) return console.log(err)
+   
+  //    res.contentType('image/jpeg');
+  //    res.send(result.image.buffer)
+     
+      
+  //   })
 });
 
 router.get("/login", (req, res) => {
@@ -85,6 +103,7 @@ router.get("/profile", async (req, res) => {
         reviewObject.push(reviewInfo);
       }
       return res.status(307).render('profile', { 
+        id: userId,
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
