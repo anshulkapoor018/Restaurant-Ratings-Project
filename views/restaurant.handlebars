@@ -9,16 +9,16 @@
     </div>
     
     <div class="card-wide" id="right">
-        <h3>Reviews</h3>
+        <h2>Reviews</h2>
         {{#each reviews}}
             <div class = "reviews">
                 <div class = "card-full">
                     <div class="reviewHeading">
                         <div class="reviewerName">
-                            <p class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
+                            <h3 class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></h3>
                         </div>
                         <div class="reviewerRating">
-                            <p class = "rating">Rating: {{this.rating}}/5</p>
+                            <h3 class = "rating">Rating: {{this.rating}}/5</h3>
                         </div>
                     </div>
                     <div class = "reviewText">
@@ -33,8 +33,8 @@
                             </div>
                         </div>
                     {{/if}}
-                    <h3>Comments</h3>
-                    <div class = "comments">
+                    <h4>Comments</h4>
+                    <div class = "comments" >
                         {{#if ../userLoggedIn}}
                             <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{../currentUserData._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
                                     <label>
@@ -44,7 +44,7 @@
                             </form>
                         {{/if}}
                         {{#each this.commentList}}
-                            <div class = "card-full">
+                            <div class = "card-full" id="white-card">
                                 <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
                                 <p id = "comment-value-tag-{{@index}}">{{this.commentText}}</p>
                                 {{#if this.isCommenter}}

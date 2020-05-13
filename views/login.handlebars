@@ -13,26 +13,29 @@
             </form>
         </div>
 
-    <div class="card-wide">
+    <div class="card-wide" id="new-content">
         <h2>Sign Up</h2>
         <form id="signup-form" name ="SignupForm" class = "form1" action="/users/signup" method="POST">
             <label>
-                <input type="text" name="firstname" id="firstname" class = "inputFields" placeholder="Enter your First Name" />  
+                <input type="text" name="firstname" id="firstname" class = "inputFields" placeholder="Enter your First Name" required/>  
             </label>
             <label>
-                <input type="text" name="lastname" id="lastname" class = "inputFields" placeholder="Enter your Last Name" />
+                <input type="text" name="lastname" id="lastname" class = "inputFields" placeholder="Enter your Last Name" required/>
             </label>
             <label>
-                <input type="number" name="age" id="age" class = "inputFields" placeholder="Enter your Age" />
+                <input type="number" name="age" id="age" class = "inputFields" placeholder="Enter your Age" required/>
             </label>
             <label>
-                <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Email" />  
+                <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Email" required/>  
             </label>
             <label>
-                <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter a Password" />
+                <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter a Password" required/>
             </label>
             <label>
-                <select name="state" class = "inputFields" required >
+                <input type="text" name="city" id="city" class = "inputFields" placeholder="Enter your City Name" required/>  
+            </label>
+            <label>
+                <select name="state" class = "inputFields" id = "state" required >
                     <option value="" disabled selected>Select your State</option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -108,4 +111,10 @@
         </div>
         {{/if}}
     </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
+    <script src="/public/javascript/signup.js"></script>
 </main>

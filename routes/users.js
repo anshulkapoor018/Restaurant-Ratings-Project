@@ -10,6 +10,8 @@ const reviews = data.reviews;
 const bcrypt = require("bcryptjs");
 const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
+const xss = require('xss');
+
 
 router.get("/login", (req, res) => {
   let hasErrors = false;
@@ -141,6 +143,7 @@ router.post("/myprofile", async (req, res) => {
   const age = data.age;
   const password = data.password;
   const confirm = data.confirm;
+
   if (password != confirm) {
     hasErrors = true;
     errors.push("Passwords must match");
@@ -229,12 +232,14 @@ router.post("/signup", async (req, res) => {
 	let hasErrors = false;
 	const saltRounds = 16;
 	let errors = [];
-	let hashedPassword = ""
+  let hashedPassword = ""
+  console.log(req.body);
 	let firstName = req.body.firstname;
 	let lastName = req.body.lastname;
 	let age = req.body.age;
 	let userName = req.body.username;
-	let password = req.body.password;
+  let password = req.body.password;
+  let city = req.body.city;
   let state = req.body.state;
   
   const userCollection = await userData();      
@@ -245,7 +250,6 @@ router.post("/signup", async (req, res) => {
     res.status(401);
     return res.render("login", {hasErrors:hasErrors, errors: errors});
   }
-
 
 	if(firstName == "" || !firstName){
 		hasErrors = true;
@@ -268,6 +272,12 @@ router.post("/signup", async (req, res) => {
 	if(userName == "" || !userName){
 		hasErrors = true;
 		errors.push("Please Enter your Email");
+		res.status(401);
+		return res.render("login", {hasErrors:hasErrors, errors: errors});
+  }
+  if(city == "" || !city){
+		hasErrors = true;
+		errors.push("Please Enter your City Name");
 		res.status(401);
 		return res.render("login", {hasErrors:hasErrors, errors: errors});
 	}
@@ -294,10 +304,8 @@ router.post("/signup", async (req, res) => {
 					return res.render("login", {hasErrors:hasErrors, errors: err});
 					// throw err
 				} else {
-					console.log(hash);
-					console.log(typeof(hash));
 					hashedPassword = hash;
-					users.addUser(firstName, lastName, userName, "", "", state, age, hashedPassword);
+					users.addUser(xss(firstName), xss(lastName), xss(userName), "", xss(city), xss(state), xss(age), xss(hashedPassword));
 					errors.push("Signed Up Successfully!");
       				res.status(200).render("login", {hasErrors:true, errors: errors});
 				}

@@ -74,7 +74,8 @@ module.exports = {
         if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
         const userCollection = await users();
         let updatedUserData = {};
-        if (updatedUser === await this.getUser(id)) {
+        let gotten = await this.getUser(id);
+        if (JSON.stringify(updatedUser) == JSON.stringify(gotten)) {
             return await this.getUser(id);
         }
 
@@ -102,7 +103,8 @@ module.exports = {
         if (updatedUser.hashedPassword) {
             updatedUserData.hashedPassword = updatedUser.hashedPassword;
         }
-        if (updatedUserData = {}) {
+        console.log(updatedUserData);
+        if (updatedUserData == {}) {
             return await this.getUser(id);
         }
         const updateInfoUser = await userCollection.updateOne({ _id: id }, { $set: updatedUserData });
