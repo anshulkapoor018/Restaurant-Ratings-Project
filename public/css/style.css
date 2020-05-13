@@ -284,16 +284,10 @@ input[type="password"] {
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.card-wide:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.card-full:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 .card-center:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 
 #sticky{
@@ -302,31 +296,21 @@ input[type="password"] {
 }
 #right{
     float: right;
+    background-color: white;
 }
 
 #white-card{
     background-color: white;
 }
 
-@media screen and (max-width: 1500px) {
-    .card{
-        width: 30%;
-    }
-}
 
-@media screen and (max-width: 900px) {
-    .card,
-    .card-wide{
-        width: 98%;
-    }
-}
 
 /* CSS for Popup Review Form */
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
     color: #0076cb;
     font-size: large;
-    background-color: #fafafa;
+    background-color: white;
     border: 2px solid #0076cb;
     border-radius: 5em;
     text-align: center;
@@ -335,11 +319,11 @@ input[type="password"] {
     position: fixed;
     bottom: 23px;
     right: 28px;
-    width: 280px;
+    width: 250px;
   }
 
 .open-button:hover {
-    color: #fafafa;
+    color: white;
     background-color: #0076cb;
 }
   
@@ -422,7 +406,7 @@ input[type="password"] {
   
 .dropdown:hover .dropdown-content {display: block;}
   
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {background-color: #3e8e41; color: #fafafa}
 
 .comments p{
     padding-left: 2%;
@@ -430,16 +414,23 @@ input[type="password"] {
     text-align: left;
 }
 
-/* #comment-form {
-    display: none;
-} */
-
-/* #commform-container */
-
 .comment-container {
     display: none;
     text-align: center;
     height: 100%;
     padding: 10px;
     margin: auto;
+}
+
+@media screen and (max-width: 1500px) {
+    .card{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .card,
+    .card-wide{
+        width: 98%;
+    }
 }

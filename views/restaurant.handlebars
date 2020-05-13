@@ -12,7 +12,7 @@
         <h2>Reviews</h2>
         {{#each reviews}}
             <div class = "reviews">
-                <div class = "card-full" id="white-card">
+                <div class = "card-full">
                     <div class="reviewHeading">
                         <div class="reviewerName">
                             <h3 class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></h3>
@@ -34,7 +34,7 @@
                         </div>
                     {{/if}}
                     <h4>Comments</h4>
-                    <div class = "comments">
+                    <div class = "comments" >
                         {{#if ../userLoggedIn}}
                             <form id="login-form" name ="loginForm" class="form-container" action="/comments/{{../currentUserData._id}}/{{this._id}}/{{this.restaurantId}}/add" method="POST">
                                     <label>
@@ -44,7 +44,7 @@
                             </form>
                         {{/if}}
                         {{#each this.commentList}}
-                            <div class = "card-full">
+                            <div class = "card-full" id="white-card">
                                 <p class = "p_inline"><a href="../users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>
                                 <p id = "comment-value-tag-{{@index}}">{{this.commentText}}</p>
                                 {{#if this.isCommenter}}
