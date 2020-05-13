@@ -210,7 +210,6 @@ router.post("/myprofile", async (req, res) => {
     editedUser = {
       firstName: firstName,
       lastName: lastName,
-      profilePicture: profilePicture,
       email: email,
       city: city,
       state: state,
@@ -222,7 +221,6 @@ router.post("/myprofile", async (req, res) => {
     return res.render('myprofile', { 
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
-      profilePicture: updatedUser.profilePicture,
       email: updatedUser.email,
       city: updatedUser.city,
       state: updatedUser.state,

@@ -123,6 +123,11 @@ input[type="password"] {
     padding-left: 30px;
 }
 
+.profile-pic {
+    width: 200px;
+    height: 200px;
+}
+
 .error {
     min-width: 150px;
     position: fixed;
