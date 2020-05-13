@@ -44,12 +44,10 @@ router.post('/upload/profilepic', upload.single('picture'), async (req, res) => 
 
 router.get('/profilepic/:id', async (req, res) => {
   const getUser = await users.getUser(req.params.id);
-  // console.log(getUser);
   const profilepicData = getUser.profilePicture;
   if(profilepicData == ""){
-    // res.sendFile("/public/images/Avatar.png");
     return res.status(400).send({
-      message: 'This is an error!'
+      message: 'No Profil Pic Found!'
    })
   } else {
     res.contentType('image/jpeg');

@@ -187,6 +187,25 @@ input[type="password"] {
     color:#001514;
 }
 
+.restaurant_name {
+    text-align: left;
+    color: #0076cb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.restaurant_rating {
+    text-align: right;
+}
+
+.restaurant_rating a {
+    color: #cf4300;
+}
+
+.restaurant_rating a:hover {
+    color: #6ca000;
+}
+
 .btn{
     color: #0076cb;
     font-size: large;

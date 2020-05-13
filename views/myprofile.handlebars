@@ -1,5 +1,5 @@
 <main>
-    <div class="card-full">
+    <div class="card-wide" id ="sticky">
         <h1>{{firstName}} {{lastName}} </h1>
         <img src="/users/profilepic/{{id}}" onerror="this.src='/public/images/Avatar.png'" alt="Profile Picture">
         <p>{{email}}</p>
@@ -7,8 +7,8 @@
         <p>{{state}}</p>
         <p>{{age}}</p>
     </div>
-
-    <div class="card-full">
+    
+    <div class="card-wide" id="right">
         <h2>Edit Profile</h2>
           <!--   PHOTO-->
  
@@ -23,13 +23,6 @@
             <label for="lastName">
                 <input type="text" id="lastName" name="lastName" class="inputFields" placeholder="Last Name" value="{{lastName}}">
             </label>
-            {{!-- <div class="inputFields">
-                <label for="profilePicture"> 
-                    <p>Profile Picture</p>
-                    <input type="file" id="profilePicture" name="profilePicture">
-                </label>
-            </div> --}}
-
             <label for="email">
                 <input type="text" id="email" name="email" class="inputFields" placeholder="Email" value="{{email}}">
             </label>
@@ -124,7 +117,6 @@
                 </ul>
             {{/if}}
         </div>
-
     </div>
     <script>
         function passwordOnBlur(x){
