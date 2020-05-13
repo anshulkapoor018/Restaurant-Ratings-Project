@@ -9,10 +9,10 @@
     </div>
     
     <div class="card-wide" id="right">
-        <h3>Reviews</h3>
+        <h2>Reviews</h2>
         {{#each reviews}}
             <div class = "reviews">
-                <div class = "card-full">
+                <div class = "card-full" id="white-card">
                     <div class="reviewHeading">
                         <div class="reviewerName">
                             <p class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></p>

@@ -1,14 +1,14 @@
 <main>
     <div class="card-full">
         <h1>{{firstName}} {{lastName}} </h1>
-        <img src="{{profilePicture}}">
+        <img src="{{profilePicture}}" alt="Profile Picture">
         <h1>{{state}}</h1>
         <br>
         <h2>Reviews</h2>
         {{#each reviews}}
         <div>
             <h3><a href="/restaurants/{{this.restaurant._id}}">{{this.restaurant.name}}</a></h3>
-            <p><a href="/reviews/{{this.review._id}}">{{this.review.rating}}</a></p>
+            <p><a href="/reviews/{{this.review._id}}">Rating: {{this.review.rating}}</a></p>
             <p>{{this.review.reviewText}}</p>
             <br/>
         </div>
