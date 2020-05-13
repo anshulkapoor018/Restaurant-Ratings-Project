@@ -67,8 +67,38 @@ module.exports = {
         }
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
         if (insertInfo.insertedCount === 0) throw "Error (addRestaurantWithOwner): Failed to add restaurant to DB.";
-        const newId = insertInfo.insertedId;
-        const restaurant = await this.getRestaurant(newId);
+        const id = insertInfo.insertedId;
+        const restaurant = await this.getRestaurant(id);
+        return restaurant;
+    },
+
+    async updateRestaurant(id, name, website, category, address, city, state, zip, latitude, longitude) {
+        if (!id) throw "Error (updateRestaurant): Restaurant ID must be included.";
+        if (typeof(id) === "string") id = ObjectId.createFromHexString(id);
+        if (!name || (typeof(name) !== "string")) throw "Error (updateRestaurant): Name must be included as a string.";
+        if (!website || (typeof(website) !== "string")) throw "Error (updateRestaurant): Website must be included as a string.";
+        if (!category || (typeof(category) !== "string")) throw "Error (updateRestaurant): Category must be included as a string.";
+        if (!address || (typeof(address) !== "string")) throw "Error (updateRestaurant): Address must be included as a string.";
+        if (!city || (typeof(city) !== "string")) throw "Error (updateRestaurant): City must be included as a string.";
+        if (!state || (typeof(state) !== "string")) throw "Error (updateRestaurant): State must be included as a string.";
+        if (!zip || (typeof(zip) !== "string")) throw "Error (updateRestaurant): Zip must be included as a string.";
+        if (!longitude || (typeof(longitude) !== "number")) throw "Error (updateRestaurant): Longitude must be included as a float.";
+        if (!latitude || (typeof(latitude) !== "number")) throw "Error (updateRestaurant): Latitude must be included as a float.";
+        const restaurantCollection = await restaurants();
+        let updatedRestaurant = {
+            name: name,
+            website: website,
+            category: category,
+            address: address,
+            city: city,
+            state: state,
+            zip: zip,
+            longitude: longitude,
+            latitude: latitude
+        }
+        const updateInfo = await restaurantCollection.updateOne({ _id: id }, {$set: updatedRestaurant});
+        if (updateInfo.modifiedCount === 0) throw "Error (updateRestaurant): Failed to update restaurant in DB.";
+        const restaurant = await this.getRestaurant(id);
         return restaurant;
     },
 
