@@ -552,10 +552,16 @@ input[type="password"] {
 }
 
 .profilePic{
+    object-fit: cover;
     width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
 .profileIcon{
-    max-height: 41px;
+    object-fit: cover;
+    height: 41px;
+    max-width: 41px;
+    border-radius: 50%;
 }
 
 @media screen and (max-width: 1500px) {
