@@ -1,5 +1,7 @@
 <main>
     <h1>Restaurants</h1>
+    <h1><a href="/restaurants/sort/best">Sort by Best</a></h1>
+    <h1><a href="/restaurants/sort/worst">Sort by Worst</a></h1>
     {{#each restaurants}}
     <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
         <h2><a href="/restaurants/{{this._id}}">{{this.name}}</a></h2>

@@ -153,6 +153,44 @@ router.get("/", async (req, res) => {
     
 });
 
+router.get("/sort/best", async (req, res) => {
+  try {
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+
+   if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+    restaurantList = await restaurants.getBestRestaurants();
+    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+  } catch (e) {
+    // Something went wrong with the server!
+    console.log(e);
+    res.status(404).send();
+}
+});
+
+router.get("/sort/worst", async (req, res) => {
+  try {
+    let userLoggedIn = false;
+    let userId = req.session.AuthCookie;
+
+   if(!userId) {
+      userLoggedIn = false;
+    } else {
+      userLoggedIn = true;
+    }
+    restaurantList = await restaurants.getWorstRestaurants();
+    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+  } catch (e) {
+    // Something went wrong with the server!
+    console.log(e);
+    res.status(404).send();
+}
+});
+
 router.post("/add", async (req, res) => {
   if (!req.session.AuthCookie) {
     res.status(401).redirect("/users/login");
