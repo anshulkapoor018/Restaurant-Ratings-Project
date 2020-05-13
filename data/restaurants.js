@@ -141,6 +141,7 @@ module.exports = {
         if (restaurantList.length === 0) throw "no restaurants in the collection";
         return restaurantList;
     },
+    
     async getWorstRestaurants() {
         const restaurantCollection = await restaurants();
         const restaurantList = await restaurantCollection.find({}).sort({rating: 1}).toArray();

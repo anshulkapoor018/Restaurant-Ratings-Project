@@ -127,7 +127,8 @@ router.get("/", async (req, res) => {
         sumRating += parseInt(review.rating);
       }
       //Rating Updates
-      let avgRating = sumRating/totalRating;
+      let avgRating = 0;
+      if (totalRating !== 0) avgRating = sumRating / totalRating;
       avgRating = avgRating.toFixed(2);
       const restCollection = await rest();
       const updated = await restCollection.updateOne({_id: resto._id}, {$set: { rating: avgRating}});
@@ -143,7 +144,16 @@ router.get("/", async (req, res) => {
       userLoggedIn = true;
     }
     restaurantList = await restaurants.getAllRestaurants();
-    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+    let newRestaurantList = [];
+    for (restaurant of restaurantList) {
+      if (restaurant.reviews.length > 0) {
+        restaurant.rated = true;
+      } else {
+        restaurant.rated = false;
+      }
+      newRestaurantList.push(restaurant);
+    }
+    res.status(200).render("restaurants", { restaurants: newRestaurantList, userLoggedIn: userLoggedIn});
   } catch (e) {
     // Something went wrong with the server!
     console.log(e);
@@ -164,7 +174,16 @@ router.get("/sort/best", async (req, res) => {
       userLoggedIn = true;
     }
     restaurantList = await restaurants.getBestRestaurants();
-    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+    let newRestaurantList = [];
+    for (restaurant of restaurantList) {
+      if (restaurant.reviews.length > 0) {
+        restaurant.rated = true;
+      } else {
+        restaurant.rated = false;
+      }
+      newRestaurantList.push(restaurant);
+    }
+    res.status(200).render("restaurants", { restaurants: newRestaurantList, userLoggedIn: userLoggedIn});
   } catch (e) {
     // Something went wrong with the server!
     console.log(e);
@@ -183,7 +202,16 @@ router.get("/sort/worst", async (req, res) => {
       userLoggedIn = true;
     }
     restaurantList = await restaurants.getWorstRestaurants();
-    res.status(200).render("restaurants", { restaurants: restaurantList, userLoggedIn: userLoggedIn});
+    let newRestaurantList = [];
+    for (restaurant of restaurantList) {
+      if (restaurant.reviews.length > 0) {
+        restaurant.rated = true;
+      } else {
+        restaurant.rated = false;
+      }
+      newRestaurantList.push(restaurant);
+    }
+    res.status(200).render("restaurants", { restaurants: newRestaurantList, userLoggedIn: userLoggedIn});
   } catch (e) {
     // Something went wrong with the server!
     console.log(e);
@@ -245,6 +273,15 @@ router.post("/search", async (req, res) => {
   const body = req.body;
   try {
     let restaurantList = await restaurants.getRestaurantsViaSearch(body.search);
+    let newRestaurantList = [];
+    for (restaurant of restaurantList) {
+      if (restaurant.reviews.length > 0) {
+        restaurant.rated = true;
+      } else {
+        restaurant.rated = false;
+      }
+      newRestaurantList.push(restaurant);
+    }
 
     let userLoggedIn = false;
     let userId = req.session.AuthCookie;
@@ -255,7 +292,7 @@ router.post("/search", async (req, res) => {
     }
     
     if (restaurantList.length > 0) {
-      res.status(200).render("restaurants", { restaurants: restaurantList , userLoggedIn: userLoggedIn});
+      res.status(200).render("restaurants", { restaurants: newRestaurantList , userLoggedIn: userLoggedIn });
     } else {
       res.status(200).render("search", { userLoggedIn: userLoggedIn });
     }

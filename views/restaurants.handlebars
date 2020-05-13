@@ -22,7 +22,11 @@
             <p class = "category">{{this.category}}</p>
             <p>{{this.address}}</p>
             <p>{{this.city}}, {{this.state}} {{this.zip}}</p>  
+            {{#if this.rated}}  
             <p class="avg">{{this.rating}}/5</p>
+            {{else}}
+            <p class="avg">No Reviews</p>
+            {{/if}}
             <br/>
         </div>
     {{/each}}
