@@ -2,7 +2,7 @@
     <h1>Restaurants</h1>
     {{#each restaurants}}
     <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
-        <h3><a href="/restaurants/{{this._id}}">{{this.name}}</a></h3>
+        <h2><a href="/restaurants/{{this._id}}">{{this.name}}</a></h2>
         <p class = "category">{{this.category}}</p>
         <p>{{this.address}}</p>
         <p>{{this.city}}, {{this.state}} {{this.zip}}</p>  
