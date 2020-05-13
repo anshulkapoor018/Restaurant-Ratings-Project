@@ -227,28 +227,6 @@ const main = async () => {
     const review1ForR29 = await reviews.addReview(String(R29._id), String(U2._id), "Slurpy!", 5);
     const review1ForR30 = await reviews.addReview(String(R30._id), String(U1._id), "Good prices", 3);
 
-    // const review3ForR1 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
-    // const review3ForR2 = await reviews.addReview(String(R4._id), String(U2._id), "Amazing Food!", 1);
-    // const review3ForR3 = await reviews.addReview(String(R3._id), String(U1._id), "Amazing Food!", 3);
-    // const review3ForR4 = await reviews.addReview(String(R4._id), String(U2._id), "Amazing Food!", 1);
-    // const review3ForR5 = await reviews.addReview(String(R5._id), String(U3._id), "Amazing Food!", 4);
-    // const review3ForR6 = await reviews.addReview(String(R6._id), String(U4._id), "Amazing Food!", 5);
-    // const review3ForR7 = await reviews.addReview(String(R7._id), String(U5._id), "Amazing Food!", 5);
-    // const review3ForR8 = await reviews.addReview(String(R8._id), String(U6._id), "Amazing Food!", 5);
-    // const review3ForR9 = await reviews.addReview(String(R9._id), String(U7._id), "Amazing Food!", 4);
-    // const review3ForR10 = await reviews.addReview(String(R10._id), String(U8._id), "Amazing Food!", 3);
-
-    //Seed Sample Reviews
-    
-    // const commentForReviewForR2 = await comments.addComment(String(U1._id), String(reviewForR2._id), "Amazing Food!");
-    // const commentForReviewForR3 = await comments.addComment(String(U1._id), String(reviewForR3._id), "Amazing Food!");
-    // const commentForReviewForR4 = await comments.addComment(String(U1._id), String(reviewForR4._id), "Amazing Food!");
-    // const commentForReviewForR5 = await comments.addComment(String(U1._id), String(reviewForR5._id), "Amazing Food!");
-    // const commentForReviewForR6 = await comments.addComment(String(U1._id), String(reviewForR6._id), "Amazing Food!");
-    // const commentForReviewForR7 = await comments.addComment(String(U1._id), String(reviewForR7._id), "Amazing Food!");
-    // const commentForReviewForR8 = await comments.addComment(String(U1._id), String(reviewForR8._id), "Amazing Food!");
-    // const commentForReviewForR9 = await comments.addComment(String(U1._id), String(reviewForR9._id), "Amazing Food!");
-    // const commentForReviewForR10 = await comments.addComment(String(U1._id), String(reviewForR10._id), "Amazing Food!");
     console.log('Done seeding database for Restaurant Collection!');
 	await db.serverConfig.close();
 };
