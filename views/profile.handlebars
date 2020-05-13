@@ -1,23 +1,39 @@
 <main>
-    <div class="card-full">
+    <div class="card-wide" id ="sticky">
         <h1>{{firstName}} {{lastName}} </h1>
-        <img src="{{profilePicture}}" alt="Profile Picture">
+        <img src="/users/profilepic/{{id}}" onerror="this.src='/public/images/Avatar.png'" alt="Profile Picture">
         <p>{{email}}</p>
         <p>{{city}}</p>
         <p>{{state}}</p>
         <p>{{age}}</p>
         <p><a href="/users/myprofile" class="btn">Edit Profile</a></p>
-        <br>
+    </div>
+    
+    <div class="card-wide" id="right">
         <h2>Reviews</h2>
         {{#each reviews}}
         <div>
-            <h3><a href="/restaurants/{{this.restaurant._id}}">{{this.restaurant.name}}</a></h3>
-            <p><a href="/reviews/{{this.review._id}}">Your Rating: {{this.review.rating}}</a></p>
-            <p>{{this.review.reviewText}}</p>
-            <p><a href="/reviews/{{this.review._id}}/edit">Edit Review</a></p>
-            <p><a href="../reviews/{{this.restaurant._id}}/{{this.review._id}}/delete">Delete Review</a></p>
-            <br/>
+            <div class="card-full">
+            <div class="reviewHeading">
+                <div class="reviewerName">
+                    <p class = "restaurant_name"><a href="/restaurants/{{this.restaurant._id}}">{{this.restaurant.name}}</a></p>
+                </div>
+                <div class="reviewerRating">
+                    <p class = "restaurant_rating"><a href="/reviews/{{this.review._id}}">Your Rating: {{this.review.rating}}</a></p>
+                </div>
+            </div>
+            <div class = "reviewText">
+                <p>{{this.review.reviewText}}</p>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Options</button>
+                <div class="dropdown-content">
+                    <p><a href="/reviews/{{this.review._id}}/edit">Edit Review</a></p>
+                    <p><a href="../reviews/{{this.restaurant._id}}/{{this.review._id}}/delete">Delete Review</a></p>
+                </div>
+            </div>
         </div>
+        
         {{/each}}
     </div>
 </main>
