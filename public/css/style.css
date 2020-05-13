@@ -38,12 +38,12 @@ h3{
     color: #6ca000;
     text-align: center;
     font-weight: bold;
-    font-size: x-large;
+    font-size: large;
     font-family: 'Montserrat', sans-serif;
 }
 
 h4{
-    color: #6ca000;
+    color: #588300;
     font-size: large;
     font-family: 'Montserrat', sans-serif;
 }
@@ -382,10 +382,10 @@ input[type="password"] {
 
 .dropbtn {
     background-color: #fafafa;
-    color: #6ca000;
+    color: #558000;
     font-size: large;
     box-sizing: border-box;
-    border: 2px solid #6ca000;
+    border: 2px solid #558000;
     border-radius: 5em;
     padding: 8px;
     margin: 15px;  
