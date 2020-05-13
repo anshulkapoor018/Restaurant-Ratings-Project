@@ -166,23 +166,25 @@ router.get("/", async (req, res) => {
 router.post("/add", async (req, res) => {
   if (!req.session.AuthCookie) {
     res.status(401).redirect("/users/login");
+  } else {
+    const body = req.body;
+    if (!body.name) res.status(400).redirect("/restaurants/manage"); 
+    if (!body.website) res.status(400).redirect("/restaurants/manage");
+    if (!body.category) res.status(400).redirect("/restaurants/manage");
+    if (!body.address) res.status(400).redirect("/restaurants/manage");
+    if (!body.city) res.status(400).redirect("/restaurants/manage");
+    if (!body.state) res.status(400).redirect("/restaurants/manage");
+    if (!body.zip) res.status(400).redirect("/restaurants/manage");
+    if (!body.longitude) res.status(400).redirect("/restaurants/manage");
+    if (!body.latitude) res.status(400).redirect("/restaurants/manage");
+    try {
+      await restaurants.addRestaurantWithOwner(body.name, body.website, body.category, body.address, body.city, body.state, body.zip, parseFloat(body.longitude), parseFloat(body.latitude), req.session.AuthCookie);
+    } catch (e) {
+      console.log(e);
+    }
+    res.redirect("/restaurants/manage");
   }
-  const body = req.body;
-  if (!body.name) res.status(400).redirect("/restaurants/manage"); 
-  if (!body.website) res.status(400).redirect("/restaurants/manage");
-  if (!body.category) res.status(400).redirect("/restaurants/manage");
-  if (!body.address) res.status(400).redirect("/restaurants/manage");
-  if (!body.city) res.status(400).redirect("/restaurants/manage");
-  if (!body.state) res.status(400).redirect("/restaurants/manage");
-  if (!body.zip) res.status(400).redirect("/restaurants/manage");
-  if (!body.longitude) res.status(400).redirect("/restaurants/manage");
-  if (!body.latitude) res.status(400).redirect("/restaurants/manage");
-  try {
-    await restaurants.addRestaurantWithOwner(body.name, body.website, body.category, body.address, body.city, body.state, body.zip, parseFloat(body.longitude), parseFloat(body.latitude), req.session.AuthCookie);
-  } catch (e) {
-    console.log(e);
-  }
-  res.redirect("/restaurants/manage");
+  
 })
 
 router.post("/edit", async (req, res) => {
