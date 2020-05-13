@@ -24,10 +24,11 @@ module.exports = {
         if (!age || (typeof age != "string")) throw "must give age as a string";
         if (!hashedPassword || (typeof hashedPassword != "string")) throw "must give hashed password as a string";
         const userCollection = await users();
+        var emailLowerCase = email.toLowerCase();
         let newUser = {
             firstName: firstName,
             lastName: lastName,
-            email: email,
+            email: emailLowerCase,
             profilePicture: profilePicture,
             city: city,
             state: state,
@@ -36,7 +37,8 @@ module.exports = {
             reviewIds: [],
             commentIds: []
         }
-        const userExists = await userCollection.findOne({ email: email});
+        
+        const userExists = await userCollection.findOne({ email: emailLowerCase});
         if (userExists) throw "Email already in use";
         const insertInfo = await userCollection.insertOne(newUser);
         if (insertInfo.insertedCount === 0) throw "could not add user";

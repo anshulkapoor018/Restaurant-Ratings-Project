@@ -241,35 +241,35 @@ router.post("/myprofile", async (req, res) => {
       return res.redirect("/users/profile");
     } else {
       	const userCollection = await userData();
-      	let userName = req.body.username;
+      	let userName = (req.body.username).toLowerCase();
       	let password = req.body.password;
       
       	const user = await userCollection.findOne({ email: userName});
 
       	console.log(user)
       	if(!user) {
-			auth = "Not Authorised User"
-			hasErrors = true;
-			errors.push("Invalid Username or Password");
-			res.status(401);
-			return res.render("login", {hasErrors:hasErrors, errors: errors});
-		} else {
-			let isSame = await bcrypt.compare(password, user.hashedPassword);
-			if(!isSame) {
-				auth = "Not Authorised User"
-				hasErrors = true;
-				errors.push("Invalid Username/Password");
-				res.status(401);
-				return res.render("login", {hasErrors:hasErrors, errors: errors});
-			} else {
-				auth = "Authorised User"
-				let userId = await users.getUserId(userName);
-				req.session.AuthCookie = userId;
-				req.session.user = user;
-				return res.redirect("/users/profile");
-			}
-      	}
-    }
+          auth = "Not Authorised User"
+          hasErrors = true;
+          errors.push("Invalid Username or Password");
+          res.status(401);
+          return res.render("login", {hasErrors:hasErrors, errors: errors});
+        } else {
+          let isSame = await bcrypt.compare(password, user.hashedPassword);
+          if(!isSame) {
+            auth = "Not Authorised User"
+            hasErrors = true;
+            errors.push("Invalid Username/Password");
+            res.status(401);
+            return res.render("login", {hasErrors:hasErrors, errors: errors});
+          } else {
+            auth = "Authorised User"
+            let userId = await users.getUserId(userName);
+            req.session.AuthCookie = userId;
+            req.session.user = user;
+            return res.redirect("/users/profile");
+          }
+        }
+      }
 });
 
 router.post("/signup", async (req, res) => {
@@ -331,7 +331,7 @@ router.post("/signup", async (req, res) => {
 		return res.render("login", {hasErrors:hasErrors, errors: errors});
 	}
 	
-	bcrypt.genSalt(saltRounds, function (err, salt) {
+	bcrypt.genSalt(saltRounds, async function (err, salt) {
 		if (err) {
 			hasErrors = true;
 			errors.push("Error in Parsing the Password, Please Try Again!");
@@ -339,7 +339,7 @@ router.post("/signup", async (req, res) => {
 			return res.render("login", {hasErrors:hasErrors, errors: err});
 			// throw err
 		} else {
-			bcrypt.hash(password, salt, function(err, hash) {
+			bcrypt.hash(password, salt, async function(err, hash) {
 				if (err) {
 					hasErrors = true;
 					errors.push("Error in Parsing the Password, Please Try Again!");
@@ -347,12 +347,21 @@ router.post("/signup", async (req, res) => {
 					return res.render("login", {hasErrors:hasErrors, errors: err});
 					// throw err
 				} else {
-					hashedPassword = hash;
-					users.addUser(xss(firstName), xss(lastName), xss(userName), "", xss(city), xss(state), xss(age), xss(hashedPassword));
+          hashedPassword = hash;
+
+          try {
+            await users.addUser(xss(firstName), xss(lastName), xss(userName), "", xss(city), xss(state), xss(age), xss(hashedPassword));
+          } catch (e) {
+            hasErrors = true;
+            errors.push("Email ID already exists!");
+            res.status(401);
+					  return res.render("login", {hasErrors:hasErrors, errors: errors});
+          }
+          
 					errors.push("Signed Up Successfully!");
-      				res.status(200).render("login", {hasErrors:true, errors: errors});
+      		res.status(200).render("login", {hasErrors:true, errors: errors});
 				}
-		  	})
+		  })
 		}
 	});
 });
