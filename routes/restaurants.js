@@ -8,6 +8,15 @@ const users = data.users;
 const mongoCollections = require("../config/mongoCollections");
 const rest = mongoCollections.restaurants;
 const { ObjectId } = require('mongodb');
+const session = require("express-session");
+
+router.get("/manage", async (req, res) => {
+  if (!req.session.AuthCookie) {
+    res.status(401).redirect("/users/login");
+  }
+  const userLoggedIn = (req.session.AuthCookie) ? true : false;
+  res.status(200).render("management", { userLoggedIn: userLoggedIn })
+})
 
 router.get("/:id", async (req, res) => {
     try {
