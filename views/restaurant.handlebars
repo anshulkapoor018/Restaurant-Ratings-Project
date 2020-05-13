@@ -15,15 +15,18 @@
                 <div class = "card-full">
                     <div class="reviewHeading">
                         <div class="reviewerName">
-                            <p class = "p_inline">{{this.user.firstName}} {{this.user.lastName}}</p>
+                            <div class="reviewerIcon">
+                            <img src="/users/profilepic/{{this.user._id}}" onerror="this.src='/public/images/Avatar.png'" alt="Profile Picture" class="profileIcon">
+                            </div>
+                            <h3 class = "p_inline"><a href="/users/{{this.user._id}}">{{this.user.firstName}} {{this.user.lastName}}</a></h3>
                         </div>
                         <div class="reviewerRating">
                             <p class = "rating">Rating: {{this.rating}}/5</p>
                         </div>
                     </div>
-                    <div class = "reviewText">
-                        <p>{{this.reviewText}}</p>
-                    </div>
+                    
+                    <p>{{this.reviewText}}</p>
+                    
                     {{#if this.isReviewer}}
                         <div class="dropdown">
                             <button class="dropbtn">Options</button>

@@ -1,5 +1,21 @@
 <main>
-    <h1>Restaurants</h1>
+    <div class = "restaurants_heading">
+        <div class="reviewHeading">
+            <div class="restaurants_title">
+                <h1>Restaurants</h1>
+            </div>
+            <div class="ratingFilter">
+                <div class="dropdown">
+                    <button class="dropbtn">Sort by Rating</button>
+                    <div class="dropdown-content">
+                        <p onclick="sortCardsDescending()" class="btn">High to Low</p>
+                        <p onClick="sortCardsAscending()" class="btn">Low to High</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "restaurant_Collection"> <!-- Note: When changing this section be sure to modify sort.js as well --> 
     {{#each restaurants}}
     <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
         <h3><a href="/restaurants/{{this._id}}">{{this.name}}</a></h3>

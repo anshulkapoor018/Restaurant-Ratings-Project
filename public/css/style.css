@@ -3,7 +3,8 @@ body{
     height: 100%;
     margin: 0;
     padding-top: 15px;
-    background: url("../images/BG1.jpg") no-repeat;
+    background: url("../images/BG4.png");
+    background-size: 100%;
 }
 
 main{
@@ -166,6 +167,7 @@ input[type="password"] {
 .rating{
     color: #E4572E;
     float: right;
+    margin: 10px;
     margin-right: 20px;
 }
 .reviews h3{
@@ -178,6 +180,48 @@ input[type="password"] {
 .login{
     text-align: center;
     color:#001514;
+}
+
+.restaurants_heading{
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    float: left; 
+    width: 100%;
+    padding: 0;
+    padding-top: 20px;
+    margin: 0;
+}
+.restaurants_title{
+    width: 50%;
+    float: left;
+    padding-left: 1%;
+}
+.restaurants_title h1{
+    text-align: left;
+    color: #6ca000;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.restaurant_name {
+    text-align: left;
+    color: #0076cb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.restaurant_rating {
+    text-align: right;
+}
+
+.restaurant_rating a {
+    color: #cf4300;
+}
+
+.restaurant_rating a:hover {
+    color: #6ca000;
 }
 
 .btn{
@@ -229,7 +273,7 @@ input[type="password"] {
     position: relative;
     text-align: center;
     float: left; 
-    width: 23%;
+    width: 31%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 15px;
@@ -277,14 +321,22 @@ input[type="password"] {
     margin-top: 5%
 }
 
+.search-card-center {
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    width: 55%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: auto;
+    margin-top: 5%
+}
+
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.card-wide:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.card-full:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
 }
 .card-center:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -357,17 +409,34 @@ input[type="password"] {
 .p_inline {
     color:  #E4572E;
     float: left;
-    margin-left: 20px;
+    margin: 10px;
+}
+.reviewHeading{
+    margin: 5px;
+}
+
+.reviewerIcon {
+    max-height: 41px;
+    max-width: 41px;
+    float: left;
+    padding: 0;
 }
 
 .reviewerName {
     width: 50%;
     float: left;
+    padding: 0;
 }
 
 .reviewerRating {
     width: 50%;
-    float: left;
+    float: right;
+    padding: 0;
+}
+
+.ratingFilter {
+    width: 20%;
+    float: right;
 }
 
 .dropbtn {
@@ -418,4 +487,96 @@ input[type="password"] {
     padding-left: 2%;
     padding-right: 2%;
     text-align: left;
+}
+
+.comment-container {
+    display: none;
+    text-align: center;
+    height: 100%;
+    padding: 10px;
+    margin: auto;
+}
+
+#message {
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: none;
+    text-align: left;
+    float: left; 
+    width: 96%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 2%;
+    display:none;
+    /* position: relative; */
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+  
+.valid {
+    color: green;
+    text-align: left;
+    padding-left: 70px;
+}
+  
+.valid:before {
+    position: relative;
+    text-align: left;
+    left: -35px;
+    content: "✔";
+    padding-left: 70px;
+}
+
+.invalid {
+    color: red;
+    text-align: left;
+    padding-left: 70px;
+}
+  
+.invalid:before {
+    position: relative;
+    text-align: left;
+    left: -35px;
+    content: "✖";
+    padding-left: 70px;
+}
+
+.profilePic{
+    width: 200px;
+}
+.profileIcon{
+    max-height: 41px;
+}
+
+@media screen and (max-width: 1500px) {
+    .card{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .card,
+    .card-wide{
+        width: 98%;
+    }
+
+    #sticky{
+        position: static;
+        margin-top: 5%;
+        float: left;
+    }
+    #right{
+        float: left;
+    }
+
+    .ratingFilter {
+        width: 40%;
+        padding:0;
+        margin: 0;
+        float: right;
+    }
 }
