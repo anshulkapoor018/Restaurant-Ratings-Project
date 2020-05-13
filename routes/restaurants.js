@@ -31,7 +31,8 @@ router.get("/edit/:id", async (req, res) => {
   } else if (!restaurants.checkRestaurantOwnership(req.params.id, req.session.AuthCookie)) {
     res.status(401).redirect("/restaurants/manage");
   } else {
-    res.status(200).render("editRestaurant", { id: req.params.id, userLoggedIn: true })
+    let restaurant = await restaurants.getRestaurant(req.params.id);
+    res.status(200).render("editRestaurant", { restaurant: restaurant, userLoggedIn: true })
   }
 });
 

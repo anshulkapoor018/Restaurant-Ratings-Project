@@ -1,16 +1,16 @@
 <div class="card-center">
     <h3>Edit Restaurant</h3>
     <form method="POST" action="/restaurants/edit/">
-        <input type="text" name="_id" value={{id}} class="inputFields" readonly />
-        <input type="text" name="name" placeholder="Restaurant Name" class="inputFields" />
-        <input type="text" name="website" placeholder="Restaurant Website" class="inputFields" />
-        <input type="text" name="category" placeholder="Restaurant Category" class="inputFields" />
-        <input type="text" name="address" placeholder="Restaurant Address" class="inputFields" />
-        <input type="text" name="city" placeholder="Restaurant City" class="inputFields" />
-        <input type="text" name="state" placeholder="Restaurant State" class="inputFields" />
-        <input type="text" name="zip" placeholder="Restaurant Zip Code" class="inputFields" />
-        <input type="text" name="longitude" placeholder="Restaurant Longitude" class="inputFields" />
-        <input type="text" name="latitude" placeholder="Restaurant Latitude" class="inputFields" />
+        <input type="text" name="_id" placeholder="Restaurant ID" value="{{restaurant._id}}" class="inputFields" readonly />
+        <input type="text" name="name" placeholder="Restaurant Name" value="{{restaurant.name}}" class="inputFields" />
+        <input type="text" name="website" placeholder="Restaurant Website" value="{{restaurant.website}}" class="inputFields" />
+        <input type="text" name="category" placeholder="Restaurant Category" value="{{restaurant.category}}" class="inputFields" />
+        <input type="text" name="address" placeholder="Restaurant Address" value="{{restaurant.address}}" class="inputFields" />
+        <input type="text" name="city" placeholder="Restaurant City" value="{{restaurant.city}}" class="inputFields" />
+        <input type="text" name="state" placeholder="Restaurant State" value="{{restaurant.state}}" class="inputFields" />
+        <input type="text" name="zip" placeholder="Restaurant Zip Code" value="{{restaurant.zip}}" class="inputFields" />
+        <input type="text" name="longitude" placeholder="Restaurant Longitude" value="{{restaurant.longitude}}" class="inputFields" />
+        <input type="text" name="latitude" placeholder="Restaurant Latitude" value="{{restaurant.latitude}}" class="inputFields" />
         <input type="submit" value="Edit Restaurant" class="btn" />
     </form>
 </div>
