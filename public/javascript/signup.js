@@ -6,6 +6,7 @@ $(() => {
       newAgeInput = $('#age'),
       newEmailInput = $('#username'),
       newPasswordInput = $('#password'),
+      newCityInput = $('#city'),
       newStateInput = $('#password')
   
     $form.on('submit', handleSignup);
@@ -18,6 +19,7 @@ $(() => {
       var newAge = newAgeInput.val();
       var newEmail = newEmailInput.val();
       var newPassword = newPasswordInput.val();
+      var newCity = newCityInput.val();
       var newState = newStateInput.val();
       
       var newContent = $('#new-content');
@@ -35,6 +37,7 @@ $(() => {
               age : newAge,
               userName : newEmail,
               password : newPassword,
+              city : newCity,
               state : newState
             })
           };
