@@ -3,7 +3,7 @@ body{
     height: 100%;
     margin: 0;
     padding-top: 15px;
-    background: url("../images/BG1.jpg");
+    background: url("../images/BG4.png");
 }
 
 main{
@@ -187,6 +187,25 @@ input[type="password"] {
     color:#001514;
 }
 
+.restaurant_name {
+    text-align: left;
+    color: #0076cb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.restaurant_rating {
+    text-align: right;
+}
+
+.restaurant_rating a {
+    color: #cf4300;
+}
+
+.restaurant_rating a:hover {
+    color: #6ca000;
+}
+
 .btn{
     color: #0076cb;
     font-size: large;
@@ -271,6 +290,21 @@ input[type="password"] {
     margin: 2%;
 }
 .card-center{
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    width: 55%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: auto;
+    margin-top: 5%
+}
+
+.search-card-center {
+    opacity: 0.85;
     background-color: #fafafa;
     box-sizing: border-box;
     display: block;

@@ -12,6 +12,48 @@ const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
 const xss = require('xss');
 
+const multer = require('multer');
+const path = require('path');
+
+var fs = require('fs');
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+router.post('/upload/profilepic', upload.single('picture'), async (req, res) => {
+  var img = fs.readFileSync(req.file.path);
+  var encode_image = img.toString('base64');
+  let userId = req.session.AuthCookie;
+  var finalImg = {
+      contentType: req.file.mimetype,
+      image: Buffer.from(encode_image, 'base64')
+  };
+
+  const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
+  console.log(addingProfilePicture);
+  res.redirect("/users/profile");
+});
+
+router.get('/profilepic/:id', async (req, res) => {
+  const getUser = await users.getUser(req.params.id);
+  const profilepicData = getUser.profilePicture;
+  if(profilepicData == ""){
+    return res.status(400).send({
+      message: 'No Profil Pic Found!'
+   })
+  } else {
+    res.contentType('image/jpeg');
+    res.send(profilepicData.image.buffer);
+  }
+});
 
 router.get("/login", (req, res) => {
   let hasErrors = false;
@@ -56,6 +98,7 @@ router.get("/profile", async (req, res) => {
         reviewObject.push(reviewInfo);
       }
       return res.status(307).render('profile', { 
+        id: userId,
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
@@ -72,7 +115,8 @@ router.get("/myprofile", async (req, res) => {
       return res.redirect("/users/login");
   } else {
     const currentUser = await users.getUser(req.session.AuthCookie);
-      return res.status(307).render('myprofile', { 
+      return res.status(307).render('myprofile', {
+        id : req.session.AuthCookie,
         firstName: currentUser.firstName,
         lastName: currentUser.lastName,
         profilePicture: currentUser.profilePicture,
@@ -106,6 +150,7 @@ router.get("/:id", async (req, res) => {
         reviewObject.push(reviewInfo);
       }
       res.status(200).render("user", { 
+        id: req.session.AuthCookie,
         firstName: userData.firstName, 
         lastName: userData.lastName, 
         profilePicture: userData.profilePicture, 

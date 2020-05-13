@@ -10,38 +10,38 @@ const main = async () => {
     await db.dropDatabase();
 
     //Seed Sample Restaurants
-    const R1 = await restaurants.addRestaurant("Papa Johns", "papajohns.com", "Pizza", "125 18th Street", "Jersey City", "NJ", "07310", 40.732628, -74.037628, "");
-    const R2 = await restaurants.addRestaurant("Chef Of India", "chefofindia.com", "Indian", "324 Central Ave", "Jersey City", "NJ", "07307", 40.7459498, -74.0512955, "");
-    const R3 = await restaurants.addRestaurant("Vibez Juice & Vegan Cafe", "chefofindia.com", "Juice", "82 Hutton St", "Jersey City", "NJ", "07307", 40.7445109, -74.0514578, "");
-    const R4 = await restaurants.addRestaurant("El Gordo", "elgordoeats.com", "Peruvian", "291 Central Ave", "Jersey City", "NJ", "07310", 40.7450379, -74.0524309, "");
-    const R5 = await restaurants.addRestaurant("The Franklin", "thefranklinjc.com", "Italian", "159 New York Ave", "Jersey City", "NJ", "07310", 40.7417174, -74.0491971, "");
-    const R6 = await restaurants.addRestaurant("Dino & Harry's Steakhouse", "dinoandharrys.com", "Steak", "163 14th St", "Hoboken", "NJ", "07030", 40.7534212, -74.0299569, "");
+    const R1 = await restaurants.addRestaurant("Papa Johns", "papajohns.com", "Pizza", "125 18th Street", "Jersey City", "NJ", "07310", 40.732628, -74.037628);
+    const R2 = await restaurants.addRestaurant("Chef Of India", "chefofindia.com", "Indian", "324 Central Ave", "Jersey City", "NJ", "07307", 40.7459498, -74.0512955);
+    const R3 = await restaurants.addRestaurant("Vibez Juice & Vegan Cafe", "chefofindia.com", "Juice", "82 Hutton St", "Jersey City", "NJ", "07307", 40.7445109, -74.0514578);
+    const R4 = await restaurants.addRestaurant("El Gordo", "elgordoeats.com", "Peruvian", "291 Central Ave", "Jersey City", "NJ", "07310", 40.7450379, -74.0524309);
+    const R5 = await restaurants.addRestaurant("The Franklin", "thefranklinjc.com", "Italian", "159 New York Ave", "Jersey City", "NJ", "07310", 40.7417174, -74.0491971);
+    const R6 = await restaurants.addRestaurant("Dino & Harry's Steakhouse", "dinoandharrys.com", "Steak", "163 14th St", "Hoboken", "NJ", "07030", 40.7534212, -74.0299569);
     const R7 = await restaurants.addRestaurant("La Isla", "laislarestaurant.com", "Cuban", "104 Washington St", "Hoboken", "NJ", "07310", 40.7228179, -74.1316417, "");
-    const R8 = await restaurants.addRestaurant("Ali Baba Restaurant", "hobokenalibaba.com", "Middle Eastern", "912 Washington St Ste 1", "Hoboken", "NJ", "07310", 40.7477496, -74.0302254, "");
-    const R9 = await restaurants.addRestaurant("South Street Fish & Ramen Co.", "southstreet.co", "Japanese", "219 Washington St", "Hoboken", "NJ", "07310", 40.7393196, -74.032313, "");
-    const R10 = await restaurants.addRestaurant("GreekTown", "greektown-hoboken.com", "Greek", "86 Garden St", "Hoboken", "NJ", "07310", 40.7369868, -74.3132926, "");
+    const R8 = await restaurants.addRestaurant("Ali Baba Restaurant", "hobokenalibaba.com", "Middle Eastern", "912 Washington St Ste 1", "Hoboken", "NJ", "07310", 40.7477496, -74.0302254);
+    const R9 = await restaurants.addRestaurant("South Street Fish & Ramen Co.", "southstreet.co", "Japanese", "219 Washington St", "Hoboken", "NJ", "07310", 40.7393196, -74.032313);
+    const R10 = await restaurants.addRestaurant("GreekTown", "greektown-hoboken.com", "Greek", "86 Garden St", "Hoboken", "NJ", "07310", 40.7369868, -74.3132926);
     
-    const R11 = await restaurants.addRestaurant("Cucharamama", "http://places.singleplatform.com/cucharamama/menu?ref=google", "Latin", "233 Clinton St", "Hoboken", "NJ", "07030", 40.7406889, -74.0368137, "");
-    const R12 = await restaurants.addRestaurant("Zacks", "zackshoboken.com", "Latin", "232 Willow Ave", "Hoboken", "NJ", "07030", 40.7405781, -74.0361511, "");
-    const R13 = await restaurants.addRestaurant("The Cuban", "thecubannj.com", "Cuban", "333 Washington St", "Hoboken", "NJ", "07030", 40.741024, -74.0317947, "");
-    const R14 = await restaurants.addRestaurant("Amandas", "amandasrestaurant.com", "American", "908 Washington St A", "Hoboken", "NJ", "07030", 40.7476503, -74.0303058, "");
-    const R15 = await restaurants.addRestaurant("Augustinos", "www.google.com", "Italian", "1104 Washington St", "Hoboken", "NJ", "07030", 40.7502738, -74.029437, "");
-    const R16 = await restaurants.addRestaurant("Barbès", "http://places.singleplatform.com/barbs-69/menu?ref=google", "French", "1300 Park Ave", "Hoboken", "NJ", "07030", 40.7529884, -74.0314436, "");
-    const R17 = await restaurants.addRestaurant("Anthony Davids", "anthonydavids.com", "Italian", "953 Bloomfield St", "Hoboken", "NJ", "07030", 40.7485811, -74.0303674, "");
-    const R18 = await restaurants.addRestaurant("Halifax", "halifaxhoboken.com", "American", "At W Hotel, 225 River St", "Hoboken", "NJ", "07030", 40.8132911, -74.1449544, "");
-    const R19 = await restaurants.addRestaurant("Court Street", "courtstreet.com", "Continental", "61 Sixth St", "Hoboken", "NJ", "07030", 40.7431676, -74.0308204, "");
-    const R20 = await restaurants.addRestaurant("Carpe Diem", "carpediemhoboken.com", "Irish", "333 Washington St", "Hoboken", "NJ", "07030", 40.8132911, -74.1449544, "");
+    const R11 = await restaurants.addRestaurant("Cucharamama", "http://places.singleplatform.com/cucharamama/menu?ref=google", "Latin", "233 Clinton St", "Hoboken", "NJ", "07030", 40.7406889, -74.0368137);
+    const R12 = await restaurants.addRestaurant("Zacks", "zackshoboken.com", "Latin", "232 Willow Ave", "Hoboken", "NJ", "07030", 40.7405781, -74.0361511);
+    const R13 = await restaurants.addRestaurant("The Cuban", "thecubannj.com", "Cuban", "333 Washington St", "Hoboken", "NJ", "07030", 40.741024, -74.0317947);
+    const R14 = await restaurants.addRestaurant("Amandas", "amandasrestaurant.com", "American", "908 Washington St A", "Hoboken", "NJ", "07030", 40.7476503, -74.0303058);
+    const R15 = await restaurants.addRestaurant("Augustinos", "www.google.com", "Italian", "1104 Washington St", "Hoboken", "NJ", "07030", 40.7502738, -74.029437);
+    const R16 = await restaurants.addRestaurant("Barbès", "http://places.singleplatform.com/barbs-69/menu?ref=google", "French", "1300 Park Ave", "Hoboken", "NJ", "07030", 40.7529884, -74.0314436);
+    const R17 = await restaurants.addRestaurant("Anthony Davids", "anthonydavids.com", "Italian", "953 Bloomfield St", "Hoboken", "NJ", "07030", 40.7485811, -74.0303674);
+    const R18 = await restaurants.addRestaurant("Halifax", "halifaxhoboken.com", "American", "At W Hotel, 225 River St", "Hoboken", "NJ", "07030", 40.8132911, -74.1449544);
+    const R19 = await restaurants.addRestaurant("Court Street", "courtstreet.com", "Continental", "61 Sixth St", "Hoboken", "NJ", "07030", 40.7431676, -74.0308204);
+    const R20 = await restaurants.addRestaurant("Carpe Diem", "carpediemhoboken.com", "Irish", "333 Washington St", "Hoboken", "NJ", "07030", 40.8132911, -74.1449544);
 
-    const R21 = await restaurants.addRestaurant("Elysian cafe", "elysiancafe.com", "French", "1001 Washington St", "Hoboken", "NJ", "07030", 40.7431672, -74.0373865, "");
-    const R22 = await restaurants.addRestaurant("La Casa", "zhttp://places.singleplatform.com/la-casa-257/menu?ref=google", "Latin", "54 Newark St", "Hoboken", "NJ", "07030", 40.7369205, -74.0324397, "");
-    const R23 = await restaurants.addRestaurant("Robongi Hoboken", "robonginj.com", "Japanese", "520 Washington St", "Hoboken", "NJ", "07030", 40.7429258, -74.0316348, "");
-    const R24 = await restaurants.addRestaurant("Blue Eyes Restaurant", "blueeyesrestaurant.com", "American", "525 Sinatra Dr", "Hoboken", "NJ", "07030", 40.7415968, -74.0283558, "");
-    const R25 = await restaurants.addRestaurant("Union Hall Hoboken", "unionhallhoboken.com", "American", "306 Sinatra Dr", "Hoboken", "NJ", "07030", 40.7396827, -74.0293775, "");
-    const R26 = await restaurants.addRestaurant("Sushi Lounge", "https://eat.chownow.com/discover/restaurant/2717", "French", "200 Hudson St", "Hoboken", "NJ", "07030", 40.7386556, -74.0318276, "");
-    const R27 = await restaurants.addRestaurant("Gogi Grill", "gogigrill.com", "Korean", "79 Hudson St", "Hoboken", "NJ", "07030", 40.7363549, -74.031882, "");
-    const R28 = await restaurants.addRestaurant("Tony Boloney's Hoboken", "tonyboloneys.com", "Pizza", "263 1st St", "Hoboken", "NJ", "07030", 40.7379855, -74.0365272, "");
-    const R29 = await restaurants.addRestaurant("Grimaldi's Pizzeria", "courtstreet.com", "Pizza", "411 Washington St", "Hoboken", "NJ", "07030", 40.7417167, -74.0316415, "");
-    const R30 = await restaurants.addRestaurant("Karma Kafe", "https://direct.chownow.com/order/4287/locations/5566", "Indian", "505 Washington St", "Hoboken", "NJ", "07030", 40.742402, -74.0313777, "");
+    const R21 = await restaurants.addRestaurant("Elysian cafe", "elysiancafe.com", "French", "1001 Washington St", "Hoboken", "NJ", "07030", 40.7431672, -74.0373865);
+    const R22 = await restaurants.addRestaurant("La Casa", "zhttp://places.singleplatform.com/la-casa-257/menu?ref=google", "Latin", "54 Newark St", "Hoboken", "NJ", "07030", 40.7369205, -74.0324397);
+    const R23 = await restaurants.addRestaurant("Robongi Hoboken", "robonginj.com", "Japanese", "520 Washington St", "Hoboken", "NJ", "07030", 40.7429258, -74.0316348);
+    const R24 = await restaurants.addRestaurant("Blue Eyes Restaurant", "blueeyesrestaurant.com", "American", "525 Sinatra Dr", "Hoboken", "NJ", "07030", 40.7415968, -74.0283558);
+    const R25 = await restaurants.addRestaurant("Union Hall Hoboken", "unionhallhoboken.com", "American", "306 Sinatra Dr", "Hoboken", "NJ", "07030", 40.7396827, -74.0293775);
+    const R26 = await restaurants.addRestaurant("Sushi Lounge", "https://eat.chownow.com/discover/restaurant/2717", "French", "200 Hudson St", "Hoboken", "NJ", "07030", 40.7386556, -74.0318276);
+    const R27 = await restaurants.addRestaurant("Gogi Grill", "gogigrill.com", "Korean", "79 Hudson St", "Hoboken", "NJ", "07030", 40.7363549, -74.031882);
+    const R28 = await restaurants.addRestaurant("Tony Boloney's Hoboken", "tonyboloneys.com", "Pizza", "263 1st St", "Hoboken", "NJ", "07030", 40.7379855, -74.0365272);
+    const R29 = await restaurants.addRestaurant("Grimaldi's Pizzeria", "courtstreet.com", "Pizza", "411 Washington St", "Hoboken", "NJ", "07030", 40.7417167, -74.0316415);
+    const R30 = await restaurants.addRestaurant("Karma Kafe", "https://direct.chownow.com/order/4287/locations/5566", "Indian", "505 Washington St", "Hoboken", "NJ", "07030", 40.742402, -74.0313777);
 
     //Seed Sample Users
     const U1 = await users.addUser("Anna", "Brown", "anna@gmail.com", "", "Jersey City", "NJ", "21", "$2a$16$55b4ftaRCsHZcJ2X3VAmL.X85wi/K3ydOMWRoyafn2ubiA38l4HnK");
