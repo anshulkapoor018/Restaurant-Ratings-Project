@@ -142,14 +142,14 @@ router.post("/myprofile", upload.single("file"), async (req, res) => {
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
-  const profilePicture = data.profilePicture;
+  const profilePicture = data.file;
   const email = data.email;
   const city = data.city;
   const state = data.state;
   const age = data.age;
   const password = data.password;
   const confirm = data.confirm;
-  console.log(data);
+  console.log("data: ", data);
 
   if (password != confirm) {
     hasErrors = true;
@@ -183,7 +183,7 @@ router.post("/myprofile", upload.single("file"), async (req, res) => {
   if (profilePicture){
     try {
       console.log("Checkpoint 0");
-      console.log(req.file.path);
+      console.log(req.file);
       const tempPath = req.file.path;
       console.log("Checkpoint 1");
       newFileName = lastName + "_" + firstName + "_" + "ProfilePicture.png"

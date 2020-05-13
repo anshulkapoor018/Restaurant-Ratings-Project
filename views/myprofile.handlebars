@@ -11,14 +11,17 @@
     <div class="card-full">
         <h2>Edit Profile</h2>
         
-        <form id = "edit-profile" method="post" action="/users/myprofile">
+        
+
+        <form id="edit-profile" action="/users/myprofile" method="post">
+
+        <form id="edit-profile" method="post" enctype="multipart/form-data" action="/users/myprofile">
                 <input type="file" name="file" id="profilePicture" class="inputFields">
                 <label>
                     <button type="submit" class = "btn">Confirm</button>
                 </label>
         </form>
 
-        <form id="edit-profile" action="/users/myprofile" method="post">
             <label for="firstName">
                 <input type="text" id="firstName" name="firstName" class="inputFields" placeholder="First Name" value="{{firstName}}">
             </label>
@@ -26,17 +29,12 @@
                 <input type="text" id="lastName" name="lastName" class="inputFields" placeholder="Last Name" value="{{lastName}}">
             </label>
 
-            
-
-            {{!-- <form id="edit-pic" action="" method="post">
-                <div class="inputFields">
-                    <label for="profilePicture"> 
-                        <p>Profile Picture</p>
-                        <input type="file" id="profilePicture" name="profilePicture">
-                    </label>
-                </div>
-            </form> --}}
-            
+            {{!-- <div class="inputFields">
+                <label for="profilePicture"> 
+                    <p>Profile Picture</p>
+                    <input type="file" id="profilePicture" name="profilePicture">
+                </label>
+            </div> --}}
 
             <label for="email">
                 <input type="text" id="email" name="email" class="inputFields" placeholder="Email" value="{{email}}">
