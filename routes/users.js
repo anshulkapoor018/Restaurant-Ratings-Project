@@ -44,20 +44,17 @@ router.post('/upload/profilepic', upload.single('picture'), async (req, res) => 
 
 router.get('/profilepic/:id', async (req, res) => {
   const getUser = await users.getUser(req.params.id);
-  console.log(getUser);
+  // console.log(getUser);
   const profilepicData = getUser.profilePicture;
-  res.contentType('image/jpeg');
-  res.send(profilepicData.image.buffer);
-   
-  // db.collection('mycollection').findOne({'_id': ObjectId(filename) }, (err, result) => {
-   
-  //     if (err) return console.log(err)
-   
-  //    res.contentType('image/jpeg');
-  //    res.send(result.image.buffer)
-     
-      
-  //   })
+  if(profilepicData == ""){
+    // res.sendFile("/public/images/Avatar.png");
+    return res.status(400).send({
+      message: 'This is an error!'
+   })
+  } else {
+    res.contentType('image/jpeg');
+    res.send(profilepicData.image.buffer);
+  }
 });
 
 router.get("/login", (req, res) => {
