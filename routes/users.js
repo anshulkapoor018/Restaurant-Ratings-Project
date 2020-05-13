@@ -12,6 +12,35 @@ const reviewData = mongoCollections.reviews;
 const userData = mongoCollections.users;
 const xss = require('xss');
 
+const multer = require('multer');
+const path = require('path');
+
+var fs = require('fs');
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+
+router.post('/upload/profilepic', upload.single('picture'), async (req, res) => {
+  var img = fs.readFileSync(req.file.path);
+  var encode_image = img.toString('base64');
+  let userId = req.session.AuthCookie;
+  var finalImg = {
+      contentType: req.file.mimetype,
+      image: Buffer.from(encode_image, 'base64')
+  };
+  users.addUserProfilePicture
+  const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
+  console.log(addingProfilePicture);
+
+});
 
 router.get("/login", (req, res) => {
   let hasErrors = false;

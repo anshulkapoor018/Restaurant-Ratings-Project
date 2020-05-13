@@ -10,6 +10,12 @@
 
     <div class="card-full">
         <h2>Edit Profile</h2>
+          <!--   PHOTO-->
+ 
+        <form action="/users/upload/profilepic" enctype="multipart/form-data" method="POST"> 
+            <input type="file" name="picture" accept="image/*" class="btn"/>
+            <input type="submit" class = "btn" value="Upload Photo"/>
+        </form>
         <form id="edit-profile" action="/users/myprofile" method="post">
             <label for="firstName">
                 <input type="text" id="firstName" name="firstName" class="inputFields" placeholder="First Name" value="{{firstName}}">
@@ -17,12 +23,12 @@
             <label for="lastName">
                 <input type="text" id="lastName" name="lastName" class="inputFields" placeholder="Last Name" value="{{lastName}}">
             </label>
-            <div class="inputFields">
+            {{!-- <div class="inputFields">
                 <label for="profilePicture"> 
                     <p>Profile Picture</p>
                     <input type="file" id="profilePicture" name="profilePicture">
                 </label>
-            </div>
+            </div> --}}
 
             <label for="email">
                 <input type="text" id="email" name="email" class="inputFields" placeholder="Email" value="{{email}}">
