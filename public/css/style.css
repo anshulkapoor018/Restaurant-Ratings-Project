@@ -423,6 +423,50 @@ input[type="password"] {
     margin: auto;
 }
 
+#message {
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: none;
+    text-align: left;
+    float: left; 
+    width: 96%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 15px;
+    padding: 1%;
+    margin: 2%;
+    display:none;
+    /* position: relative; */
+}
+  
+.valid {
+    color: green;
+    text-align: left;
+    padding-left: 70px;
+}
+  
+.valid:before {
+    position: relative;
+    text-align: left;
+    left: -35px;
+    content: "✔";
+    padding-left: 70px;
+}
+
+.invalid {
+    color: red;
+    text-align: left;
+    padding-left: 70px;
+}
+  
+.invalid:before {
+    position: relative;
+    text-align: left;
+    left: -35px;
+    content: "✖";
+    padding-left: 70px;
+}
+
 @media screen and (max-width: 1500px) {
     .card{
         width: 30%;

@@ -29,8 +29,16 @@
                 <input type="text" name="username" id="username" class = "inputFields" placeholder="Enter your Email" required/>  
             </label>
             <label>
-                <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter a Password" required/>
+                {{!-- <input type="password" name="password" id="password" class = "inputFields" placeholder="Enter a Password" required/> --}}
+                <input type="password" id="password" name="password" minlength="8" class = "inputFields" onblur="passwordOnBlur(this)" onfocus="passwordOnFocus(this)" placeholder="Enter a Password(8 characters minimum)" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
             </label>
+            <div id="message">
+                <h3>Password must contain the following:</h3>
+                <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                <p id="number" class="invalid">A <b>number</b></p>
+                <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            </div>
             <label>
                 <input type="text" name="city" id="city" class = "inputFields" placeholder="Enter your City Name" required/>  
             </label>
@@ -115,6 +123,62 @@
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous">
+    </script>
+    <script>
+        function passwordOnBlur(x){
+            document.getElementById("message").style.display = "none";
+        }
+
+        function passwordOnFocus(x) {
+            var letter = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number = document.getElementById("number");
+            var length = document.getElementById("length");
+            document.getElementById("message").style.display = "block";
+
+            // When the user starts to type something inside the password field
+            x.onkeyup = function() {
+                // Validate lowercase letters
+                var lowerCaseLetters = /[a-z]/g;
+                if(x.value.match(lowerCaseLetters)) {  
+                    letter.classList.remove("invalid");
+                    letter.classList.add("valid");
+                } else {
+                    letter.classList.remove("valid");
+                    letter.classList.add("invalid");
+                }
+                
+                // Validate capital letters
+                var upperCaseLetters = /[A-Z]/g;
+                if(x.value.match(upperCaseLetters)) {  
+                    capital.classList.remove("invalid");
+                    capital.classList.add("valid");
+                } else {
+                    capital.classList.remove("valid");
+                    capital.classList.add("invalid");
+                }
+
+                // Validate numbers
+                var numbers = /[0-9]/g;
+                if(x.value.match(numbers)) {  
+                    number.classList.remove("invalid");
+                    number.classList.add("valid");
+                } else {
+                    number.classList.remove("valid");
+                    number.classList.add("invalid");
+                }
+                
+                // Validate length
+                if(x.value.length >= 8) {
+                    length.classList.remove("invalid");
+                    length.classList.add("valid");
+                } else {
+                    length.classList.remove("valid");
+                    length.classList.add("invalid");
+                }
+            }
+        }
+        
     </script>
     <script src="/public/javascript/signup.js"></script>
 </main>

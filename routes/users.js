@@ -233,7 +233,6 @@ router.post("/signup", async (req, res) => {
 	const saltRounds = 16;
 	let errors = [];
   let hashedPassword = ""
-  console.log(req.body);
 	let firstName = req.body.firstname;
 	let lastName = req.body.lastname;
 	let age = req.body.age;
