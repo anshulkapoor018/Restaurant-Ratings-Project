@@ -37,7 +37,7 @@ module.exports = {
             reviewIds: [],
             commentIds: []
         }
-        
+
         const userExists = await userCollection.findOne({ email: emailLowerCase});
         if (userExists) throw "Email already in use";
         const insertInfo = await userCollection.insertOne(newUser);
@@ -118,7 +118,7 @@ module.exports = {
         if (updatedUser.hashedPassword) {
             updatedUserData.hashedPassword = updatedUser.hashedPassword;
         }
-        console.log(updatedUserData);
+
         if (updatedUserData == {}) {
             return await this.getUser(id);
         }

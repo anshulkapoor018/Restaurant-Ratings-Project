@@ -4,7 +4,7 @@
         <p class = "category">{{restaurant.category}}</p>
         <p>{{restaurant.address}}</p>
         <p>{{restaurant.city}}, {{restaurant.state}} {{restaurant.zip}}</p>
-        <p class="avg">{{restaurant.rating}}/5</p>
+        <p class="avg">{{restaurant.rating}}/5 ({{restaurant.reviews.length}} Reviews)</p>
         <p><a href="https://{{restaurant.website}}">More Info!</a></p>
         <div id="gmap" style="height:400px; width:100%;"></div> <!-- Some restaurants already have a pin on Google maps, and manual pin is somewhat inaccurate due to our estimation -->
     </div>

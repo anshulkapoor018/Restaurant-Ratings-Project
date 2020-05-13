@@ -79,7 +79,6 @@ router.get("/:id", async (req, res) => {
           } catch (e) {
             console.log(e);
           }
-          // console.log(commentList);
           review.commentList = commentList; // Add new array inside review object
           // If this review is by the logged in user, let them edit it from here
           if (req.session.AuthCookie === review.userId) {

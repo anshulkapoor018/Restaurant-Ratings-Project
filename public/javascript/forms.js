@@ -28,7 +28,7 @@ function openCommentBox() {
 
 function commentBoxEditForm(index) {
     var formElement = "comment-form-" + index;
-    console.log(formElement);
+
     var x = document.getElementById(formElement);
     if (x.style.display === "none") {
       x.style.display = "block";

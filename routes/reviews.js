@@ -93,13 +93,11 @@ router.post("/:id/add", async (req, res) => {
         userData = await users.getUser(userId);
         userData.reviewedRestaurantPage = reviewList.some(item => item.userId === String(userData._id));
       }
-    return res.status(403).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData, hasError: hasError, error: error})
-    // return res.status(403).render("restaurant", {hasError: hasError, error: error});
+    return res.status(403).render("restaurant", { restaurant: restaurant, reviews: reviewList, userLoggedIn: userLoggedIn, loggedInReviewer: loggedInReviewer, currentUserData: userData, hasError: hasError, error: error});
   }
   try {
     const reviewRating = req.body.rating;
     const reviewText = req.body.reviewText;
-    console.log(reviewText);
     let userId = req.session.AuthCookie;
     let restaurantID = req.params.id;
     const reviewForRes = await reviews.addReview(restaurantID, userId, reviewText, Number(reviewRating));

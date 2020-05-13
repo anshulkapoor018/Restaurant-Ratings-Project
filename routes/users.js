@@ -38,7 +38,6 @@ router.post('/upload/profilepic', upload.single('picture'), async (req, res) => 
   };
 
   const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
-  console.log(addingProfilePicture);
   res.redirect("/users/profile");
 });
 
@@ -244,9 +243,8 @@ router.post("/myprofile", async (req, res) => {
       	let userName = (req.body.username).toLowerCase();
       	let password = req.body.password;
       
-      	const user = await userCollection.findOne({ email: userName});
-
-      	console.log(user)
+        const user = await userCollection.findOne({ email: userName});
+        
       	if(!user) {
           auth = "Not Authorised User"
           hasErrors = true;
