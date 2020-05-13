@@ -150,7 +150,7 @@ router.get("/:id", async (req, res) => {
         reviewObject.push(reviewInfo);
       }
       res.status(200).render("user", { 
-        id: req.session.AuthCookie,
+        id: userData._id,
         firstName: userData.firstName, 
         lastName: userData.lastName, 
         profilePicture: userData.profilePicture, 
@@ -181,7 +181,7 @@ router.post("/myprofile", async (req, res) => {
   const data = req.body;
   const firstName = data.firstName;
   const lastName = data.lastName;
-  const profilePicture = data.profilePicture;
+  //const profilePicture = data.profilePicture;
   const email = data.email;
   const city = data.city;
   const state = data.state;
@@ -199,7 +199,7 @@ router.post("/myprofile", async (req, res) => {
     editedUser = {
       firstName: firstName,
       lastName: lastName,
-      profilePicture: profilePicture,
+      //profilePicture: profilePicture,
       email: email,
       city: city,
       state: state,
@@ -219,6 +219,7 @@ router.post("/myprofile", async (req, res) => {
   try {
     const updatedUser = await users.updateUser(req.session.AuthCookie, editedUser);
     return res.render('myprofile', { 
+      id: req.session.Authookie,
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       email: updatedUser.email,
