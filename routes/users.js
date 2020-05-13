@@ -143,6 +143,7 @@ router.post("/myprofile", async (req, res) => {
   const age = data.age;
   const password = data.password;
   const confirm = data.confirm;
+
   if (password != confirm) {
     hasErrors = true;
     errors.push("Passwords must match");
