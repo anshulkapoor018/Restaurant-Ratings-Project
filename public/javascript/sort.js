@@ -43,9 +43,10 @@ function sortCardsAscending() {
         p3.innerHTML = restaurant.address2;
         div.appendChild(p3);
         let p4 = document.createElement("p");
-        p4.setAttribute("class", "rating");
+        p4.setAttribute("class", "avg");
         p4.innerHTML = restaurant.rating;
         div.appendChild(p4);
+        div.appendChild(document.createElement("br"))
         parentDiv.append(div);
     }
 }
@@ -79,9 +80,10 @@ function sortCardsDescending() {
         p3.innerHTML = restaurant.address2;
         div.appendChild(p3);
         let p4 = document.createElement("p");
-        p4.setAttribute("class", "rating");
+        p4.setAttribute("class", "avg");
         p4.innerHTML = restaurant.rating;
         div.appendChild(p4);
+        div.appendChild(document.createElement("br"));
         parentDiv.append(div);
     }
 }
