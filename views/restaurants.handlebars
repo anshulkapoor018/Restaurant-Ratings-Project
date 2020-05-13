@@ -25,6 +25,7 @@
         <p class="avg">{{this.rating}}/5</p>
         <br/>
     </div>
+    {{/each}}
     <div class = "restaurant_Collection"> <!-- Note: When changing this section be sure to modify sort.js as well --> 
     {{#each restaurants}}
         <div class = "card" onclick="location.href='/restaurants/{{this._id}}';">
