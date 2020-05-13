@@ -5,6 +5,7 @@ body{
     padding-top: 15px;
     background: url("../images/BG4.png");
     background-size: 100%;
+    background-attachment: fixed;
 }
 
 main{
