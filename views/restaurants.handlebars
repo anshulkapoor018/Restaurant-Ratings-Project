@@ -17,7 +17,7 @@
     </div>
     <div class = "restaurant_Collection"> <!-- Note: When changing this section be sure to modify sort.js as well --> 
     {{#each restaurants}}
-        <div class = "card" <div onclick="location.href='restaurants/{{this._id}}';">
+        <div class = "card" onclick="location.href='restaurants/{{this._id}}';">
             <h2><a href="/restaurants/{{this._id}}">{{this.name}}</a></h2>
             <p class = "category">{{this.category}}</p>
             <p>{{this.address}}</p>
