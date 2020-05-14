@@ -26,6 +26,8 @@
                         </div>
                     </div>
                     
+                    <img src="/reviews/reviewPic/{{this._id}}" onerror="this.style.display='none'" alt="Review Picture" class="reviewImg">
+                    
                     <p>{{this.reviewText}}</p>
                     
                     {{#if this.isReviewer}}
@@ -85,13 +87,14 @@
     {{/if}}
     <div class="form-popup" id="myForm">
         <h2>Post a Review</h2>
-        <form id="login-form" name ="loginForm" class="form-container" action="/reviews/{{restaurant._id}}/add" method="POST">
+        <form id="login-form" name ="loginForm" class="form-container" enctype="multipart/form-data" action="/reviews/{{restaurant._id}}/add" method="POST">
             <label>
-                <input type="text" name="rating" id="rating" class = "inputFields" pattern="\d+" placeholder="Enter your Rating" required/> 
+                <input type="text" name="rating" id="rating" class = "inputFields" pattern="\d+" placeholder="Enter your Rating" required title="Enter a Number from 1 to 5"/> 
             </label>
             <label>
                 <input type="text" name="reviewText" id="reviewText" class = "inputFields" placeholder="Enter your Review" required/>
             </label>
+            <input type="file" name="picture" accept="image/*" class=""/>
             <button type="submit" class="btn">Post!</button>
             <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
         </form>
