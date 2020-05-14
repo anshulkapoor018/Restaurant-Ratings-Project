@@ -195,7 +195,7 @@ router.post("/:id/edit", upload.single('picture'), async (req, res) => {
   if (rating > 5 || rating < 1) {
     hasError = true;
     error.push("Rating must be a number between 1 and 5");
-    return res.status(403).render("editReview", {reviewId: req.params.id, reviewText: reviewText, rating: rating, hasError: hasError, error: error});
+    return res.status(403).render("editReview", {reviewId: req.params.id, reviewText: reviewText, rating: rating, hasError: hasError, error: error, userLoggedIn: true});
   }
   try {
     if(!req.file){
@@ -217,8 +217,14 @@ router.post("/:id/edit", upload.single('picture'), async (req, res) => {
       }
     }
     console.log(editedReview);
+    const review = await reviews.getReview(req.params.id);
+    const user = await users.getUser(review.userId);
+    const restaurant = await restaurants.getRestaurant(review.restaurantId);
     const updatedReview = await reviews.updateReview(req.params.id, editedReview);
-    return res.redirect("../"+req.params.id);
+    if(req.session.AuthCookie === review.userId) {
+      isReviewer = true;
+    }
+    return res.status(200).render("review", { review: updatedReview, user: user, restaurant: restaurant, isReviewer: isReviewer, id: req.params.id, userLoggedIn: true});
   } catch (e) {
     console.log(e);
     res.status(404).json ({message: "could not update review"});
