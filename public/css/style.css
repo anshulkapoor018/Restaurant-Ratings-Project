@@ -368,6 +368,14 @@ input[type="password"] {
     background-color: white;
 }
 
+.reviewImg{
+    max-width: 90%;
+    padding: 10px;
+}
+.reviewImgIcon{
+    max-width: 70%;
+    padding: 10px;
+}
 
 
 /* CSS for Popup Review Form */
