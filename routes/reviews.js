@@ -179,7 +179,7 @@ router.get("/:id/edit", async (req, res) => {
     if (req.session.AuthCookie != review.userId) {
       return res.redirect("/reviews");
     } else {
-      res.status(200).render("editReview", {reviewId: req.params.id, reviewText: review.reviewText, rating: review.rating});
+      res.status(200).render("editReview", {reviewId: req.params.id, reviewText: review.reviewText, rating: review.rating, userLoggedIn: true});
     }} catch (e) {
       res.status(404).json({ message: "review not found" });
     }
