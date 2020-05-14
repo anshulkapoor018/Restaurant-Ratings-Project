@@ -111,8 +111,7 @@ router.post("/:id/add", async (req, res) => {
   
 router.get("/", async (req, res) => {
     try {
-      const allReviews = await reviews.getAllReviews();
-      res.status(200).json(allReviews);
+      return res.redirect("restaurants");
     } catch (e) {
       // Something went wrong with the server!
       res.status(404).send();
