@@ -24,19 +24,6 @@ var storage = multer.diskStorage({
  
 var upload = multer({ storage: storage })
 
-// router.post('/upload/profilepic', upload.single('picture'), async (req, res) => {
-//   var img = fs.readFileSync(req.file.path);
-//   var encode_image = img.toString('base64');
-//   let userId = req.session.AuthCookie;
-//   var finalImg = {
-//       contentType: req.file.mimetype,
-//       image: Buffer.from(encode_image, 'base64')
-//   };
-
-//   const addingProfilePicture = await users.addUserProfilePicture(userId, finalImg);
-//   res.redirect("/users/profile");
-// });
-//TODO
 router.get("/:id", async (req, res) => {
   let isReviewer = false;
     try {
