@@ -4,6 +4,7 @@
         <h1><a href="../restaurants/{{restaurant._id}}">{{restaurant.name}}</a></h1>
         <p>{{user.firstName}} {{user.lastName}}</p>
         <p>Rating: {{review.rating}}/5</p>
+        <img src="/reviews/reviewPic/{{review._id}}" onerror="this.style.display='none'" alt="Review Picture" class="profileIcon">
         <p>{{review.reviewText}}</p>
         {{#if isReviewer}}
             <p><a href="/reviews/{{id}}/edit">Edit Review</a></p>

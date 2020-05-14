@@ -185,22 +185,39 @@ router.get("/:id/edit", async (req, res) => {
     }
 });
 
-router.post("/:id/edit", async (req, res) => {
+router.post("/:id/edit", upload.single('picture'), async (req, res) => {
   const data = req.body;
   const rating = data.rating;
   const reviewText = data.reviewText;
+  let editedReview = {};
   let hasError = false;
   let error = [];
-  const editedReview = {
-    rating: rating,
-    reviewText: reviewText
-  }
+  
   if (rating > 5 || rating < 1) {
     hasError = true;
     error.push("Rating must be a number between 1 and 5");
     return res.status(403).render("editReview", {reviewId: req.params.id, reviewText: reviewText, rating: rating, hasError: hasError, error: error});
   }
   try {
+    if(!req.file){
+      editedReview = {
+        rating: rating,
+        reviewText: reviewText
+      }
+    } else {
+      var img = fs.readFileSync(req.file.path);
+      var encode_image = img.toString('base64');
+      var finalImg = {
+        contentType: req.file.mimetype,
+          image: Buffer.from(encode_image, 'base64')
+      };
+      editedReview = {
+        rating: rating,
+        reviewText: reviewText,
+        reviewPicture: finalImg
+      }
+    }
+    console.log(editedReview);
     const updatedReview = await reviews.updateReview(req.params.id, editedReview);
     return res.redirect("../"+req.params.id);
   } catch (e) {

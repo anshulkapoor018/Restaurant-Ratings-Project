@@ -94,6 +94,11 @@ module.exports = {
         if (updatedReview.rating) {
             updatedReviewData.rating = updatedReview.rating;
         }
+
+        if (updatedReview.reviewPicture) {
+            updatedReviewData.reviewPicture = updatedReview.reviewPicture;
+        }
+        // console.log(updatedReviewData);
         await reviewCollection.updateOne({_id: id}, {$set: updatedReviewData});
         return await this.getReview(id);
     },
